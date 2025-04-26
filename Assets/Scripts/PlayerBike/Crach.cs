@@ -4,6 +4,12 @@ using UnityEngine.InputSystem;
 public class Crach : MonoBehaviour
 {
     private Gamepad _gamePad;
+    private float _leftTrigger = default;
+
+    public float LeftTrigger
+    {
+        get { return _leftTrigger; }
+    }
 
     private void Start()
     {
@@ -17,8 +23,8 @@ public class Crach : MonoBehaviour
     {
         _gamePad = Gamepad.current;
 
-        float lt = _gamePad.leftTrigger.ReadValue();
+        _leftTrigger =  1.0f -_gamePad.leftTrigger.ReadValue();
 
-        Debug.Log("現在のクラッチの値は" +  lt);
+        Debug.Log("現在のクラッチの値は" +  _leftTrigger);
     }
 }
