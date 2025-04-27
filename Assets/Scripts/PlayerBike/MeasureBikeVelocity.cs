@@ -32,5 +32,6 @@ public class MeasureBikeVelocity : MonoBehaviour
         Vector3 delta = transform.position - _prevPos;
         _velocity = delta.magnitude / Time.deltaTime;
         _prevPos = transform.position;
+
     }
 }

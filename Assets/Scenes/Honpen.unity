@@ -374,6 +374,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _crach: {fileID: 782598573}
   _bikeForward: {fileID: 782598580}
+  _bikeVelocity: {fileID: 0}
 --- !u!1001 &874909625
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1528,6 +1529,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 837156328855056362, guid: 3f09de29318b57f478baa4cbcf21f4a1, type: 3}
+      propertyPath: m_Mass
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 837156328855056362, guid: 3f09de29318b57f478baa4cbcf21f4a1, type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2640481405092397957, guid: 3f09de29318b57f478baa4cbcf21f4a1, type: 3}
       propertyPath: m_Size.z
       value: 1.6

@@ -13,6 +13,10 @@ public class MTBikeForward : MonoBehaviour
     private float _prevSpeedValue = 0.0f;
     [SerializeField] private Text _initGearText = default;
 
+    //無駄な処理を走らせないためにこっちからギアチェンをしたときだけ情報を送る。ただしやりとりはここだけ
+    //設計の面から見るとかなりグレーだが無駄な処理を走らせないためには仕方ない
+    [SerializeField] private EngineStop _engineStop = default;
+
     [SerializeField]private float _attenuationRate = 0.6f;
     private const float ORIGINATTENUATIONVALUE = 0.6f;
 
@@ -23,6 +27,11 @@ public class MTBikeForward : MonoBehaviour
     private bool _isFirst = true;
 
     private int _gearIndex = 1;
+
+    public int GearIndex
+    {
+        get { return _gearIndex; }
+    }
     private const int MAXGEARINDEX = 6;
     private const int MINGEARINDEX = 0;
     private const int NEUTRALGEARINDEX = 1;
@@ -73,6 +82,7 @@ public class MTBikeForward : MonoBehaviour
     {
         if(_gearIndex < MAXGEARINDEX)
         {
+            _engineStop.GearChange(_gearIndex);
             _gearIndex++;
         }
     }
@@ -82,7 +92,6 @@ public class MTBikeForward : MonoBehaviour
         if(_gearIndex > MINGEARINDEX)
         {
             _prevSpeedValue = _gearSpeeds[_gearIndex];
-            Debug.Log(_prevSpeedValue);
             _gearIndex--;
         }
     }
