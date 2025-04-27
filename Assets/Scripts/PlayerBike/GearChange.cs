@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GearChange : MonoBehaviour
@@ -8,10 +6,10 @@ public class GearChange : MonoBehaviour
     //ƒMƒA‚Ì‡”Ô‚Í1¨N(‰Šú’l)¨2...‚Æ‚¢‚¤Š´‚¶‚Å6‚ªÅ‘å
     //N‚Í0‚Æ‚·‚é
     [SerializeField] private MTBikeForward _mtBikeForward = default;
-    [SerializeField] private Crach _crachScript = default;
-    private float _crachValue = 0f;
-    private float _upThreshold = 0.5f; //Œë“ü—Í‚ð–h‚®‚½‚ß‚É‚µ‚«‚¢’l‚ðÝ’è‚·‚é
-    private float _downThreshold = -0.5f;
+    [SerializeField] private Clutch _clutchScript = default;
+    private float _clutchValue = 0f;
+    [SerializeField]private float _upThreshold = 0.5f; //Œë“ü—Í‚ð–h‚®‚½‚ß‚É‚µ‚«‚¢’l‚ðÝ’è‚·‚é
+    [SerializeField]private float _downThreshold = -0.5f;
     private const float GearChangeCoolTime = 0.5f;
     private float _initCoolTime = 0.0f;
     private bool _canChangeGear = true;
@@ -23,13 +21,14 @@ public class GearChange : MonoBehaviour
 
     private void ChangeGears()
     {
-        _crachValue = _crachScript.LeftTrigger;
-        if (Input.GetAxis("Vertical") > _upThreshold && _canChangeGear && _crachValue <= 0.0f)
+        _clutchValue = _clutchScript.LeftTrigger;
+        float verticalInput = Input.GetAxis("Vertical");
+        if (verticalInput > _upThreshold && _canChangeGear && _clutchValue <= 0.0f)
         {
             _mtBikeForward.UpGear();
             _canChangeGear = false;
         }
-        else if (Input.GetAxis("Vertical") < _downThreshold && _canChangeGear && _crachValue <= 0.0f)
+        else if (verticalInput < _downThreshold && _canChangeGear && _clutchValue <= 0.0f)
         {
             _mtBikeForward.DownGear();
             _canChangeGear = false;

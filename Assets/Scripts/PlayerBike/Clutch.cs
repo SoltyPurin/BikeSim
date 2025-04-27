@@ -2,11 +2,11 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class Crach : MonoBehaviour
+public class Clutch : MonoBehaviour
 {
     private Gamepad _gamePad;
     private float _leftTrigger = default;
-    [SerializeField]private Text _crachText = default;
+    [SerializeField]private Text _clutchText = default;
 
     public float LeftTrigger
     {
@@ -15,18 +15,13 @@ public class Crach : MonoBehaviour
 
     private void Start()
     {
-       if(_gamePad == null)
-        {
-            return;
-        } 
+      _gamePad = Gamepad.current;
     }
 
     private void FixedUpdate()
     {
-        _gamePad = Gamepad.current;
-
         _leftTrigger =  1.0f -_gamePad.leftTrigger.ReadValue();
 
-        _crachText.text = "クラッチ:" + _leftTrigger.ToString("F1");
+        _clutchText.text = "クラッチ:" + _leftTrigger.ToString("F1");
     }
 }

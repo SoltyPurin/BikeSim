@@ -20,9 +20,9 @@ public class MTBikeForward : MonoBehaviour
     [SerializeField]private float _attenuationRate = 0.6f;
     private const float ORIGINATTENUATIONVALUE = 0.6f;
 
-    [SerializeField] private Crach _crachScript;
+    [SerializeField] private Clutch _clutchScript;
     [SerializeField] private MeasureBikeVelocity _bikeVelocity;
-    private float _crachValue = 0.0f;
+    private float _clutchValue = 0.0f;
 
     private bool _isFirst = true;
 
@@ -43,13 +43,13 @@ public class MTBikeForward : MonoBehaviour
 
     private void AutoMoveForward()
     {
-
+        _clutchValue = _clutchScript.LeftTrigger;
         switch (_gearIndex)
         {
             case NEUTRALGEARINDEX:
                 if (_isFirst)
                 {
-                    transform.Translate(0, 0, _gearSpeeds[_gearIndex] * _crachValue);
+                    transform.Translate(0, 0, _gearSpeeds[_gearIndex] * _clutchValue);
                 }
                 else
                 {
@@ -59,7 +59,7 @@ public class MTBikeForward : MonoBehaviour
                 break;
 
             default:
-                if (_crachValue <= 0.2f)
+                if (_clutchValue <= 0.2f)
                 {
                     transform.Translate(0, 0, _gearSpeeds[_gearIndex] * _attenuationRate);
                     _attenuationRate *= 0.98f;
@@ -67,14 +67,13 @@ public class MTBikeForward : MonoBehaviour
                 }
                 else
                 {
-                    transform.Translate(0, 0, _gearSpeeds[_gearIndex] * _crachValue);
+                    transform.Translate(0, 0, _gearSpeeds[_gearIndex] * _clutchValue);
                     _attenuationRate = ORIGINATTENUATIONVALUE;
                 }
                 _isFirst = false;
 
                 break;
         }
-        _crachValue = _crachScript.LeftTrigger;
         _initGearText.text = GearNames[_gearIndex];
     }
 
@@ -99,6 +98,6 @@ public class MTBikeForward : MonoBehaviour
     public void EngineStop()
     {
         _gearIndex = 1;
-        transform.Translate(0, 0, _gearSpeeds[_gearIndex] * 0);
+        //transform.Translate(0, 0, _gearSpeeds[_gearIndex] * 0);
     }
 }

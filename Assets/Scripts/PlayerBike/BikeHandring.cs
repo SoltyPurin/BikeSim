@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BikeHandring : MonoBehaviour
@@ -10,9 +8,9 @@ public class BikeHandring : MonoBehaviour
     [SerializeField] private GameObject _playerBike = default;
     private const float LeftInclination = 25.0f;
     private const float RightInclination = -25.0f;
-    private const float _additionValue = 0.5f;
-    private const float _returnAddValue = 1.0f;
-    private const float Tolerance = 0.5f; //‹–—e”ÍˆÍ
+    [SerializeField]private float _additionValue = 0.5f;
+    private const float RETURNADDVALUE = 1.0f;
+    private const float TORELANCE = 0.5f; //‹–—e”ÍˆÍ
     private float _zero = 0.0f;
     private const float FirstYRotation = -90.0f;
     private const float FirstZRotation = 0.0f;
@@ -25,8 +23,7 @@ public class BikeHandring : MonoBehaviour
 
     private void InputHandring()
     {
-        Transform myTransform = this.transform;
-        Vector3 worldAngle = myTransform.eulerAngles;
+        Vector3 worldAngle = transform.eulerAngles;
         if (Input.GetAxis("Horizontal") > _zero) //‰E‹È‚ª‚è
         {
             worldAngle.y += _additionValue;
@@ -39,16 +36,16 @@ public class BikeHandring : MonoBehaviour
         }
         else //“ü—Í–³‚µ
         {
-            bool isRightRotate = NormalizeAngle(worldAngle.z) < FirstZRotation - Tolerance;
-            bool isLeftRotate = NormalizeAngle(worldAngle.z) > FirstZRotation + Tolerance;
-            bool isStraight = Mathf.Abs(NormalizeAngle(worldAngle.z) - FirstZRotation) <= Tolerance;
+            bool isRightRotate = NormalizeAngle(worldAngle.z) < FirstZRotation - TORELANCE;
+            bool isLeftRotate = NormalizeAngle(worldAngle.z) > FirstZRotation + TORELANCE;
+            bool isStraight = Mathf.Abs(NormalizeAngle(worldAngle.z) - FirstZRotation) <= TORELANCE;
             if (isRightRotate)
             {
-                worldAngle.z += _returnAddValue;
+                worldAngle.z += RETURNADDVALUE;
             }
             else if (isLeftRotate)
             {
-                worldAngle.z -= _returnAddValue;
+                worldAngle.z -= RETURNADDVALUE;
             }
         }
         _rigidBody.MoveRotation(Quaternion.Euler(worldAngle));

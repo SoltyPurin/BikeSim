@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MeasureBikeVelocity : MonoBehaviour
@@ -8,7 +6,7 @@ public class MeasureBikeVelocity : MonoBehaviour
 
     private float _velocity = 0;
 
-    public float Verocity
+    public float Velocity
     {
         get {  return _velocity; }
     }
@@ -20,10 +18,10 @@ public class MeasureBikeVelocity : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Measure();
+        MeasureVelocity();
     }
 
-    private void Measure()
+    private void MeasureVelocity()
     {
         // deltaTime‚ª0‚Ìê‡‚Í‰½‚à‚µ‚È‚¢
         if (Mathf.Approximately(Time.deltaTime, 0))
