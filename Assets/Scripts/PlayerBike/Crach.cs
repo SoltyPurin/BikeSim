@@ -1,10 +1,12 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class Crach : MonoBehaviour
 {
     private Gamepad _gamePad;
     private float _leftTrigger = default;
+    [SerializeField]private Text _crachText = default;
 
     public float LeftTrigger
     {
@@ -25,5 +27,6 @@ public class Crach : MonoBehaviour
 
         _leftTrigger =  1.0f -_gamePad.leftTrigger.ReadValue();
 
+        _crachText.text = "ƒNƒ‰ƒbƒ`:" + _leftTrigger.ToString("F1");
     }
 }
