@@ -8,17 +8,24 @@ public class MTBikeForward : MonoBehaviour
     //ç∂Ç©ÇÁèáÇ…1,N,2,3,4,5,6ë¨
     //1ë¨ÇÕ1~30,2ë¨ÇÕ20~50,3ë¨ÇÕ40~70,4ë¨ÇÕ60~100,5ë¨ÇÕ80~130,6ë¨ÇÕ100~180
     //ëÂëÃ1.0fÇ≈50km
-    private float[] _gearSpeeds = { 0.6f,0.0f, 1.0f, 1.4f, 2.0f, 2.6f, 3.2f };
+    private float[] _gearSpeeds = { 0.4f,0.0f, 0.8f, 1.2f, 1.8f, 2.4f, 3.0f };
     private readonly string[] GearNames = { "1", "N", "2", "3", "4", "5", "6" };
-    private float _zero = 0.0f;
+    private float _prevSpeedValue = 0.0f;
     [SerializeField] private Text _initGearText = default;
 
+    [SerializeField]private float _attenuationRate = 0.6f;
+    private const float ORIGINATTENUATIONVALUE = 0.6f;
+
     [SerializeField] private Crach _crachScript;
+    [SerializeField] private MeasureBikeVelocity _bikeVelocity;
     private float _crachValue = 0.0f;
 
+    private bool _isFirst = true;
+
     private int _gearIndex = 1;
-    private const int MaxGearIndex = 6;
-    private const int MinGearIndex = 0;
+    private const int MAXGEARINDEX = 6;
+    private const int MINGEARINDEX = 0;
+    private const int NEUTRALGEARINDEX = 1;
 
     private void FixedUpdate()
     {
@@ -27,14 +34,44 @@ public class MTBikeForward : MonoBehaviour
 
     private void AutoMoveForward()
     {
+
+        switch (_gearIndex)
+        {
+            case NEUTRALGEARINDEX:
+                if (_isFirst)
+                {
+                    transform.Translate(0, 0, _gearSpeeds[_gearIndex] * _crachValue);
+                }
+                else
+                {
+                    transform.Translate(0, 0, _gearSpeeds[0] * _attenuationRate);
+                    _attenuationRate *= 0.98f;
+                }
+                break;
+
+            default:
+                if (_crachValue <= 0.2f)
+                {
+                    transform.Translate(0, 0, _gearSpeeds[_gearIndex] * _attenuationRate);
+                    _attenuationRate *= 0.98f;
+
+                }
+                else
+                {
+                    transform.Translate(0, 0, _gearSpeeds[_gearIndex] * _crachValue);
+                    _attenuationRate = ORIGINATTENUATIONVALUE;
+                }
+                _isFirst = false;
+
+                break;
+        }
         _crachValue = _crachScript.LeftTrigger;
-            transform.Translate(_zero, _zero, _gearSpeeds[_gearIndex] * _crachValue);
         _initGearText.text = GearNames[_gearIndex];
     }
 
     public void UpGear()
     {
-        if(_gearIndex < MaxGearIndex)
+        if(_gearIndex < MAXGEARINDEX)
         {
             _gearIndex++;
         }
@@ -42,9 +79,17 @@ public class MTBikeForward : MonoBehaviour
 
     public void DownGear()
     {
-        if(_gearIndex > MinGearIndex)
+        if(_gearIndex > MINGEARINDEX)
         {
+            _prevSpeedValue = _gearSpeeds[_gearIndex];
+            Debug.Log(_prevSpeedValue);
             _gearIndex--;
         }
+    }
+
+    public void EngineStop()
+    {
+        _gearIndex = 1;
+        transform.Translate(0, 0, _gearSpeeds[_gearIndex] * 0);
     }
 }

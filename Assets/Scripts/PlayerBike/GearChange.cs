@@ -8,7 +8,8 @@ public class GearChange : MonoBehaviour
     //ƒMƒA‚Ì‡”Ô‚Í1¨N(‰Šú’l)¨2...‚Æ‚¢‚¤Š´‚¶‚Å6‚ªÅ‘å
     //N‚Í0‚Æ‚·‚é
     [SerializeField] private MTBikeForward _mtBikeForward = default;
-    private int _initGearState = 0;
+    [SerializeField] private Crach _crachScript = default;
+    private float _crachValue = 0f;
     private float _upThreshold = 0.5f; //Œë“ü—Í‚ð–h‚®‚½‚ß‚É‚µ‚«‚¢’l‚ðÝ’è‚·‚é
     private float _downThreshold = -0.5f;
     private const float GearChangeCoolTime = 0.5f;
@@ -22,12 +23,13 @@ public class GearChange : MonoBehaviour
 
     private void ChangeGears()
     {
-        if (Input.GetAxis("Vertical") > _upThreshold && _canChangeGear)
+        _crachValue = _crachScript.LeftTrigger;
+        if (Input.GetAxis("Vertical") > _upThreshold && _canChangeGear && _crachValue <= 0.0f)
         {
             _mtBikeForward.UpGear();
             _canChangeGear = false;
         }
-        else if (Input.GetAxis("Vertical") < _downThreshold && _canChangeGear)
+        else if (Input.GetAxis("Vertical") < _downThreshold && _canChangeGear && _crachValue <= 0.0f)
         {
             _mtBikeForward.DownGear();
             _canChangeGear = false;

@@ -31,30 +31,24 @@ public class BikeHandring : MonoBehaviour
         {
             worldAngle.y += _additionValue;
             worldAngle.z -= _additionValue;
-            Debug.Log("‰E‹È‚ª‚è");
         }
         else if (Input.GetAxis("Horizontal") < _zero) //¶‹È‚ª‚è
         {
             worldAngle.y -= _additionValue;
             worldAngle.z += _additionValue;
-            Debug.Log("¶‹È‚ª‚è");
         }
         else //“ü—Í–³‚µ
         {
             bool isRightRotate = NormalizeAngle(worldAngle.z) < FirstZRotation - Tolerance;
             bool isLeftRotate = NormalizeAngle(worldAngle.z) > FirstZRotation + Tolerance;
             bool isStraight = Mathf.Abs(NormalizeAngle(worldAngle.z) - FirstZRotation) <= Tolerance;
-            Debug.Log("isRightRotate‚Í" + isRightRotate);
-            Debug.Log("isLeftRotate‚Í" + isLeftRotate);
             if (isRightRotate)
             {
                 worldAngle.z += _returnAddValue;
-                Debug.Log("¶‚ÉC³");
             }
             else if (isLeftRotate)
             {
                 worldAngle.z -= _returnAddValue;
-                Debug.Log("‰E‚ÉC³");
             }
         }
         _rigidBody.MoveRotation(Quaternion.Euler(worldAngle));

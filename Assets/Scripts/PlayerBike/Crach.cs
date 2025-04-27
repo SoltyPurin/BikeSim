@@ -25,6 +25,5 @@ public class Crach : MonoBehaviour
 
         _leftTrigger =  1.0f -_gamePad.leftTrigger.ReadValue();
 
-        Debug.Log("現在のクラッチの値は" +  _leftTrigger);
     }
 }

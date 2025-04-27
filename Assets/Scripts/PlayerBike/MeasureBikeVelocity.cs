@@ -6,6 +6,13 @@ public class MeasureBikeVelocity : MonoBehaviour
 {
     private Vector3 _prevPos = default;
 
+    private float _velocity = 0;
+
+    public float Verocity
+    {
+        get {  return _velocity; }
+    }
+
     private void Start()
     {
         _prevPos = transform.position;
@@ -23,8 +30,7 @@ public class MeasureBikeVelocity : MonoBehaviour
             return;
 
         Vector3 delta = transform.position - _prevPos;
-        float speed = delta.magnitude / Time.deltaTime;
+        _velocity = delta.magnitude / Time.deltaTime;
         _prevPos = transform.position;
-        Debug.Log("åªç›ÇÃë¨ìxÇÕ" + speed);
     }
 }
