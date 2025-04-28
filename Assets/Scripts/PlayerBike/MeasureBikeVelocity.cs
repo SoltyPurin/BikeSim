@@ -11,7 +11,7 @@ public class MeasureBikeVelocity : MonoBehaviour
         get {  return _velocity; }
     }
 
-    private void Start()
+    private void Awake()
     {
         _prevPos = transform.position;
     }

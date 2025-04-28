@@ -1,19 +1,18 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 public class Clutch : MonoBehaviour
 {
     private Gamepad _gamePad;
     private float _leftTrigger = default;
-    [SerializeField]private Text _clutchText = default;
 
+    [SerializeField] BaseBike _baseBike = default;
     public float LeftTrigger
     {
         get { return _leftTrigger; }
     }
 
-    private void Start()
+    private void Awake()
     {
       _gamePad = Gamepad.current;
     }
@@ -21,7 +20,6 @@ public class Clutch : MonoBehaviour
     private void FixedUpdate()
     {
         _leftTrigger =  1.0f -_gamePad.leftTrigger.ReadValue();
-
-        _clutchText.text = "ƒNƒ‰ƒbƒ`:" + _leftTrigger.ToString("F1");
+        _baseBike.UpdateClutchValue(LeftTrigger);
     }
 }

@@ -5,7 +5,8 @@ public class GearChange : MonoBehaviour
     //ギアはコントローラーの前進と後進で変更する
     //ギアの順番は1→N(初期値)→2...という感じで6が最大
     //Nは0とする
-    [SerializeField] private MTBikeForward _mtBikeForward = default;
+    //[SerializeField] private MTBikeForward _mtBikeForward = default;
+    [SerializeField] BaseBike _baseBike = default;
     [SerializeField] private Clutch _clutchScript = default;
     private float _clutchValue = 0f;
     [SerializeField]private float _upThreshold = 0.5f; //誤入力を防ぐためにしきい値を設定する
@@ -25,12 +26,12 @@ public class GearChange : MonoBehaviour
         float verticalInput = Input.GetAxis("Vertical");
         if (verticalInput > _upThreshold && _canChangeGear && _clutchValue <= 0.0f)
         {
-            _mtBikeForward.UpGear();
+            _baseBike.UpGear();
             _canChangeGear = false;
         }
         else if (verticalInput < _downThreshold && _canChangeGear && _clutchValue <= 0.0f)
         {
-            _mtBikeForward.DownGear();
+            _baseBike.DownGear();
             _canChangeGear = false;
         }
         bool canCoolTimeCount = _initCoolTime < GearChangeCoolTime;

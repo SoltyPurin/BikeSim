@@ -3,7 +3,8 @@ using UnityEngine;
 public class EngineStop : MonoBehaviour
 {
     [SerializeField] private Clutch _clutch = default;
-    [SerializeField] private MTBikeForward _bikeForward = default;
+    //[SerializeField] private MTBikeForward _bikeForward = default;
+    [SerializeField] private BaseBike _baseBike = default;
     [SerializeField] private MeasureBikeVelocity _bikeVelocity = default;
 
     //クラッチ入れる前のギアを保存、クラッチの値が一定以上になったときに前のギアと比較、ギア差が
@@ -24,7 +25,6 @@ public class EngineStop : MonoBehaviour
         _initCoolTime += Time.deltaTime;
         if (_initCoolTime >= GETVALUECOOLTIME)
         {
-            Debug.Log("エンスト判定");
             CrachOver(nowClutchValue);
             _initCoolTime = 0;
         }
@@ -40,7 +40,9 @@ public class EngineStop : MonoBehaviour
         _initClutchValue = clutch;
         if(_initClutchValue-_prevClutchValue > _tolerance)
         {
-            _bikeForward.EngineStop();
+            _baseBike.EngineStop();
+            Debug.Log("エンスト判定");
+
         }
         _prevClutchValue = _clutch.LeftTrigger;
     }
@@ -53,7 +55,7 @@ public class EngineStop : MonoBehaviour
     {
         if(_initGear-_prevGear >= _canChangeGearTorelance)
         {
-            _bikeForward.EngineStop();
+            _baseBike.EngineStop();
             _initGear = 1;
         }
         else
