@@ -11,7 +11,6 @@ public class GearChange : MonoBehaviour
     private float _clutchValue = 0f;
     [SerializeField]private float _upThreshold = 0.5f; //Œë“ü—Í‚ğ–h‚®‚½‚ß‚É‚µ‚«‚¢’l‚ğİ’è‚·‚é
     [SerializeField]private float _downThreshold = -0.5f;
-    private const float GearChangeCoolTime = 0.5f;
     private float _initCoolTime = 0.0f;
     private bool _canChangeGear = true;
 
@@ -34,7 +33,7 @@ public class GearChange : MonoBehaviour
             _baseBike.DownGear();
             _canChangeGear = false;
         }
-        bool canCoolTimeCount = _initCoolTime < GearChangeCoolTime;
+        bool canCoolTimeCount = _initCoolTime < _baseBike.GearChangeCoolTime;
         if (!_canChangeGear && canCoolTimeCount)
         {
             _initCoolTime += Time.deltaTime;

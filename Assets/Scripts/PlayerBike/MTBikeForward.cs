@@ -81,7 +81,6 @@ public class MTBikeForward : MonoBehaviour
     {
         if(_gearIndex < MAXGEARINDEX)
         {
-            _engineStop.GearChange(_gearIndex);
             _gearIndex++;
         }
     }

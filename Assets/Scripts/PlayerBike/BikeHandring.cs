@@ -5,10 +5,11 @@ public class BikeHandring : MonoBehaviour
     //ハンドリングは車体のY軸とZ軸を傾けることで表現する
     //左曲がりはY軸がマイナスのZ軸がプラス
     //右曲がりはY軸がプラスのZ軸がマイナス
+    [SerializeField] private BaseBike _baseBike = default;
     [SerializeField] private GameObject _playerBike = default;
     private const float LeftInclination = 25.0f;
     private const float RightInclination = -25.0f;
-    [SerializeField]private float _additionValue = 0.5f;
+    private float _additionValue = 0.0f;
     private const float RETURNADDVALUE = 1.0f;
     private const float TORELANCE = 0.5f; //許容範囲
     private float _zero = 0.0f;
@@ -16,6 +17,15 @@ public class BikeHandring : MonoBehaviour
     private const float FirstZRotation = 0.0f;
     [SerializeField] Rigidbody _rigidBody = default;
 
+    private void Awake()
+    {
+        Invoke("GetAdditionValue", 0.1f);
+    }
+    private void GetAdditionValue()
+    {
+        _additionValue = _baseBike.HandringAdditionValue;
+        Debug.Log(_additionValue);
+    }
     private void FixedUpdate()
     {
         InputHandring();

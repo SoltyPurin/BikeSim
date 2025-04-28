@@ -2383,8 +2383,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1247139add07059418a001a4e2a05790, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _baseBike: {fileID: 8110864408784577233}
   _playerBike: {fileID: 4738837371304046359}
-  _additionValue: 0.5
   _rigidBody: {fileID: 3904117788824790358}
 --- !u!114 &3482275410001610383
 MonoBehaviour:
@@ -3404,6 +3404,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 751278cd8f356e34ea98f564a7811f81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _attenuationRate: 0.6
+  boostMultiplier: 1.5
 --- !u!114 &8110864408784577234
 MonoBehaviour:
   m_ObjectHideFlags: 0

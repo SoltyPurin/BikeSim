@@ -8,6 +8,17 @@ public class BaseBike : MonoBehaviour
     {
         get { return _currentGearIndex; }
     }
+    protected float _gearChangeCoolTime;
+    public float GearChangeCoolTime
+    {
+        get { return _gearChangeCoolTime; }
+    }
+    protected float _handringAdditionValue;
+    public float HandringAdditionValue
+    {
+        get { return _handringAdditionValue; }
+    }
+    protected float _decelerationMultiplication ;
     protected float _clutchValue;
     protected float _maxSpeed;
     protected string[] _gearNames;
@@ -15,6 +26,7 @@ public class BaseBike : MonoBehaviour
     protected bool _isFirst = true;
     [SerializeField] protected float _attenuationRate = 0.6f;
     protected const float ORIGINATTENUATIONVALUE = 0.6f;
+    protected float _clutchEngageThreshold = 0.2f;
 
 
     public virtual void UpGear()
@@ -45,15 +57,15 @@ public class BaseBike : MonoBehaviour
                 else
                 {
                     transform.Translate(0, 0, _gearSpeeds[0] * _attenuationRate);
-                    _attenuationRate *= 0.98f;
+                    _attenuationRate *= _decelerationMultiplication;
                 }
                 break;
 
             default:
-                if (_clutchValue <= 0.2f)
+                if (_clutchValue <= _clutchEngageThreshold)
                 {
                     transform.Translate(0, 0, _gearSpeeds[_currentGearIndex] * _attenuationRate);
-                    _attenuationRate *= 0.98f;
+                    _attenuationRate *= _decelerationMultiplication;
 
                 }
                 else

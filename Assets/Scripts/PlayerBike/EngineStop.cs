@@ -14,8 +14,10 @@ public class EngineStop : MonoBehaviour
     private float _tolerance = 0.7f;
     private const float GETVALUECOOLTIME = 0.2f;
     private float _initCoolTime = 0.0f;
-    private int _initGear = 1;
-    private int _prevGear = 1;
+    private float _prevVelocity = 0.0f;
+    private float _afterGearChangeVelocity = 0.0f;
+    private float _permissionVelocity = 24.0f;
+    private bool _canChangeVelocity = true;
     [SerializeField]private  float _canChangeGearTorelance = 2;
     private float _upperGearDetection = 0.1f;
     private bool _canChangeGear = true;
@@ -28,10 +30,11 @@ public class EngineStop : MonoBehaviour
             CrachOver(nowClutchValue);
             _initCoolTime = 0;
         }
-        if(nowClutchValue >= _upperGearDetection )
+        if(nowClutchValue <= 0 && _canChangeVelocity)
         {
-            SuddenStart();
-            _canChangeGear = false;
+            _canChangeVelocity = false;
+            _prevVelocity = _bikeVelocity.Velocity;
+            Invoke("SuddenStart", 0.6f);
         }
     }
 
@@ -47,20 +50,13 @@ public class EngineStop : MonoBehaviour
         _prevClutchValue = _clutch.LeftTrigger;
     }
 
-    public void GearChange(int gear)
-    {
-        _initGear = gear;
-    }
     private void SuddenStart()
     {
-        if(_initGear-_prevGear >= _canChangeGearTorelance)
+        _afterGearChangeVelocity = _bikeVelocity.Velocity;
+        if (Mathf.Abs(_afterGearChangeVelocity - _prevVelocity) > _permissionVelocity)
         {
             _baseBike.EngineStop();
-            _initGear = 1;
         }
-        else
-        {
-            _prevGear = _initGear;
-        }
+        _canChangeVelocity = true;
     }
 }
