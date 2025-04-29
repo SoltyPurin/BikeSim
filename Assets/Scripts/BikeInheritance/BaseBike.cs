@@ -3,7 +3,7 @@ using UnityEngine;
 public class BaseBike : MonoBehaviour
 {
     protected float[] _gearSpeeds; //必ず速度を子クラスで設定する
-    protected int _currentGearIndex;
+    protected int _currentGearIndex = 1;
     public int CurrentGearIndex
     {
         get { return _currentGearIndex; }
@@ -18,15 +18,16 @@ public class BaseBike : MonoBehaviour
     {
         get { return _handringAdditionValue; }
     }
-    protected float _decelerationMultiplication ;
+    protected float _decelerationMultiplication = 0.98f; //_attenuationRateに乗算する値
+    protected float _attenuationRate ; //惰性で動かすために速度に乗算する値、子クラスで書き換える
     protected float _clutchValue;
     protected float _maxSpeed;
-    protected string[] _gearNames;
-    protected const int NEUTRALGEARINDEX = 1;
+    protected string[] _gearNames = new string[] { "1", "N", "2", "3", "4", "5", "6" };
+protected const int NEUTRALGEARINDEX = 1;
     protected bool _isFirst = true;
-    [SerializeField] protected float _attenuationRate = 0.6f;
     protected const float ORIGINATTENUATIONVALUE = 0.6f;
     protected float _clutchEngageThreshold = 0.2f;
+    protected float _gearChangeTorelance = 0.7f; //しっかり半クラにしないとエンストするための変数
 
 
     public virtual void UpGear()

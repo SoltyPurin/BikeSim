@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class EngineStop : MonoBehaviour
@@ -16,11 +17,10 @@ public class EngineStop : MonoBehaviour
     private float _initCoolTime = 0.0f;
     private float _prevVelocity = 0.0f;
     private float _afterGearChangeVelocity = 0.0f;
-    private float _permissionVelocity = 24.0f;
+    [SerializeField]private float _permissionVelocity = 24.0f;
     private bool _canChangeVelocity = true;
     [SerializeField]private  float _canChangeGearTorelance = 2;
-    private float _upperGearDetection = 0.1f;
-    private bool _canChangeGear = true;
+    [SerializeField] private float _callCheckVelocityAfterGearChange = 0.6f;
     private void FixedUpdate()
     {
         float nowClutchValue = _clutch.LeftTrigger;
@@ -33,9 +33,23 @@ public class EngineStop : MonoBehaviour
         if(nowClutchValue <= 0 && _canChangeVelocity)
         {
             _canChangeVelocity = false;
-            _prevVelocity = _bikeVelocity.Velocity;
-            Invoke("SuddenStart", 0.6f);
+            StartCoroutine(CheckVelocityAfterGearChange());
         }
+    }
+
+    private IEnumerator CheckVelocityAfterGearChange()
+    {
+        _prevVelocity = _bikeVelocity.Velocity;
+
+        yield return new WaitForSeconds(_callCheckVelocityAfterGearChange);
+
+        _afterGearChangeVelocity = _bikeVelocity.Velocity;
+        if (Mathf.Abs(_afterGearChangeVelocity - _prevVelocity) > _permissionVelocity)
+        {
+            _baseBike.EngineStop();
+        }
+        _canChangeVelocity = true;
+
     }
 
     private void CrachOver(float clutch)
@@ -44,19 +58,8 @@ public class EngineStop : MonoBehaviour
         if(_initClutchValue-_prevClutchValue > _tolerance)
         {
             _baseBike.EngineStop();
-            Debug.Log("ƒGƒ“ƒXƒg”»’è");
-
         }
         _prevClutchValue = _clutch.LeftTrigger;
     }
 
-    private void SuddenStart()
-    {
-        _afterGearChangeVelocity = _bikeVelocity.Velocity;
-        if (Mathf.Abs(_afterGearChangeVelocity - _prevVelocity) > _permissionVelocity)
-        {
-            _baseBike.EngineStop();
-        }
-        _canChangeVelocity = true;
-    }
 }
