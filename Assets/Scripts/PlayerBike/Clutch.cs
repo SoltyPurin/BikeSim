@@ -5,6 +5,7 @@ public class Clutch : MonoBehaviour
 {
     private Gamepad _gamePad;
     private float _leftTrigger = default;
+    [SerializeField] private bool _isAIControl = false;
 
     [SerializeField] BaseBike _baseBike = default;
     public float LeftTrigger
@@ -19,7 +20,18 @@ public class Clutch : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _leftTrigger =  1.0f -_gamePad.leftTrigger.ReadValue();
+        if (_isAIControl)
+        {
+            //AIÇ…ÇÊÇÈìÆçÏíÜÇÕÇ»Ç…Ç‡ÇµÇ»Ç¢
+            return;
+        }
+        _leftTrigger = 1.0f - _gamePad.leftTrigger.ReadValue();
         _baseBike.UpdateClutchValue(LeftTrigger);
+
+    }
+
+    public void SetClutchValue(float value)
+    {
+        _leftTrigger = value;
     }
 }

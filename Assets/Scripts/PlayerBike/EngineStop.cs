@@ -21,8 +21,14 @@ public class EngineStop : MonoBehaviour
     private bool _canChangeVelocity = true;
     [SerializeField]private  float _canChangeGearTorelance = 2;
     [SerializeField] private float _callCheckVelocityAfterGearChange = 0.6f;
+
+    [SerializeField] private bool _isAIControll = false;
     private void FixedUpdate()
     {
+        if (_isAIControll)
+        {
+            return;
+        }
         float nowClutchValue = _clutch.LeftTrigger;
         _initCoolTime += Time.deltaTime;
         if (_initCoolTime >= GETVALUECOOLTIME)

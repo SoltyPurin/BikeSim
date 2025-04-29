@@ -31,8 +31,6 @@ public class MeasureBikeVelocity : MonoBehaviour
         _velocity = delta.magnitude / Time.deltaTime;
         _prevPos = transform.position;
 
-        Debug.Log(_velocity);
-
         //ギアの変更を検知。その後ギア変更前の速度とギア変更後の初速を比較してしきい値を超えてたらエンスト
 
     }
