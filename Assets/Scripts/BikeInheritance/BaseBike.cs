@@ -92,4 +92,5 @@ protected const int NEUTRALGEARINDEX = 1;
         _clutchValue = value;
     }
 
+
 }
