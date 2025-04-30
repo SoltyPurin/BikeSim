@@ -180,6 +180,7 @@ GameObject:
   - component: {fileID: 8455537590556162806}
   - component: {fileID: 5236561747249015088}
   - component: {fileID: 1159010824565826186}
+  - component: {fileID: 8309992592883442888}
   - component: {fileID: 7032898391213416057}
   - component: {fileID: 1191235060890627344}
   - component: {fileID: 6316389225521466578}
@@ -273,6 +274,20 @@ MonoBehaviour:
   _baseBike: {fileID: 8455537590556162806}
   _playerBike: {fileID: 1004430936002054804}
   _rigidBody: {fileID: 2385630013834517316}
+--- !u!114 &8309992592883442888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1004430936002054804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09dcc5f3f9776cb4b9898902c57b3d52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseBike: {fileID: 8455537590556162806}
+  _detectionDistance: 2
 --- !u!114 &7032898391213416057
 MonoBehaviour:
   m_ObjectHideFlags: 0

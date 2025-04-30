@@ -4,6 +4,9 @@ public class SportsBIke : BaseBike
     [SerializeField] private bool _isAIControll = false;
     private void Awake()
     {
+        //インジェクションテーブルを使うとここのboolもいらなくなる
+        //コンストラクタインジェクション
+        //Dependency Injection←基本的な考えはこれ
         if (_isAIControll)
         {
             _gearSpeeds = new float[] { 0.4f, 0.0f, 1.0f, 1.6f, 2.2f, 2.8f, 3.4f };

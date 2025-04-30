@@ -31,7 +31,7 @@ public class AIBikeController : MonoBehaviour
         // 最初にクラッチを全開に離す
         _bike.UpdateClutchValue(1.0f);
 
-        // 毎フレーム、自動で前に進む処理
+        // 自動で前に進む処理
         _bike.MoveForward();
 
         HandleWaypointMovement();
@@ -52,8 +52,6 @@ public class AIBikeController : MonoBehaviour
         Quaternion targetRotation = Quaternion.LookRotation(direction,Vector3.up);
         transform.rotation = Quaternion.Lerp(transform.rotation,targetRotation,Time.deltaTime * _personalHandlingSpeed);
 
-        Debug.DrawRay(transform.position, direction * 10, Color.red);
-        Debug.DrawRay(transform.position, transform.forward * 10, Color.green);
         if (Vector3.Distance(transform.position, targetVectorPoint) < _reachThreshold)
         {
             if(_currentWaypointIndex < _waypoints.Count - 1)

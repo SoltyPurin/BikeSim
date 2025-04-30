@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class BaseBike : MonoBehaviour
 {
+    //デコレーター、分けた方がいい。重すぎる
+    //神クラスを作ってそれの関係性を明らかにしてそれを分割
     protected float[] _gearSpeeds; //必ず速度を子クラスで設定する
     protected int _currentGearIndex = 1;
     public int CurrentGearIndex
@@ -23,7 +25,7 @@ public class BaseBike : MonoBehaviour
     protected float _clutchValue;
     protected float _maxSpeed;
     protected string[] _gearNames = new string[] { "1", "N", "2", "3", "4", "5", "6" };
-protected const int NEUTRALGEARINDEX = 1;
+    protected const int NEUTRALGEARINDEX = 1;
     protected bool _isFirst = true;
     protected const float ORIGINATTENUATIONVALUE = 0.6f;
     protected float _clutchEngageThreshold = 0.2f;

@@ -62,6 +62,11 @@ public class BikeHandring : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// オイラー角の変換
+    /// </summary>
+    /// <param name="angle">バイクの角度</param>
+    /// <returns>変換後の角度</returns>
     private float NormalizeAngle(float angle)
     {
         if (angle > 180.0f) angle -= 360;

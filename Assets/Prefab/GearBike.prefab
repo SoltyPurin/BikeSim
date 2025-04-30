@@ -1435,6 +1435,7 @@ GameObject:
   - component: {fileID: 3443473387804843490}
   - component: {fileID: 8909577133498639947}
   - component: {fileID: 5723046975451327908}
+  - component: {fileID: 1889338949641514190}
   - component: {fileID: 2753954191542025037}
   - component: {fileID: 3389443135670401946}
   - component: {fileID: 350652857681514857}
@@ -1551,10 +1552,24 @@ MonoBehaviour:
   _clutch: {fileID: 3443473387804843490}
   _baseBike: {fileID: 5149686395372916099}
   _bikeVelocity: {fileID: 8909577133498639947}
-  _permissionVelocity: 30
+  _permissionVelocity: 36
   _canChangeGearTorelance: 2
   _callCheckVelocityAfterGearChange: 0.9
   _isAIControll: 0
+--- !u!114 &1889338949641514190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114056003208786043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09dcc5f3f9776cb4b9898902c57b3d52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseBike: {fileID: 5149686395372916099}
+  _detectionDistance: 2
 --- !u!114 &2753954191542025037
 MonoBehaviour:
   m_ObjectHideFlags: 0
