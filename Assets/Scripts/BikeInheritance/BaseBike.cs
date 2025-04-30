@@ -23,12 +23,13 @@ public class BaseBike : MonoBehaviour
     protected float _decelerationMultiplication = 0.98f; //_attenuationRateに乗算する値
     protected float _attenuationRate ; //惰性で動かすために速度に乗算する値、子クラスで書き換える
     protected float _clutchValue;
+    protected float _axelValue;
     protected float _maxSpeed;
     protected string[] _gearNames = new string[] { "1", "N", "2", "3", "4", "5", "6" };
     protected const int NEUTRALGEARINDEX = 1;
     protected bool _isFirst = true;
     protected const float ORIGINATTENUATIONVALUE = 0.6f;
-    protected float _clutchEngageThreshold = 0.2f;
+    protected float _clutchEngageThreshold = 0.2f; //クラッチベタ押し検知
     protected float _gearChangeTorelance = 0.7f; //しっかり半クラにしないとエンストするための変数
 
 
@@ -77,7 +78,6 @@ public class BaseBike : MonoBehaviour
                     _attenuationRate = ORIGINATTENUATIONVALUE;
                 }
                 _isFirst = false;
-
                 break;
         }
 
@@ -94,5 +94,9 @@ public class BaseBike : MonoBehaviour
         _clutchValue = value;
     }
 
+    public virtual void UpdateAxelValue(float value)
+    {
+        _axelValue = value;
+    }
 
 }

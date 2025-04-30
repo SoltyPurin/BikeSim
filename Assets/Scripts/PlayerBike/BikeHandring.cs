@@ -24,7 +24,6 @@ public class BikeHandring : MonoBehaviour
     private void GetAdditionValue()
     {
         _additionValue = _baseBike.HandringAdditionValue;
-        Debug.Log(_additionValue);
     }
     private void FixedUpdate()
     {
