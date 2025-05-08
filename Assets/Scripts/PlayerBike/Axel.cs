@@ -26,7 +26,6 @@ public class CAxel : MonoBehaviour
         if(_isAutomatic)
         {
             _baseBike.UpdateAxelValue(_rightTrigger);
-            Debug.Log(_rightTrigger);
 
         }
     }

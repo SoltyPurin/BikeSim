@@ -1340,11 +1340,12 @@ GameObject:
   - component: {fileID: 4703125017564885739}
   - component: {fileID: 564526830983515888}
   - component: {fileID: 975608161237456708}
+  - component: {fileID: -8070853769261363851}
   - component: {fileID: 659783871534866100}
   - component: {fileID: 2772605511015307385}
   m_Layer: 0
   m_Name: AutoMaticBike
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1358,7 +1359,7 @@ Transform:
   m_GameObject: {fileID: 6471098160112054035}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.572, z: -152.4}
+  m_LocalPosition: {x: 0, y: 1.005, z: -25.41}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1437,7 +1438,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _baseBike: {fileID: 6872549906779229810}
-  _detectionDistance: 1
+  _detectionDistance: 5
+  _halfSize: {x: 1.5, y: 0.1, z: 1}
 --- !u!114 &564526830983515888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1466,6 +1468,19 @@ MonoBehaviour:
   _isAIControl: 0
   _baseBike: {fileID: 6872549906779229810}
   _isAutomatic: 1
+--- !u!114 &-8070853769261363851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6471098160112054035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfd31b16b4407e04a83f50f823282fe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseBike: {fileID: 6872549906779229810}
 --- !u!65 &659783871534866100
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1513,7 +1528,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!1 &6500712084392603646
 GameObject:
   m_ObjectHideFlags: 0

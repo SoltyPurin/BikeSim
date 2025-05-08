@@ -185,11 +185,12 @@ GameObject:
   - component: {fileID: 1191235060890627344}
   - component: {fileID: 6316389225521466578}
   - component: {fileID: 2483841535092429061}
+  - component: {fileID: -608053671985934894}
   - component: {fileID: 5522174755748694196}
   - component: {fileID: 2385630013834517316}
   m_Layer: 0
   m_Name: SpeedBike
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -203,7 +204,7 @@ Transform:
   m_GameObject: {fileID: 1004430936002054804}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -1.73, y: 0.46, z: -12.376}
+  m_LocalPosition: {x: 0, y: 1.005, z: -25.41}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -287,7 +288,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _baseBike: {fileID: 8455537590556162806}
-  _detectionDistance: 2
+  _detectionDistance: 5
+  _halfSize: {x: 1.5, y: 0.1, z: 1}
 --- !u!114 &7032898391213416057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -349,6 +351,19 @@ MonoBehaviour:
   _gearNumberText: {fileID: 0}
   _clutch: {fileID: 7032898391213416057}
   _baseBike: {fileID: 8455537590556162806}
+--- !u!114 &-608053671985934894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1004430936002054804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfd31b16b4407e04a83f50f823282fe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseBike: {fileID: 8455537590556162806}
 --- !u!65 &5522174755748694196
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -396,7 +411,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!1 &1643448632318099525
 GameObject:
   m_ObjectHideFlags: 0
