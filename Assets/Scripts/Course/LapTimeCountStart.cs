@@ -25,7 +25,6 @@ public class LapTimeCountStart : MonoBehaviour
 
     private void TimerCountUp()
     {
-        Debug.Log("current‚Í" + _currentLapCount + "prev‚Í" + _prevLapCount);
         if (_currentLapCount != _prevLapCount)
         {
             _lapTime += Time.deltaTime;

@@ -12,9 +12,18 @@ public class BikeSpawn : MonoBehaviour
     private void Start()
     {
         _bikeButtonObject = GameObject.FindWithTag(TITLEMANAGERTAG);
-        _selectBikeButton = _bikeButtonObject.GetComponent<SelectBikeButton>();
-        _bikeIndex = _selectBikeButton.BikeNumber;
-        SceneManager.UnloadSceneAsync("Title");
-        Instantiate(_bikeObjectArray[_bikeIndex],transform.position,_spawnRotation);
+        if (_bikeButtonObject != null)
+        {
+            _selectBikeButton = _bikeButtonObject.GetComponent<SelectBikeButton>();
+            _bikeIndex = _selectBikeButton.BikeNumber;
+            SceneManager.UnloadSceneAsync("Title");
+            Instantiate(_bikeObjectArray[_bikeIndex], transform.position, _spawnRotation);
+
+        }
+        else
+        {
+            return;
+        }
+
     }
 }

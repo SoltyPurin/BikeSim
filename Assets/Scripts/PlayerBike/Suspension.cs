@@ -23,11 +23,6 @@ public class Suspension : MonoBehaviour
         Vector3 rayDirection = Vector3.down;
         _isGrounded = Physics.Raycast(rayOrigin, rayDirection, out _raycastHit, _distance, _layerMask);
         Debug.DrawRay(rayOrigin, rayDirection * _distance, Color.red);
-        if (_isPlayer)
-        {
-            Debug.Log("’n–Ê”»’è‚Í" + _isGrounded);
-
-        }
 
         if (!_isGrounded)
         {

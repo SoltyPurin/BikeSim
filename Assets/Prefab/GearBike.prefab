@@ -1571,7 +1571,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _baseBike: {fileID: 5149686395372916099}
   _detectionDistance: 5
-  _halfSize: {x: 1.5, y: 0.1, z: 1}
+  _halfSize: {x: 0.7, y: 0.1, z: 1}
 --- !u!114 &2753954191542025037
 MonoBehaviour:
   m_ObjectHideFlags: 0
