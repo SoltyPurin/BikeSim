@@ -1605,6 +1605,8 @@ GameObject:
   - component: {fileID: 789118657038976710}
   - component: {fileID: 7613261773330426026}
   - component: {fileID: 6673112133929339294}
+  - component: {fileID: 6051376790057724181}
+  - component: {fileID: 6921657671974787970}
   - component: {fileID: 7752733834265645786}
   - component: {fileID: 6995294292866145640}
   m_Layer: 0
@@ -1661,7 +1663,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 751278cd8f356e34ea98f564a7811f81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boostMultiplier: 1.5
+  _isAIControll: 1
 --- !u!114 &7650129771809689712
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1676,6 +1678,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bike: {fileID: 979865663307332334}
   _aiClutch: {fileID: 6673112133929339294}
+  _waypoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &789118657038976710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1706,6 +1730,7 @@ MonoBehaviour:
   _permissionVelocity: 24
   _canChangeGearTorelance: 2
   _callCheckVelocityAfterGearChange: 0.6
+  _isAIControll: 1
 --- !u!114 &6673112133929339294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1718,7 +1743,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5054a5bcf5e3ac446b7c9c4c3edd9f09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isAIControl: 1
   _baseBike: {fileID: 979865663307332334}
+--- !u!114 &6051376790057724181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7745837306202260977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 525f1d5730fe927409ef4f806ebcfb56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isPlayer: 0
+--- !u!114 &6921657671974787970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7745837306202260977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22ec14a8094d38740aa57151650c9f13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _curveThshould: 10
 --- !u!65 &7752733834265645786
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -1,7 +1,8 @@
 using UnityEngine;
 public class SportsBIke : BaseBike
 {
-    [SerializeField] private bool _isAIControll = false;
+    [SerializeField,Header("AI制御か？")]
+    private bool _isAIControll = false;
     private void Awake()
     {
         //インジェクションテーブルを使うとここのboolもいらなくなる
@@ -9,7 +10,7 @@ public class SportsBIke : BaseBike
         //Dependency Injection←基本的な考えはこれ
         if (_isAIControll)
         {
-            _gearSpeeds = new float[] { 0.4f, 0.0f, 1.0f, 1.6f, 2.2f, 2.8f, 3.4f };
+            _gearSpeeds = new float[] { 0.4f, 0.0f, 0.8f, 1.4f, 2.0f, 2.6f, 3.2f };
         }
         else
         {

@@ -31,8 +31,11 @@ public class BaseBike : MonoBehaviour
     protected const float ORIGINATTENUATIONVALUE = 0.6f;
     protected float _clutchEngageThreshold = 0.2f; //クラッチベタ押し検知
     protected float _gearChangeTorelance = 0.7f; //しっかり半クラにしないとエンストするための変数
+    private float _targetClutchValue = 0;
 
-
+    /// <summary>
+    /// ギアを上げる
+    /// </summary>
     public virtual void UpGear()
     {
         if(_currentGearIndex < _gearSpeeds.Length -1)
@@ -41,6 +44,9 @@ public class BaseBike : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// ギアを下げる
+    /// </summary>
     public virtual void DownGear()
     {
         if(_currentGearIndex > 0)
@@ -49,8 +55,13 @@ public class BaseBike : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 前進
+    /// </summary>
     public virtual void MoveForward()
     {
+        _clutchValue = Mathf.Lerp(_clutchValue,_targetClutchValue,Time.deltaTime * _gearSpeeds[_currentGearIndex]);
+        Debug.Log(_clutchValue);
         switch (_currentGearIndex)
         {
             case NEUTRALGEARINDEX:
@@ -83,17 +94,27 @@ public class BaseBike : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// エンスト
+    /// </summary>
     public virtual void EngineStop()
     {
         _currentGearIndex = 1;
     }
 
 
+    /// <summary>
+    /// クラッチの値を変更
+    /// </summary>
+    /// <param name="value">左トリガーの値</param>
     public virtual void UpdateClutchValue(float value)
     {
-        _clutchValue = value;
+        _targetClutchValue = value;
     }
-
+    /// <summary>
+    /// アクセルを吹かす
+    /// </summary>
+    /// <param name="value">右トリガーの値</param>
     public virtual void UpdateAxelValue(float value)
     {
         _axelValue = value;

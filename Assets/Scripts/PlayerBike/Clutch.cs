@@ -30,6 +30,10 @@ public class Clutch : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// クラッチの値をセットする
+    /// </summary>
+    /// <param name="value">左トリガーの押し込み具合</param>
     public void SetClutchValue(float value)
     {
         _leftTrigger = value;
