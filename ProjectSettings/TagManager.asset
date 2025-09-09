@@ -8,6 +8,7 @@ TagManager:
   - ClutchText
   - GearNumberText
   - TitleManager
+  - LapLine
   layers:
   - Default
   - TransparentFX
