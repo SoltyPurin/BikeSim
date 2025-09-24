@@ -11,7 +11,6 @@ public class FrontDetect : MonoBehaviour
     private void Awake()
     {
         layerMask = LayerMask.GetMask("ObstacleOnly");
-        Debug.Log(layerMask);
     }
     private void FixedUpdate()
     {
@@ -38,7 +37,6 @@ public class FrontDetect : MonoBehaviour
         Quaternion rotation = transform.rotation;
 
         bool isHit = Physics.BoxCast(center, _halfSize,direction,out _hit, rotation, _detectionDistance,layerMask);
-        Debug.Log(isHit);
         if (isHit)
         {
             Debug.Log("•Ç‚ÉŒƒ“Ë");

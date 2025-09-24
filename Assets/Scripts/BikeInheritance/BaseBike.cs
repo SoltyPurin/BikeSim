@@ -33,6 +33,13 @@ public class BaseBike : MonoBehaviour
     protected float _gearChangeTorelance = 0.7f; //しっかり半クラにしないとエンストするための変数
     private float _targetClutchValue = 0;
 
+    protected Rigidbody _rigidBody = default;
+
+    public virtual void Start()
+    {
+        _rigidBody = GetComponent<Rigidbody>();
+    }
+
     /// <summary>
     /// ギアを上げる
     /// </summary>
@@ -60,18 +67,20 @@ public class BaseBike : MonoBehaviour
     /// </summary>
     public virtual void MoveForward()
     {
-        _clutchValue = Mathf.Lerp(_clutchValue,_targetClutchValue,Time.deltaTime * _gearSpeeds[_currentGearIndex]);
-        Debug.Log(_clutchValue);
+        _clutchValue = Mathf.Lerp(_clutchValue, _targetClutchValue, Time.deltaTime * _gearSpeeds[_currentGearIndex]);
+        Vector3 force = transform.forward;
         switch (_currentGearIndex)
         {
             case NEUTRALGEARINDEX:
                 if (_isFirst)
                 {
-                    transform.Translate(0, 0, _gearSpeeds[_currentGearIndex] * _clutchValue);
+                    force = (transform.forward * _gearSpeeds[_currentGearIndex] /** _clutchValue*/ * _axelValue);
+                    _rigidBody.AddForce(force);
                 }
                 else
                 {
-                    transform.Translate(0, 0, _gearSpeeds[0] * _attenuationRate);
+                    force = (transform.forward * _gearSpeeds[0] * _attenuationRate * _axelValue);
+                    _rigidBody.AddForce(force);
                     _attenuationRate *= _decelerationMultiplication;
                 }
                 break;
@@ -79,19 +88,21 @@ public class BaseBike : MonoBehaviour
             default:
                 if (_clutchValue <= _clutchEngageThreshold)
                 {
-                    transform.Translate(0, 0, _gearSpeeds[_currentGearIndex] * _attenuationRate);
+                    force = (transform.forward * _gearSpeeds[_currentGearIndex] * _attenuationRate/* * _axelValue*/);
+                    _rigidBody.AddForce(force);
                     _attenuationRate *= _decelerationMultiplication;
 
                 }
                 else
                 {
-                    transform.Translate(0, 0, _gearSpeeds[_currentGearIndex] * _clutchValue);
+                    force = (transform.forward * _gearSpeeds[_currentGearIndex] * _axelValue);
+                    _rigidBody.AddForce(force);
                     _attenuationRate = ORIGINATTENUATIONVALUE;
                 }
                 _isFirst = false;
                 break;
         }
-
+        
     }
 
     /// <summary>
@@ -99,6 +110,7 @@ public class BaseBike : MonoBehaviour
     /// </summary>
     public virtual void EngineStop()
     {
+        Debug.Log("エンスト");
         _currentGearIndex = 1;
     }
 

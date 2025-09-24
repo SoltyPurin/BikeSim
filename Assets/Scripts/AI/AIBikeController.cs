@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AIBikeController : MonoBehaviour
+public class AIBikeController : MonoBehaviour,IAiInitializer
 {
     [SerializeField,Header("バイク本体のスクリプト")]
     private BaseBike _bike;
@@ -10,6 +10,10 @@ public class AIBikeController : MonoBehaviour
     private Clutch _aiClutch;
     [SerializeField,Header("目標地点を登録する")]
     private List<Transform> _waypoints;
+    [SerializeField, Header("ハンドリング精度の最低値")]
+    private float _handringMinValue = 10;
+    [SerializeField, Header("ハンドリング精度の最大値")]
+    private float _handringMaxValue = 30;
     private AIDetectGearChangeCurve _detectCurve = default;
     private int _currentWaypointIndex = 0;
     private float _personalHandlingSpeed;
@@ -18,15 +22,16 @@ public class AIBikeController : MonoBehaviour
     private float _randomWaypointDeviationsZ;
     private Vector3 _waypointDeviationOffset;
     private float _initClutchValue = 0;
-    private void Start()
+    private float _initAxelValue = 0;
+    public void Initialize()
     {
         _randomWaypointDeviationsX = Random.Range(-10, 10);
         _randomWaypointDeviationsZ = Random.Range(-10, 10);
         _waypointDeviationOffset = new Vector3(_randomWaypointDeviationsX, 0, _randomWaypointDeviationsZ);
-        _personalHandlingSpeed = Random.Range(6, 15);
+        _personalHandlingSpeed = Random.Range(_handringMinValue, _handringMaxValue);
         _detectCurve =GetComponent<AIDetectGearChangeCurve>();
         _detectCurve.Initialize();
-        _detectCurve.CheckCurve(_waypoints[_currentWaypointIndex].position);
+        CheckCurve();
     }
 
 
@@ -36,12 +41,31 @@ public class AIBikeController : MonoBehaviour
         // 最初にクラッチを全開に離す
         _bike.UpdateClutchValue(ClutchPlus());
 
+        //アクセルを徐々にふかす
+        _bike.UpdateAxelValue(AxelPlus());
         // 自動で前に進む処理
         _bike.MoveForward();
 
         HandleWaypointMovement();
 
-        Debug.Log(_bike.CurrentGearIndex);
+        //Debug.Log(_bike.CurrentGearIndex);
+    }
+
+    /// <summary>
+    /// アクセルをふかすメソッド
+    /// </summary>
+    /// <returns></returns>
+    private float AxelPlus()
+    {
+        _initAxelValue += 0.5f;
+        _initAxelValue = Mathf.Clamp(_initAxelValue, 0.1f, 100);
+        return _initAxelValue;
+    }
+
+    public void ResetAxel()
+    {
+        //if(_)
+        _initAxelValue = 0;
     }
 
     /// <summary>
@@ -58,7 +82,13 @@ public class AIBikeController : MonoBehaviour
         {
             _initClutchValue += 0.01f;
         }
+        _initClutchValue = Mathf.Clamp(_initClutchValue, 0, 1);
         return _initClutchValue;
+    }
+
+    public void ResetClutch()
+    {
+        _initClutchValue = 0;
     }
 
     /// <summary>
@@ -103,10 +133,42 @@ public class AIBikeController : MonoBehaviour
                 _randomWaypointDeviationsZ = Random.Range(-10, 10);
                 _waypointDeviationOffset = new Vector3(_randomWaypointDeviationsX, 0, _randomWaypointDeviationsZ);
             }
-            if (_detectCurve.CheckCurve(_waypoints[_currentWaypointIndex].position))
-            {
-                _initClutchValue = 0;
-            }
+            CheckCurve();
+
+        }
+
+    }
+
+    private void CheckCurve()
+    {
+        int curve = _detectCurve.CheckCurve(_waypoints[_currentWaypointIndex].position);
+        switch (curve)
+        {
+            case 0:
+                _bike.DownGear();
+                if (_bike.CurrentGearIndex == 1)
+                {
+                    _bike.DownGear();
+                }
+                ResetClutch();
+                ResetAxel();
+                Debug.Log("ギア下げる");
+                break;
+
+            case 1:
+                _bike.UpGear();
+                if (_bike.CurrentGearIndex == 1)
+                {
+                    _bike.UpGear();
+                }
+                ResetClutch();
+                ResetAxel();
+                Debug.Log("ギア上げる");
+                break;
+
+            default:
+                Debug.Log("そのまま");
+                break;
         }
     }
 

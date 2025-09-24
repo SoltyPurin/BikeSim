@@ -7,15 +7,14 @@ public class BikeHandring : MonoBehaviour
     //右曲がりはY軸がプラスのZ軸がマイナス
     [SerializeField] private BaseBike _baseBike = default;
     [SerializeField] private GameObject _playerBike = default;
-    private const float LeftInclination = 25.0f;
-    private const float RightInclination = -25.0f;
     private float _additionValue = 0.0f;
     private const float RETURNADDVALUE = 1.0f;
     private const float TORELANCE = 0.5f; //許容範囲
     private float _zero = 0.0f;
-    private const float FirstYRotation = -90.0f;
     private const float FirstZRotation = 0.0f;
     [SerializeField] Rigidbody _rigidBody = default;
+    private float _currentZ = 0;
+    private float _yawRoll = -90;
 
     private void Awake()
     {
@@ -28,36 +27,39 @@ public class BikeHandring : MonoBehaviour
     private void FixedUpdate()
     {
         InputHandring();
+        //RotationFix();
     }
 
     private void InputHandring()
     {
-        Vector3 worldAngle = transform.eulerAngles;
         if (Input.GetAxis("Horizontal") > _zero) //右曲がり
         {
-            worldAngle.y += _additionValue;
-            worldAngle.z -= _additionValue;
+            _yawRoll += _additionValue;
+            _currentZ -= _additionValue;
         }
         else if (Input.GetAxis("Horizontal") < _zero) //左曲がり
         {
-            worldAngle.y -= _additionValue;
-            worldAngle.z += _additionValue;
+            _yawRoll -= _additionValue;
+            _currentZ += _additionValue;
         }
         else //入力無し
         {
-            bool isRightRotate = NormalizeAngle(worldAngle.z) < FirstZRotation - TORELANCE;
-            bool isLeftRotate = NormalizeAngle(worldAngle.z) > FirstZRotation + TORELANCE;
-            bool isStraight = Mathf.Abs(NormalizeAngle(worldAngle.z) - FirstZRotation) <= TORELANCE;
+            bool isRightRotate = NormalizeAngle(_currentZ) < FirstZRotation - TORELANCE;
+            bool isLeftRotate = NormalizeAngle(_currentZ) > FirstZRotation + TORELANCE;
+            bool isStraight = Mathf.Abs(NormalizeAngle(_currentZ) - FirstZRotation) <= TORELANCE;
             if (isRightRotate)
             {
-                worldAngle.z += RETURNADDVALUE;
+                _currentZ += RETURNADDVALUE;
             }
             else if (isLeftRotate)
             {
-                worldAngle.z -= RETURNADDVALUE;
+                _currentZ -= RETURNADDVALUE;
             }
         }
-        _rigidBody.MoveRotation(Quaternion.Euler(worldAngle));
+        _currentZ = Mathf.Clamp(_currentZ, -60f, 60f);
+        Quaternion rotation = Quaternion.Euler(0, _yawRoll, _currentZ);
+        _rigidBody.MoveRotation(rotation);
+        //_rigidBody.MoveRotation(Quaternion.Euler(worldAngle));
 
     }
 
@@ -71,5 +73,20 @@ public class BikeHandring : MonoBehaviour
         if (angle > 180.0f) angle -= 360;
         return angle;
     }
+
+    private void RotationFix()
+    {
+        float zRotation = NormalizeAngle(transform.eulerAngles.z);
+
+        if (zRotation >= 60f || zRotation <= -60f)
+        {
+            //_baseBike.EngineStop();
+            Vector3 fixedEuler = transform.eulerAngles;
+            fixedEuler.z = 0f;
+            _rigidBody.rotation = Quaternion.Euler(fixedEuler);
+            //transform.eulerAngles = fixedEuler;
+        }
+    }
+
 }
 

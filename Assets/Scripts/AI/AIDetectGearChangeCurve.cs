@@ -9,14 +9,24 @@ public class AIDetectGearChangeCurve : MonoBehaviour
 
     private BaseBike _bike = default;
 
+    private AIBikeController _controll = default;
+
     public void Initialize()
     {
         _bike = GetComponent<BaseBike>();
+        _controll = GetComponent<AIBikeController>();
     }
 
-    public bool CheckCurve(Vector3 target)
+    /// <summary>
+    /// カーブを確認してギアチェンジをするかどうかを返す。
+    /// </summary>
+    /// <param name="target">目的地</param>
+    /// <returns>ギアを上げるかの値を返す。0が↑、1が↓,2が→</returns>
+    public int CheckCurve(Vector3 target)
     {
-        bool isGearUp = false;
+        //返す値をintにして実際のギアチェンジは呼び出し元で行うようにする
+        //0はギアあげる、1はギア下げる、2はそのままで
+        int retValue = 2;
         Vector3 prev = transform.position;
         Vector3 diff = prev - target;
         Vector3 axis = Vector3.Cross(transform.forward, diff);
@@ -24,24 +34,16 @@ public class AIDetectGearChangeCurve : MonoBehaviour
 
         if(angle > _curveThshould)
         {
-            _bike.DownGear();
-            if(_bike.CurrentGearIndex == 1)
-            {
-                _bike.DownGear();
-            }
-            Debug.Log("ギア下げる");
+            retValue = 1;
         }
-        else
+        else if(angle < _curveThshould)
         {
-            _bike.UpGear();
-            if (_bike.CurrentGearIndex == 1)
-            {
-                _bike.UpGear();
-            }
-            isGearUp = true;
-            Debug.Log("ギア上げる");
+            retValue = 0;
+        }else if ((angle == _curveThshould))
+        {
+            retValue = 2;
         }
 
-        return isGearUp;
+        return retValue;
     }
 }

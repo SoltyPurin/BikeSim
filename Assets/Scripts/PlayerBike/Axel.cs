@@ -9,7 +9,6 @@ public class CAxel : MonoBehaviour
 
     [SerializeField] BaseBike _baseBike = default;
 
-    [SerializeField] private bool _isAutomatic = false;
     public float RightTrigger
     {
         get { return _rightTrigger; }
@@ -23,11 +22,8 @@ public class CAxel : MonoBehaviour
     private void FixedUpdate()
     {
         _rightTrigger = _gamePad.rightTrigger.ReadValue();
-        if(_isAutomatic)
-        {
-            _baseBike.UpdateAxelValue(_rightTrigger);
-
-        }
+        float outPutValue = Mathf.Clamp(_rightTrigger * 100, 0.1f, 100);
+        _baseBike.UpdateAxelValue(outPutValue);
     }
 
 }
