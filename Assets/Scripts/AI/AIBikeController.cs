@@ -152,7 +152,7 @@ public class AIBikeController : MonoBehaviour,IAiInitializer
                 }
                 ResetClutch();
                 ResetAxel();
-                Debug.Log("ÉMÉAâ∫Ç∞ÇÈ");
+                Debug.Log("AIÉMÉAâ∫Ç∞ÇÈ");
                 break;
 
             case 1:
@@ -163,11 +163,11 @@ public class AIBikeController : MonoBehaviour,IAiInitializer
                 }
                 ResetClutch();
                 ResetAxel();
-                Debug.Log("ÉMÉAè„Ç∞ÇÈ");
+                Debug.Log("AIÉMÉAè„Ç∞ÇÈ");
                 break;
 
             default:
-                Debug.Log("ÇªÇÃÇ‹Ç‹");
+                Debug.Log("AIÇªÇÃÇ‹Ç‹");
                 break;
         }
     }

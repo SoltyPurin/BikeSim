@@ -67,14 +67,14 @@ public class BaseBike : MonoBehaviour
     /// </summary>
     public virtual void MoveForward()
     {
-        _clutchValue = Mathf.Lerp(_clutchValue, _targetClutchValue, Time.deltaTime * _gearSpeeds[_currentGearIndex]);
+        //_clutchValue = Mathf.Lerp(_clutchValue, _targetClutchValue, Time.deltaTime * _gearSpeeds[_currentGearIndex]);
         Vector3 force = transform.forward;
         switch (_currentGearIndex)
         {
             case NEUTRALGEARINDEX:
                 if (_isFirst)
                 {
-                    force = (transform.forward * _gearSpeeds[_currentGearIndex] /** _clutchValue*/ * _axelValue);
+                    force = (transform.forward * _gearSpeeds[_currentGearIndex] * _axelValue);
                     _rigidBody.AddForce(force);
                 }
                 else
@@ -86,15 +86,17 @@ public class BaseBike : MonoBehaviour
                 break;
 
             default:
-                if (_clutchValue <= _clutchEngageThreshold)
+                if (_axelValue <= _clutchEngageThreshold)
                 {
-                    force = (transform.forward * _gearSpeeds[_currentGearIndex] * _attenuationRate/* * _axelValue*/);
+                    Debug.Log("アクセル離し");
+                    force = (transform.forward * _gearSpeeds[_currentGearIndex] * _attenuationRate);
                     _rigidBody.AddForce(force);
                     _attenuationRate *= _decelerationMultiplication;
 
                 }
                 else
                 {
+                    Debug.Log(_gearSpeeds[_currentGearIndex]);
                     force = (transform.forward * _gearSpeeds[_currentGearIndex] * _axelValue);
                     _rigidBody.AddForce(force);
                     _attenuationRate = ORIGINATTENUATIONVALUE;
@@ -110,7 +112,6 @@ public class BaseBike : MonoBehaviour
     /// </summary>
     public virtual void EngineStop()
     {
-        Debug.Log("エンスト");
         _currentGearIndex = 1;
     }
 

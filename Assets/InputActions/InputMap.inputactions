@@ -1,0 +1,76 @@
+{
+    "name": "InputMap",
+    "maps": [
+        {
+            "name": "GearChange",
+            "id": "7945de2d-af1f-4a3b-9684-4f26de37afab",
+            "actions": [
+                {
+                    "name": "GearUp",
+                    "type": "Button",
+                    "id": "87981ee3-71bd-4dcf-b592-f245335cd3bf",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "GearDown",
+                    "type": "Button",
+                    "id": "d70e28b6-f737-44ed-83dc-1fea288d50e5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "5768d6df-0a64-48c9-947e-34dfe11c1d6e",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GearUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ae3b034d-f581-4f6c-a150-6bc8fbebabe0",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GearUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "13793721-12f1-45f6-9176-bc83217c4b65",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GearDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d1b1c1d5-9c59-45a5-91c6-61df4a17964f",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GearDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

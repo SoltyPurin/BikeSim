@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class CAxel : MonoBehaviour
+public class Axel : MonoBehaviour
 {
     private Gamepad _gamePad;
     private float _rightTrigger = default;
@@ -19,9 +19,10 @@ public class CAxel : MonoBehaviour
         _gamePad = Gamepad.current;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         _rightTrigger = _gamePad.rightTrigger.ReadValue();
+        //Debug.Log(_rightTrigger);
         float outPutValue = Mathf.Clamp(_rightTrigger * 100, 0.1f, 100);
         _baseBike.UpdateAxelValue(outPutValue);
     }

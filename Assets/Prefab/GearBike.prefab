@@ -1434,14 +1434,14 @@ GameObject:
   - component: {fileID: 6723285540317204059}
   - component: {fileID: 3443473387804843490}
   - component: {fileID: 8909577133498639947}
-  - component: {fileID: 5723046975451327908}
   - component: {fileID: 1889338949641514190}
   - component: {fileID: 2753954191542025037}
   - component: {fileID: 3389443135670401946}
-  - component: {fileID: -1872271546414758870}
   - component: {fileID: 350652857681514857}
   - component: {fileID: 1031027308944860744}
   - component: {fileID: 1571014229875850710}
+  - component: {fileID: 3985906002946075963}
+  - component: {fileID: 3971795341401597467}
   m_Layer: 0
   m_Name: GearBike
   m_TagString: Player
@@ -1538,25 +1538,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8266d9fb3c26e9458c6744a3c61910e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5723046975451327908
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8114056003208786043}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e261d374eba17e5408ee723525428e8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _clutch: {fileID: 3443473387804843490}
-  _baseBike: {fileID: 5149686395372916099}
-  _bikeVelocity: {fileID: 8909577133498639947}
-  _permissionVelocity: 36
-  _canChangeGearTorelance: 2
-  _callCheckVelocityAfterGearChange: 0.9
-  _isAIControll: 0
 --- !u!114 &1889338949641514190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1604,19 +1585,6 @@ MonoBehaviour:
   _clutchScript: {fileID: 3443473387804843490}
   _upThreshold: 0.5
   _downThreshold: -0.5
---- !u!114 &-1872271546414758870
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8114056003208786043}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfd31b16b4407e04a83f50f823282fe3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _baseBike: {fileID: 5149686395372916099}
 --- !u!114 &350652857681514857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1659,9 +1627,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8114056003208786043}
   serializedVersion: 4
-  m_Mass: 5000
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Mass: 10
+  m_Drag: 1
+  m_AngularDrag: 1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -1676,8 +1644,34 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 16
   m_CollisionDetection: 2
+--- !u!114 &3985906002946075963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114056003208786043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eb50c0d4dde7454986d9f61b87eb185, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3971795341401597467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8114056003208786043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee64c7884ae582446a252c2d37c321d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isAIControl: 0
+  _baseBike: {fileID: 5149686395372916099}
 --- !u!1 &8273365339242154646
 GameObject:
   m_ObjectHideFlags: 0
