@@ -7,6 +7,8 @@ public class BikeHandring : MonoBehaviour
     //右曲がりはY軸がプラスのZ軸がマイナス
     [SerializeField] private BaseBike _baseBike = default;
     [SerializeField] private GameObject _playerBike = default;
+    [SerializeField,Header("バイク本体の見た目")]
+    private GameObject _bikeObject = default;
     private float _additionValue = 0.0f;
     private const float RETURNADDVALUE = 1.0f;
     private const float TORELANCE = 0.5f; //許容範囲
@@ -57,7 +59,9 @@ public class BikeHandring : MonoBehaviour
             }
         }
         _currentZ = Mathf.Clamp(_currentZ, -60f, 60f);
-        Quaternion rotation = Quaternion.Euler(0, _yawRoll, _currentZ);
+        float initZ = transform.rotation.eulerAngles.z;
+        Quaternion rotation = Quaternion.Euler(0, _yawRoll, initZ);
+        _bikeObject.transform.rotation = Quaternion.Euler(0, _yawRoll, _currentZ);
         _rigidBody.MoveRotation(rotation);
         //_rigidBody.MoveRotation(Quaternion.Euler(worldAngle));
 
