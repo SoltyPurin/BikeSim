@@ -9,7 +9,7 @@ public class BikeUIManager : MonoBehaviour
     [SerializeField] private Clutch _clutch = default;
     [SerializeField] private BaseBike _baseBike = default;
 
-    private string[] _gearNames = { "1", "N", "2", "3", "4", "5", "6" };
+    private string[] _gearNames = { "N", "1", "2", "3", "4", "5", "6" };
 
     private readonly string CLUTHTEXTNAME = "ClutchText";
     private readonly string GEARNUMBERTEXT = "GearNumberText";

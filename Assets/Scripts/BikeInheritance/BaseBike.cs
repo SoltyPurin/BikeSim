@@ -5,7 +5,7 @@ public class BaseBike : MonoBehaviour
     //デコレーター、分けた方がいい。重すぎる
     //神クラスを作ってそれの関係性を明らかにしてそれを分割
     protected float[] _gearSpeeds; //必ず速度を子クラスで設定する
-    protected int _currentGearIndex = 1;
+    protected int _currentGearIndex = 0;
     public int CurrentGearIndex
     {
         get { return _currentGearIndex; }
@@ -25,13 +25,11 @@ public class BaseBike : MonoBehaviour
     protected float _clutchValue;
     protected float _axelValue;
     protected float _maxSpeed;
-    protected string[] _gearNames = new string[] { "1", "N", "2", "3", "4", "5", "6" };
-    protected const int NEUTRALGEARINDEX = 1;
+    protected string[] _gearNames = new string[] { "N", "1", "2", "3", "4", "5", "6" };
+    protected const int NEUTRALGEARINDEX = 0;
     protected bool _isFirst = true;
     protected const float ORIGINATTENUATIONVALUE = 0.6f;
-    protected float _clutchEngageThreshold = 0.2f; //クラッチベタ押し検知
-    protected float _gearChangeTorelance = 0.7f; //しっかり半クラにしないとエンストするための変数
-    private float _targetClutchValue = 0;
+    protected float _axelEngageThreshold = 0.2f; //ベタ押し検知
 
     protected Rigidbody _rigidBody = default;
 
@@ -67,18 +65,22 @@ public class BaseBike : MonoBehaviour
     /// </summary>
     public virtual void MoveForward()
     {
+        Debug.DrawRay(transform.position, transform.forward * 5, Color.red);
         //_clutchValue = Mathf.Lerp(_clutchValue, _targetClutchValue, Time.deltaTime * _gearSpeeds[_currentGearIndex]);
         Vector3 force = transform.forward;
+        Debug.Log("現在のギアは" + _currentGearIndex);
         switch (_currentGearIndex)
         {
             case NEUTRALGEARINDEX:
                 if (_isFirst)
                 {
+                    Debug.Log("初回N");
                     force = (transform.forward * _gearSpeeds[_currentGearIndex] * _axelValue);
                     _rigidBody.AddForce(force);
                 }
                 else
                 {
+                    Debug.Log("次回N");
                     force = (transform.forward * _gearSpeeds[0] * _attenuationRate * _axelValue);
                     _rigidBody.AddForce(force);
                     _attenuationRate *= _decelerationMultiplication;
@@ -86,7 +88,7 @@ public class BaseBike : MonoBehaviour
                 break;
 
             default:
-                if (_axelValue <= _clutchEngageThreshold)
+                if (_axelValue <= _axelEngageThreshold)
                 {
                     Debug.Log("アクセル離し");
                     force = (transform.forward * _gearSpeeds[_currentGearIndex] * _attenuationRate);
@@ -112,17 +114,17 @@ public class BaseBike : MonoBehaviour
     /// </summary>
     public virtual void EngineStop()
     {
-        _currentGearIndex = 1;
+        _currentGearIndex = 0;
     }
 
 
     /// <summary>
-    /// クラッチの値を変更
+    /// 本作はクラッチを使わないバイクゲームになったのでこのメソッドは荼毘に付したよ
     /// </summary>
     /// <param name="value">左トリガーの値</param>
     public virtual void UpdateClutchValue(float value)
     {
-        _targetClutchValue = value;
+        //_targetClutchValue = value;
     }
     /// <summary>
     /// アクセルを吹かす

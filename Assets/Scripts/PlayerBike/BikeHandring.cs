@@ -5,65 +5,74 @@ public class BikeHandring : MonoBehaviour
     //ハンドリングは車体のY軸とZ軸を傾けることで表現する
     //左曲がりはY軸がマイナスのZ軸がプラス
     //右曲がりはY軸がプラスのZ軸がマイナス
+    #region Serialize変数
     [SerializeField] private BaseBike _baseBike = default;
-    [SerializeField] private GameObject _playerBike = default;
+    [SerializeField,Header("バイク本体")] 
+    private GameObject _playerBike = default;
     [SerializeField,Header("バイク本体の見た目")]
     private GameObject _bikeObject = default;
-    private float _additionValue = 0.0f;
-    private const float RETURNADDVALUE = 1.0f;
-    private const float TORELANCE = 0.5f; //許容範囲
-    private float _zero = 0.0f;
-    private const float FirstZRotation = 0.0f;
+    [SerializeField,Header("どれだけ曲がりやすいか")]
+    private float _yReturnAddValue = 1.0f;
     [SerializeField] Rigidbody _rigidBody = default;
+
+    #endregion
+    #region 変数
+    private float _zero = 0.0f;
     private float _currentZ = 0;
-    private float _yawRoll = -90;
+    private float _yawRoll = 0;
+    private float _prevY = 0;
+
+    #endregion
+    #region 定数
+    private const float TORELANCE = 0.5f; //許容範囲
+    private const float FIRST_Z_ROTATION = 0.0f;
+    private const float Z_RETURN_ADDVALUE = 1.0f;
+    private readonly string HORIZONTAL = "Horizontal";
+
+    #endregion
 
     private void Awake()
     {
         Invoke("GetAdditionValue", 0.1f);
     }
-    private void GetAdditionValue()
-    {
-        _additionValue = _baseBike.HandringAdditionValue;
-    }
     private void FixedUpdate()
     {
         InputHandring();
-        //RotationFix();
     }
 
     private void InputHandring()
     {
-        if (Input.GetAxis("Horizontal") > _zero) //右曲がり
+        if (Input.GetAxis(HORIZONTAL) > _zero) //右曲がり
         {
-            _yawRoll += _additionValue;
-            _currentZ -= _additionValue;
+            _prevY += _yReturnAddValue;
+            _currentZ -= Z_RETURN_ADDVALUE;
         }
-        else if (Input.GetAxis("Horizontal") < _zero) //左曲がり
+        else if (Input.GetAxis(HORIZONTAL) < _zero) //左曲がり
         {
-            _yawRoll -= _additionValue;
-            _currentZ += _additionValue;
+            _prevY -= _yReturnAddValue;
+            _currentZ += Z_RETURN_ADDVALUE;
         }
         else //入力無し
         {
-            bool isRightRotate = NormalizeAngle(_currentZ) < FirstZRotation - TORELANCE;
-            bool isLeftRotate = NormalizeAngle(_currentZ) > FirstZRotation + TORELANCE;
-            bool isStraight = Mathf.Abs(NormalizeAngle(_currentZ) - FirstZRotation) <= TORELANCE;
+            bool isRightRotate = NormalizeAngle(_currentZ) < FIRST_Z_ROTATION - TORELANCE;
+            bool isLeftRotate = NormalizeAngle(_currentZ) > FIRST_Z_ROTATION + TORELANCE;
+            bool isStraight = Mathf.Abs(NormalizeAngle(_currentZ) - FIRST_Z_ROTATION) <= TORELANCE;
             if (isRightRotate)
             {
-                _currentZ += RETURNADDVALUE;
+                _currentZ += Z_RETURN_ADDVALUE;
+
             }
             else if (isLeftRotate)
             {
-                _currentZ -= RETURNADDVALUE;
+                _currentZ -= Z_RETURN_ADDVALUE;
             }
         }
+        _yawRoll = _prevY;
         _currentZ = Mathf.Clamp(_currentZ, -60f, 60f);
         float initZ = transform.rotation.eulerAngles.z;
         Quaternion rotation = Quaternion.Euler(0, _yawRoll, initZ);
-        _bikeObject.transform.rotation = Quaternion.Euler(0, _yawRoll, _currentZ);
+        _bikeObject.transform.rotation = Quaternion.Euler(0,_yawRoll, _currentZ);
         _rigidBody.MoveRotation(rotation);
-        //_rigidBody.MoveRotation(Quaternion.Euler(worldAngle));
 
     }
 
@@ -78,19 +87,6 @@ public class BikeHandring : MonoBehaviour
         return angle;
     }
 
-    private void RotationFix()
-    {
-        float zRotation = NormalizeAngle(transform.eulerAngles.z);
-
-        if (zRotation >= 60f || zRotation <= -60f)
-        {
-            //_baseBike.EngineStop();
-            Vector3 fixedEuler = transform.eulerAngles;
-            fixedEuler.z = 0f;
-            _rigidBody.rotation = Quaternion.Euler(fixedEuler);
-            //transform.eulerAngles = fixedEuler;
-        }
-    }
 
 }
 

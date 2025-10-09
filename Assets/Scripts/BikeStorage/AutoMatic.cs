@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class AutoMatic : BaseBike
 {
-    private float[] _speeds = new float[] { 3.2f, 0.0f, 3.5f, 3.7f, 5.3f, 5.9f, 6.6f };
+    private float[] _speeds = new float[] { 0.0f, 3.2f, 3.5f, 3.7f, 5.3f, 5.9f, 6.6f };
     private float _handring = 0.6f;
     private float _attenuation = 0.8f;
     private float _accelHoldTime = 0.0f;
