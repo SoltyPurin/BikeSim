@@ -30,62 +30,20 @@ public class AutoMatic : BaseBike
 
     public override void MoveForward()
     {
+        base.MoveForward();
         Vector3 force = transform.forward;
         if(_axelValue > 0)
         {
             _isHoldAxel = true;
         }
-        switch (_currentGearIndex)
+        if (_isHoldAxel)
         {
-            case NEUTRALGEARINDEX:
-                if (_isFirst)
-                {
-                    force = (transform.forward * _gearSpeeds[_currentGearIndex] * _axelValue);
-                    _rigidBody.AddForce(force);
-                    //transform.Translate(0, 0, _gearSpeeds[_currentGearIndex] * _axelValue);
-                }
-                else
-                {
-                    force = (transform.forward * _gearSpeeds[0] * _attenuationRate * _axelValue);
-                    _rigidBody.AddForce(force);
-                    //transform.Translate(0, 0, _gearSpeeds[0] * _attenuationRate);
-                    _attenuationRate *= _decelerationMultiplication;
-                    _accelHoldTime += Time.deltaTime;
-                }
-                break;
-
-            default:
-                if (_axelValue <= 0)
-                {
-                    force = (transform.forward * _gearSpeeds[_currentGearIndex] * _attenuationRate/* * _axelValue*/);
-                    _rigidBody.AddForce(force);
-                    //transform.Translate(0, 0, _gearSpeeds[_currentGearIndex] * _attenuationRate);
-                    _attenuationRate *= _decelerationMultiplication;
-                    //_currentGearIndex = 0;
-                    _isHoldAxel = false;
-                }
-                else
-                {
-                    force = (transform.forward * _gearSpeeds[_currentGearIndex] * _axelValue);
-                    _rigidBody.AddForce(force);
-                    //transform.Translate(0, 0, _gearSpeeds[_currentGearIndex] * _axelValue);
-                    _attenuationRate = ORIGINATTENUATIONVALUE;
-                    _accelHoldTime += Time.deltaTime;
-                }
-                _isFirst = false;
-
-                break;
+            _accelHoldTime += Time.deltaTime;
         }
         if(_accelHoldTime >= GEARUPTIME)
         {
-            if(_currentGearIndex == 0)
-            {
-                _currentGearIndex = 2;
-            }
-            else
-            {
+
                 UpGear();
-            }
                 _accelHoldTime = 0;
             Debug.Log("ギアチェンジ");
         }

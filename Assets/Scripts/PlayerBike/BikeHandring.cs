@@ -31,10 +31,6 @@ public class BikeHandring : MonoBehaviour
 
     #endregion
 
-    private void Awake()
-    {
-        Invoke("GetAdditionValue", 0.1f);
-    }
     private void FixedUpdate()
     {
         InputHandring();
