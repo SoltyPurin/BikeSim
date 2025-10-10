@@ -15,11 +15,6 @@ public class BaseBike : MonoBehaviour
     {
         get { return _gearChangeCoolTime; }
     }
-    protected float _handringAdditionValue;
-    public float HandringAdditionValue
-    {
-        get { return _handringAdditionValue; }
-    }
     protected float _decelerationMultiplication = 0.98f; //_attenuationRateに乗算する値
     protected float _attenuationRate ; //惰性で動かすために速度に乗算する値、子クラスで書き換える
     protected float _clutchValue;

@@ -17,7 +17,6 @@ public class SportsBIke : BaseBike
             _gearSpeeds = new float[] { 0.0f, 0.6f, 1.2f, 1.8f, 2.4f, 3.0f, 3.6f };
         }
         _gearChangeCoolTime = 0.5f;
-        _handringAdditionValue = 0.3f;
         _attenuationRate = 0.6f;
     }
 
