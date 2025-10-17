@@ -5,8 +5,10 @@ using UnityEngine.InputSystem;
 
 public class SimpleGearChange : MonoBehaviour
 {
+    #region •Ï”
     private InputMap _gears = default;
     private BaseBike _baseBike = default;
+    #endregion
     private void Start()
     {
         _baseBike = GetComponent<BaseBike>();

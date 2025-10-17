@@ -11,8 +11,8 @@ public class BikeHandring : MonoBehaviour
     private GameObject _playerBike = default;
     [SerializeField,Header("バイク本体の見た目")]
     private GameObject _bikeObject = default;
-    [SerializeField,Header("どれだけ曲がりやすいか")]
-    private float _yReturnAddValue = 1.0f;
+    [SerializeField, Header("ステータスを読み込むScriptableObject")]
+    private BikeStatus _status = default;
     [SerializeField] Rigidbody _rigidBody = default;
 
     #endregion
@@ -21,7 +21,8 @@ public class BikeHandring : MonoBehaviour
     private float _currentZ = 0;
     private float _yawRoll = 0;
     private float _prevY = 0;
-
+    private float _zClampValue = 60;
+    private float _yReturnAddValue ;
     #endregion
     #region 定数
     private const float TORELANCE = 0.5f; //許容範囲
@@ -31,6 +32,10 @@ public class BikeHandring : MonoBehaviour
 
     #endregion
 
+    private void Awake()
+    {
+        _yReturnAddValue = _status.CurveAddValue;
+    }
     private void FixedUpdate()
     {
         InputHandring();
@@ -64,7 +69,7 @@ public class BikeHandring : MonoBehaviour
             }
         }
         _yawRoll = _prevY;
-        _currentZ = Mathf.Clamp(_currentZ, -60f, 60f);
+        _currentZ = Mathf.Clamp(_currentZ, -_zClampValue, _zClampValue);
         float initZ = transform.rotation.eulerAngles.z;
         Quaternion rotation = Quaternion.Euler(0, _yawRoll, initZ);
         _bikeObject.transform.rotation = Quaternion.Euler(0,_yawRoll, _currentZ);

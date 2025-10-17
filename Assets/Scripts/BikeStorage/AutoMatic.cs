@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class AutoMatic : BaseBike
 {
-    private float[] _speeds = new float[] { 0.0f, 3.2f, 3.5f, 3.7f, 5.3f, 5.9f, 6.6f };
     private float _attenuation = 0.8f;
     private float _accelHoldTime = 0.0f;
     [SerializeField] private const float GEARUPTIME = 5.0f;
@@ -11,7 +10,12 @@ public class AutoMatic : BaseBike
     private bool _isHoldAxel = false;  
     private void Awake()
     {
-        _gearSpeeds = _speeds;
+        for (int i = 0; i < _status.GearSpeeds.Count; i++)
+        {
+            _gearSpeeds.Add(_status.GearSpeeds[i]);
+            Debug.Log(i + "速のスピードは" + _gearSpeeds[i]);
+        }
+
         _attenuationRate = _attenuation;
         _currentGearIndex = 0;
     }

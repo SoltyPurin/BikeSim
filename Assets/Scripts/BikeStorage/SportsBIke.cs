@@ -3,21 +3,40 @@ public class SportsBIke : BaseBike
 {
     [SerializeField,Header("AI制御か？")]
     private bool _isAIControll = false;
+
     private void Awake()
     {
-        //インジェクションテーブルを使うとここのboolもいらなくなる
+        if (_status != null)
+        {
+            Debug.Log("ステータス読み込み可能");
+        }
+        else
+        {
+            Debug.Log("(ステータスが)ないです");
+        }
         //コンストラクタインジェクション
         //Dependency Injection←基本的な考えはこれ
         if (_isAIControll)
         {
-            _gearSpeeds = new float[] { 0.0f, 0.4f, 0.8f, 1.4f, 2.0f, 2.6f, 3.2f };
+            for (int i = 0; i < _status.AIGearSpeeds.Count; i++)
+            {
+                _gearSpeeds.Add(_status.AIGearSpeeds[i]);
+                Debug.Log("AIの"+i + "速のスピードは" + _gearSpeeds[i]);
+            }
+
         }
         else
         {
-            _gearSpeeds = new float[] { 0.0f, 0.6f, 1.2f, 1.8f, 2.4f, 3.0f, 3.6f };
+            for (int i = 0; i < _status.GearSpeeds.Count; i++)
+            {
+                    _gearSpeeds.Add(_status.GearSpeeds[i]);
+                    Debug.Log(i + "速のスピードは" + _gearSpeeds[i]);
+            }
         }
-        _gearChangeCoolTime = 0.5f;
-        _attenuationRate = 0.6f;
+        //_gearChangeCoolTime = 0.5f;
+        //_attenuationRate = 0.6f;
+        _gearChangeCoolTime = _status.GearChangeCoolTime;
+        _attenuationRate = _status.AttemiationRate;
     }
 
     private void FixedUpdate()

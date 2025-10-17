@@ -12,14 +12,25 @@ public class HandringBike : BaseBike
     {
         if (_isAIControll)
         {
-            _gearSpeeds = new float[] { 0.0f,3.2f,3.5f, 3.7f, 5.3f, 5.9f,6.6f }; //ここも定数化する
+            for (int i = 0; i < _status.AIGearSpeeds.Count; i++)
+            {
+                _gearSpeeds.Add(_status.AIGearSpeeds[i]);
+                Debug.Log("AIの" + i + "速のスピードは" + _gearSpeeds[i]);
+            }
+
         }
         else
         {
-            _gearSpeeds = new float[] { 0.0f, 0.2f, 0.6f, 0.8f, 1.4f, 2.0f, 2.6f }; //ここも定数化する
+            for (int i = 0; i < _status.GearSpeeds.Count; i++)
+            {
+                _gearSpeeds.Add(_status.GearSpeeds[i]);
+                Debug.Log(i + "速のスピードは" + _gearSpeeds[i]);
+            }
         }
-        _gearChangeCoolTime = 0.3f;
-        _attenuationRate = 0.99f; //ここで書き換えるのはマジックナンバー。インジェクションテーブルの別のとこから持ってきて代入する
+        //_gearChangeCoolTime = 0.3f;
+        //_attenuationRate = 0.99f; //ここで書き換えるのはマジックナンバー。インジェクションテーブルの別のとこから持ってきて代入する
+        _gearChangeCoolTime = _status.GearChangeCoolTime;
+        _attenuationRate = _status.AttemiationRate;
         //ていうかもしかしてScriptableObjectってのに変えた方がいいのかも
         //とりあえずマジックナンバーはマズいのでなんとかしろ
     }

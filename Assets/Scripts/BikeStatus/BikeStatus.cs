@@ -7,11 +7,32 @@ public class BikeStatus : ScriptableObject
 {
     [SerializeField,Header("各ギアの速度")]
     private  List<float> _gearSpeeds = new List<float>();
+    public List<float> GearSpeeds
+    {
+        get { return _gearSpeeds; }
+    }
+    [SerializeField,Header("AIのギア速度")]
+    private List<float> _aiGearSpeeds = new List<float>();
+    public List<float> AIGearSpeeds
+    {
+        get { return _aiGearSpeeds; }
+    }
     [SerializeField, Header("曲がりやすさ")]
     private float _curveAddValue = default;
+    public float CurveAddValue
+    {
+        get { return _curveAddValue; }
+    }
     [SerializeField,Header("ギアチェンジのクールタイム")]
     private float _gearChangeCoolTime = default;
+    public float GearChangeCoolTime
+    {
+        get { return _gearChangeCoolTime; }
+    }
     [SerializeField,Header("どれくらい惰性で動かすかの値")]
     private float _attenuationRate = default;
-
+    public float AttemiationRate
+    {
+        get { return _attenuationRate; }
+    }
 }

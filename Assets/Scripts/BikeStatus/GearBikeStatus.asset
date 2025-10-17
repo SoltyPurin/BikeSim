@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bfeee69e708b9664e812464981da1db5, type: 3}
-  m_Name: SpeedBikeStatus
+  m_Name: GearBikeStatus
   m_EditorClassIdentifier: 
   _gearSpeeds:
   - 0
-  - 0.6
-  - 1.2
-  - 1.8
-  - 2.4
-  - 3
-  - 3.6
+  - 0.3
+  - 0.7
+  - 0.9
+  - 1.5
+  - 2.1
+  - 2.7
   _aiGearSpeeds: []
   _curveAddValue: 1
-  _gearChangeCoolTime: 0.5
-  _attenuationRate: 0.99
+  _gearChangeCoolTime: 0
+  _attenuationRate: 0.75

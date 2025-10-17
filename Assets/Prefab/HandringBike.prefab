@@ -1266,6 +1266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c95f12b3012cc8f4ca6734c92226ca81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _status: {fileID: 11400000, guid: 205a093516e88e24ea9f624f9bfb43e6, type: 2}
   _isAIControll: 0
 --- !u!114 &1837984612774272611
 MonoBehaviour:
@@ -1282,7 +1283,7 @@ MonoBehaviour:
   _baseBike: {fileID: 2641046260961171641}
   _playerBike: {fileID: 6529873636067302075}
   _bikeObject: {fileID: 4250790151937691086}
-  _yReturnAddValue: 2
+  _status: {fileID: 11400000, guid: 205a093516e88e24ea9f624f9bfb43e6, type: 2}
   _rigidBody: {fileID: 7990895370191890273}
 --- !u!114 &8661188269451281528
 MonoBehaviour:

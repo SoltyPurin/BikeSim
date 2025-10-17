@@ -266,7 +266,6 @@ GameObject:
   - component: {fileID: 1404591881464005025}
   - component: {fileID: 8168382736373466030}
   - component: {fileID: 9043857291617462290}
-  - component: {fileID: 8952069714478955491}
   - component: {fileID: 4936194524881255870}
   - component: {fileID: 8104429926555620891}
   - component: {fileID: 8985180371041938516}
@@ -307,6 +306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de8d8b7a9ad6c4d4a81868718267c582, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _status: {fileID: 11400000, guid: b449fb96c1eae7441ae553f45e2a2133, type: 2}
 --- !u!114 &7424306124564243627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -322,7 +322,7 @@ MonoBehaviour:
   _baseBike: {fileID: 5728255724202500345}
   _playerBike: {fileID: 2447895249325847832}
   _bikeObject: {fileID: 2746397478266900027}
-  _yReturnAddValue: 1
+  _status: {fileID: 11400000, guid: b449fb96c1eae7441ae553f45e2a2133, type: 2}
   _rigidBody: {fileID: 1678092238707904700}
 --- !u!114 &1404591881464005025
 MonoBehaviour:
@@ -366,22 +366,6 @@ MonoBehaviour:
   _gearNumberText: {fileID: 0}
   _clutch: {fileID: 1404591881464005025}
   _baseBike: {fileID: 5728255724202500345}
---- !u!114 &8952069714478955491
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2447895249325847832}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f0a639b60c999a4690ed0907a5bd1a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _baseBike: {fileID: 5728255724202500345}
-  _clutchScript: {fileID: 1404591881464005025}
-  _upThreshold: 0.5
-  _downThreshold: -0.5
 --- !u!114 &4936194524881255870
 MonoBehaviour:
   m_ObjectHideFlags: 0

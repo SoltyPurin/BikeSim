@@ -10,17 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bfeee69e708b9664e812464981da1db5, type: 3}
-  m_Name: SpeedBikeStatus
+  m_Name: HandringBikeStatus
   m_EditorClassIdentifier: 
   _gearSpeeds:
   - 0
+  - 0.2
   - 0.6
-  - 1.2
-  - 1.8
-  - 2.4
-  - 3
-  - 3.6
-  _aiGearSpeeds: []
-  _curveAddValue: 1
-  _gearChangeCoolTime: 0.5
-  _attenuationRate: 0.99
+  - 0.8
+  - 1.4
+  - 2
+  - 2.6
+  _aiGearSpeeds:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  _curveAddValue: 2
+  _gearChangeCoolTime: 0.3
+  _attenuationRate: 0.6
