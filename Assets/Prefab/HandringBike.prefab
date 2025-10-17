@@ -1225,10 +1225,10 @@ GameObject:
   - component: {fileID: 8661188269451281528}
   - component: {fileID: 202741578422941211}
   - component: {fileID: 6809447789190054979}
-  - component: {fileID: 3399631304557881464}
   - component: {fileID: 973810806279944747}
   - component: {fileID: 1366968318758745086}
   - component: {fileID: 1468962178554105888}
+  - component: {fileID: 1119076690561903948}
   - component: {fileID: 7990895370191890273}
   - component: {fileID: 7715694509978589332}
   m_Layer: 0
@@ -1323,26 +1323,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 604d8de1753dc8f4c94558d580d62cb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _clutchValueText: {fileID: 0}
   _gearNumberText: {fileID: 0}
   _clutch: {fileID: 8661188269451281528}
   _baseBike: {fileID: 2641046260961171641}
---- !u!114 &3399631304557881464
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6529873636067302075}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f0a639b60c999a4690ed0907a5bd1a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _baseBike: {fileID: 2641046260961171641}
-  _clutchScript: {fileID: 8661188269451281528}
-  _upThreshold: 0.5
-  _downThreshold: -0.5
 --- !u!114 &973810806279944747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1379,6 +1362,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b6049702c4700b74893c1269e322be03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1119076690561903948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6529873636067302075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b9d24f073b0ef24c90501e0f05ef344, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!54 &7990895370191890273

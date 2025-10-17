@@ -160,7 +160,8 @@ public class BaseBike : MonoBehaviour
     /// </summary>
     public  void BrakeProtocol()
     {
-
+        Debug.Log("ƒuƒŒ[ƒL");
+        _axelValue = -1;
     }
 
 }

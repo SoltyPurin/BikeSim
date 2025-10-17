@@ -29,13 +29,4 @@ public class Clutch : MonoBehaviour
         _baseBike.UpdateClutchValue(LeftTrigger);
 
     }
-
-    /// <summary>
-    /// クラッチの値をセットする
-    /// </summary>
-    /// <param name="value">左トリガーの押し込み具合</param>
-    public void SetClutchValue(float value)
-    {
-        _leftTrigger = value;
-    }
 }
