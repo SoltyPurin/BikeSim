@@ -11,6 +11,12 @@ public class BikeStatus : ScriptableObject
     {
         get { return _gearSpeeds; }
     }
+    [SerializeField,Header("各ギアの最高速度")]
+    private List<float> _gearMaxSpeeds = new List<float>();
+    public List<float> GearMaxSpeeds
+    {
+        get { return _gearMaxSpeeds; }
+    }
     [SerializeField,Header("AIのギア速度")]
     private List<float> _aiGearSpeeds = new List<float>();
     public List<float> AIGearSpeeds

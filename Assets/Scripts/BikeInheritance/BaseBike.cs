@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 
 public class BaseBike : MonoBehaviour
@@ -24,7 +25,6 @@ public class BaseBike : MonoBehaviour
     protected float _attenuationRate ; //惰性で動かすために速度に乗算する値、子クラスで書き換える
     protected float _clutchValue;
     protected float _axelValue;
-    protected float _maxSpeed;
     protected string[] _gearNames = new string[] { "N", "1", "2", "3", "4", "5", "6" };
     protected const int NEUTRALGEARINDEX = 0;
     protected bool _isFirst = true;
@@ -46,7 +46,16 @@ public class BaseBike : MonoBehaviour
         if(_currentGearIndex < _gearSpeeds.Count -1)
         {
             _currentGearIndex++;
+            int saveIndex = _currentGearIndex;
+            _currentGearIndex = 0;
+            StartCoroutine(ChangeGear(saveIndex));
         }
+    }
+
+    private IEnumerator ChangeGear(int gear)
+    {
+        yield return new WaitForSeconds(0.5f);
+        _currentGearIndex = gear;
     }
 
     /// <summary>
@@ -65,10 +74,9 @@ public class BaseBike : MonoBehaviour
     /// </summary>
     public virtual void MoveForward()
     {
-        Debug.DrawRay(transform.position, transform.forward * 5, Color.red);
+        Debug.Log(_rigidBody.velocity.magnitude);
         //_clutchValue = Mathf.Lerp(_clutchValue, _targetClutchValue, Time.deltaTime * _gearSpeeds[_currentGearIndex]);
         Vector3 force = transform.forward;
-        Debug.Log("現在のギアは" + _currentGearIndex);
         switch (_currentGearIndex)
         {
             case NEUTRALGEARINDEX:
@@ -90,13 +98,11 @@ public class BaseBike : MonoBehaviour
     {
         if (_isFirst)
         {
-            Debug.Log("初回N");
             force = (transform.forward * _gearSpeeds[_currentGearIndex] * _axelValue);
             _rigidBody.AddForce(force);
         }
         else
         {
-            Debug.Log("次回N");
             force = (transform.forward * _gearSpeeds[0] * _attenuationRate * _axelValue);
             _rigidBody.AddForce(force);
             _attenuationRate *= _decelerationMultiplication;
@@ -112,7 +118,6 @@ public class BaseBike : MonoBehaviour
     {
         if (_axelValue <= _axelEngageThreshold)
         {
-            Debug.Log("アクセル離し");
             force = (transform.forward * _gearSpeeds[_currentGearIndex] * _attenuationRate);
             _rigidBody.AddForce(force);
             _attenuationRate *= _decelerationMultiplication;
@@ -120,9 +125,18 @@ public class BaseBike : MonoBehaviour
         }
         else
         {
-            Debug.Log(_gearSpeeds[_currentGearIndex]);
+            float speed = (float)Mathf.Sqrt(Mathf.Pow(_rigidBody.velocity.x, 2) + Mathf.Pow(_rigidBody.velocity.z, 2));
             force = (transform.forward * _gearSpeeds[_currentGearIndex] * _axelValue);
             _rigidBody.AddForce(force);
+            Debug.Log("加える力は"+force);
+            if (speed >= _status.GearMaxSpeeds[_currentGearIndex])
+            {
+                _rigidBody.velocity = new Vector3(
+                    _rigidBody.velocity.x / (speed / _status.GearMaxSpeeds[_currentGearIndex]),
+                    _rigidBody.velocity.y,
+                    _rigidBody.velocity.z / (speed / _status.GearMaxSpeeds[_currentGearIndex])
+                    );
+            }
             _attenuationRate = ORIGINATTENUATIONVALUE;
         }
         _isFirst = false;
@@ -160,7 +174,6 @@ public class BaseBike : MonoBehaviour
     /// </summary>
     public  void BrakeProtocol()
     {
-        Debug.Log("ブレーキ");
         _axelValue = -1;
     }
 

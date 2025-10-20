@@ -1,5 +1,5 @@
 using UnityEngine;
-public class SportsBIke : BaseBike
+public class SportsBike : BaseBike
 {
     [SerializeField,Header("AIêßå‰Ç©ÅH")]
     private bool _isAIControll = false;

@@ -20,6 +20,14 @@ MonoBehaviour:
   - 1.5
   - 2.1
   - 2.7
+  _gearMaxSpeeds:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
   _aiGearSpeeds: []
   _curveAddValue: 1
   _gearChangeCoolTime: 0
