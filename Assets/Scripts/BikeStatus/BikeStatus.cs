@@ -17,6 +17,18 @@ public class BikeStatus : ScriptableObject
     {
         get { return _gearMaxSpeeds; }
     }
+    [SerializeField, Header("そのギアの最大速度の何%が出ていればギアチェンジ成立するか")]
+    private float _successGearChangeRatio = 0.7f;
+    public float SuccessGearChangeRatio
+    {
+        get{ return _successGearChangeRatio; }
+    }
+    [SerializeField,Header("各ギアごとの速度の上昇値を決めるカーブ")]
+    private List<AnimationCurve> _gearCurve = new List<AnimationCurve>();
+    public List<AnimationCurve> GearCurve
+    {
+        get { return _gearCurve; }
+    }
     [SerializeField,Header("AIのギア速度")]
     private List<float> _aiGearSpeeds = new List<float>();
     public List<float> AIGearSpeeds

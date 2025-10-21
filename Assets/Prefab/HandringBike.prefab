@@ -616,12 +616,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3501937235193089902}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.10758128, y: 0, z: 0, w: 0.9941963}
-  m_LocalPosition: {x: 0, y: 0.6129999, z: -0.11399998}
+  m_LocalRotation: {x: 0.10758128, y: -0, z: -0, w: 0.9941963}
+  m_LocalPosition: {x: 0, y: 0.6129999, z: -0.11400032}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7684883141282788728}
+  m_Father: {fileID: 227470951430707447}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &4560482857423446215
 Camera:
@@ -791,7 +791,6 @@ Transform:
   - {fileID: 3747824689481493383}
   - {fileID: 415037655892446946}
   - {fileID: 5525948480565939682}
-  - {fileID: 2955601801243663542}
   m_Father: {fileID: 227470951430707447}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1 &4318110120129745852
@@ -1252,6 +1251,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7684883141282788728}
+  - {fileID: 2955601801243663542}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2641046260961171641
@@ -1323,8 +1323,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 604d8de1753dc8f4c94558d580d62cb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gearNumberText: {fileID: 0}
-  _clutch: {fileID: 8661188269451281528}
   _baseBike: {fileID: 2641046260961171641}
 --- !u!114 &973810806279944747
 MonoBehaviour:

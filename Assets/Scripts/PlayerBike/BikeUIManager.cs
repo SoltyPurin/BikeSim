@@ -17,9 +17,8 @@ public class BikeUIManager : MonoBehaviour
         //_clutchValueText = GameObject.FindWithTag(CLUTHTEXTNAME).GetComponent<Text>();
         _gearNumberText = GameObject.FindWithTag(GEARNUMBERTEXT).GetComponent <Text>();
     }
-    private void FixedUpdate()
+    public void UpdateGearText(int gearNumber)
     {
-        //_clutchValueText.text = _clutch.LeftTrigger.ToString("F1");
-        _gearNumberText.text = _gearNames[_baseBike.CurrentGearIndex];
+        _gearNumberText.text = _gearNames[gearNumber];
     }
 }

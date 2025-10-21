@@ -16,6 +16,7 @@ public class BaseBike : MonoBehaviour
     {
         get { return _currentGearIndex; }
     }
+    private int _viewGearIndex = 0;
     protected float _gearChangeCoolTime;
     public float GearChangeCoolTime
     {
@@ -32,10 +33,12 @@ public class BaseBike : MonoBehaviour
     protected float _axelEngageThreshold = 0.2f; //ベタ押し検知
 
     protected Rigidbody _rigidBody = default;
+    private BikeUIManager _uiManager = default;
 
     public virtual void Start()
     {
         _rigidBody = GetComponent<Rigidbody>();
+        _uiManager = GetComponent<BikeUIManager>();
     }
 
     /// <summary>
@@ -45,17 +48,26 @@ public class BaseBike : MonoBehaviour
     {
         if(_currentGearIndex < _gearSpeeds.Count -1)
         {
-            _currentGearIndex++;
-            int saveIndex = _currentGearIndex;
-            _currentGearIndex = 0;
-            StartCoroutine(ChangeGear(saveIndex));
+            //_currentGearIndex++;
+            float gearConnectValue = _status.GearMaxSpeeds[_currentGearIndex] * _status.SuccessGearChangeRatio;
+            Debug.Log("ギアチェンジに必要な速度は" + gearConnectValue);
+            Debug.Log("現在の速度は" + CalcCurrentBikeSpeed());
+            if (CalcCurrentBikeSpeed() >= gearConnectValue)
+            {
+                Debug.Log("ギアチェンジ成功！");
+                _currentGearIndex++;
+                _viewGearIndex = _currentGearIndex;
+                _currentGearIndex = Mathf.Clamp(_currentGearIndex, 0, 6);
+                _uiManager.UpdateGearText(_currentGearIndex);
+            }
+            else
+            {
+                _viewGearIndex++;
+                _viewGearIndex = Mathf.Clamp(_viewGearIndex, 0, 6);
+                Debug.Log("ギアチェンジ失敗");
+                _uiManager.UpdateGearText(_viewGearIndex);
+            }
         }
-    }
-
-    private IEnumerator ChangeGear(int gear)
-    {
-        yield return new WaitForSeconds(0.5f);
-        _currentGearIndex = gear;
     }
 
     /// <summary>
@@ -66,6 +78,8 @@ public class BaseBike : MonoBehaviour
         if(_currentGearIndex > 0)
         {
             _currentGearIndex--;
+            _viewGearIndex = _currentGearIndex;
+            _uiManager.UpdateGearText(_viewGearIndex);
         }
     }
 
@@ -74,7 +88,7 @@ public class BaseBike : MonoBehaviour
     /// </summary>
     public virtual void MoveForward()
     {
-        Debug.Log(_rigidBody.velocity.magnitude);
+        //Debug.Log(_rigidBody.velocity.magnitude);
         //_clutchValue = Mathf.Lerp(_clutchValue, _targetClutchValue, Time.deltaTime * _gearSpeeds[_currentGearIndex]);
         Vector3 force = transform.forward;
         switch (_currentGearIndex)
@@ -125,10 +139,14 @@ public class BaseBike : MonoBehaviour
         }
         else
         {
-            float speed = (float)Mathf.Sqrt(Mathf.Pow(_rigidBody.velocity.x, 2) + Mathf.Pow(_rigidBody.velocity.z, 2));
+            float speed = CalcCurrentBikeSpeed();
+            float maxSpeed = _status.GearMaxSpeeds[_currentGearIndex];
+            float speedNormalized = Mathf.Clamp(speed/maxSpeed, 0.1f, 1f);
+            //x軸が速度のy軸が速度の上がりやすさ
+            float initCurve = _status.GearCurve[_currentGearIndex].Evaluate(speedNormalized);
             force = (transform.forward * _gearSpeeds[_currentGearIndex] * _axelValue);
             _rigidBody.AddForce(force);
-            Debug.Log("加える力は"+force);
+            //Debug.Log("加える力は"+force);
             if (speed >= _status.GearMaxSpeeds[_currentGearIndex])
             {
                 _rigidBody.velocity = new Vector3(
@@ -140,15 +158,24 @@ public class BaseBike : MonoBehaviour
             _attenuationRate = ORIGINATTENUATIONVALUE;
         }
         _isFirst = false;
-
     }
 
     /// <summary>
-    /// エンスト
+    /// 現在のスピードを計算するメソッド
+    /// </summary>
+    /// <returns>現在の速度</returns>
+    private float CalcCurrentBikeSpeed()
+    {
+        float speed = (float)Mathf.Sqrt(Mathf.Pow(_rigidBody.velocity.x, 2) + Mathf.Pow(_rigidBody.velocity.z, 2));
+        return speed;
+    }
+
+    /// <summary>
+    /// エンスト、邪魔ゴミ
     /// </summary>
     public virtual void EngineStop()
     {
-        _currentGearIndex = 0;
+        //_currentGearIndex = 0;
     }
 
 
