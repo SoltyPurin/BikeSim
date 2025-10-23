@@ -29,7 +29,6 @@ public class BaseBike : MonoBehaviour
     protected float _attenuationRate ; //惰性で動かすために速度に乗算する値、子クラスで書き換える
     protected float _clutchValue;
     protected float _axelValue;
-    protected string[] _gearNames = new string[] { "N", "1", "2", "3", "4", "5", "6" };
     protected const int NEUTRALGEARINDEX = 0;
     protected bool _isFirst = true;
     protected const float ORIGINATTENUATIONVALUE = 0.6f;

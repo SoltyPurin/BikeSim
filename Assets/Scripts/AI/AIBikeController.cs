@@ -14,6 +14,9 @@ public class AIBikeController : MonoBehaviour,IAiInitializer
     private float _handringMaxValue = 30;
     [SerializeField,Header("アクセルに追加していく値")]
     private float _axelPlusValue = 1;
+    [SerializeField, Header("プレイヤーとどれくらい離れたらギアを下げるか決める距離")]
+    private float _gearDownDistance = 10f;
+    private AIMesureDistanceToPlayer _mesureDistance = default;
     private AIDetectGearChangeCurve _detectCurve = default;
     private AIGearChange _gearChange = default;
     private int _currentWaypointIndex = 0;
@@ -22,7 +25,7 @@ public class AIBikeController : MonoBehaviour,IAiInitializer
     private float _randomWaypointDeviationsX;
     private float _randomWaypointDeviationsZ;
     private Vector3 _waypointDeviationOffset;
-    private float _initAxelValue = 0;
+    private float _currentAxelValue = 0;
     public void Initialize()
     {
         _randomWaypointDeviationsX = Random.Range(-10, 10);
@@ -32,6 +35,8 @@ public class AIBikeController : MonoBehaviour,IAiInitializer
         _detectCurve =GetComponent<AIDetectGearChangeCurve>();
         _detectCurve.Initialize();
         _gearChange = GetComponent<AIGearChange>();
+        _mesureDistance = GetComponent<AIMesureDistanceToPlayer>();
+        _mesureDistance.Initialize();
         CheckCurve();
     }
 
@@ -46,7 +51,12 @@ public class AIBikeController : MonoBehaviour,IAiInitializer
 
         if (_gearChange.MesureSpeed(_bike.Status.GearMaxSpeeds[_bike.CurrentGearIndex]))
         {
-            UpGearProtocol();
+            ShiftUpProtocol();
+        }
+        if (_mesureDistance.MesureDistance(_gearDownDistance))
+        {
+            ResetAxel();
+            ShiftDownProtocol();
         }
         HandleWaypointMovement();
     }
@@ -57,15 +67,15 @@ public class AIBikeController : MonoBehaviour,IAiInitializer
     /// <returns></returns>
     private float AxelPlus()
     {
-        _initAxelValue += _axelPlusValue;
-        _initAxelValue *= 100;
-        _initAxelValue = Mathf.Clamp(_initAxelValue, 0.1f, 100);
-        return _initAxelValue;
+        _currentAxelValue += _axelPlusValue;
+        _currentAxelValue *= 100;
+        _currentAxelValue = Mathf.Clamp(_currentAxelValue, 0.1f, 100);
+        return _currentAxelValue;
     }
 
     public void ResetAxel()
     {
-        _initAxelValue = 0.1f;
+        _currentAxelValue = 0.1f;
     }
 
     /// <summary>
@@ -122,14 +132,13 @@ public class AIBikeController : MonoBehaviour,IAiInitializer
         switch (curve)
         {
             case 0:
-                _bike.DownGear();
+                ShiftDownProtocol();
                 ResetAxel();
-                Debug.Log("AIギア下げる");
                 break;
 
             case 1:
                 ResetAxel();
-                UpGearProtocol();
+                ShiftUpProtocol();
                 break;
 
             default:
@@ -138,10 +147,16 @@ public class AIBikeController : MonoBehaviour,IAiInitializer
         }
     }
 
-    private void UpGearProtocol()
+    private void ShiftUpProtocol()
     {
         Debug.Log("AIギア上げる");
         _bike.UpGear();
+    }
+
+    private void ShiftDownProtocol()
+    {
+        Debug.Log("AIギア下げる");
+        _bike.DownGear();
     }
 
 }

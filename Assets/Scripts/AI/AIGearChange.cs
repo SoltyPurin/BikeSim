@@ -17,7 +17,7 @@ public class AIGearChange : MonoBehaviour
     {
         bool canGearUp = false;
         float gearConnectValue = maxSpeed* _status.SuccessGearChangeRatio;
-        Debug.Log("Œ»Ý‚Ì‘¬“x‚Í" + CalcCurrentBikeSpeed());
+        //Debug.Log("Œ»Ý‚Ì‘¬“x‚Í" + CalcCurrentBikeSpeed());
         if (CalcCurrentBikeSpeed() >= gearConnectValue)
         {
             canGearUp = true;
