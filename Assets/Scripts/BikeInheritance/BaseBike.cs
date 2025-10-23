@@ -7,6 +7,10 @@ public class BaseBike : MonoBehaviour
 {
     [SerializeField, Header("ステータスを設定するScriptableObject")]
     protected BikeStatus _status;
+    public BikeStatus Status
+    {
+        get { return _status; }
+    }
 
     //デコレーター、分けた方がいい。重すぎる
     //神クラスを作ってそれの関係性を明らかにしてそれを分割
@@ -16,7 +20,6 @@ public class BaseBike : MonoBehaviour
     {
         get { return _currentGearIndex; }
     }
-    private int _viewGearIndex = 0;
     protected float _gearChangeCoolTime;
     public float GearChangeCoolTime
     {
@@ -33,9 +36,13 @@ public class BaseBike : MonoBehaviour
     protected float _axelEngageThreshold = 0.2f; //ベタ押し検知
 
     protected Rigidbody _rigidBody = default;
+    public Rigidbody RigidBody
+    {
+        get { return _rigidBody; }
+    }
     private BikeUIManager _uiManager = default;
 
-    public virtual void Start()
+    public virtual void Awake()
     {
         _rigidBody = GetComponent<Rigidbody>();
         _uiManager = GetComponent<BikeUIManager>();
@@ -48,25 +55,22 @@ public class BaseBike : MonoBehaviour
     {
         if(_currentGearIndex < _gearSpeeds.Count -1)
         {
-            //_currentGearIndex++;
             float gearConnectValue = _status.GearMaxSpeeds[_currentGearIndex] * _status.SuccessGearChangeRatio;
-            //Debug.Log("ギアチェンジに必要な速度は" + gearConnectValue);
-            //Debug.Log("現在の速度は" + CalcCurrentBikeSpeed());
             if (CalcCurrentBikeSpeed() >= gearConnectValue)
             {
                 Debug.Log("ギアチェンジ成功！");
                 _currentGearIndex++;
-                _viewGearIndex = _currentGearIndex;
                 _currentGearIndex = Mathf.Clamp(_currentGearIndex, 0, 6);
-                _uiManager.UpdateGearText(_currentGearIndex);
+                UpdateUI(_currentGearIndex);
             }
-            else
-            {
-                _viewGearIndex++;
-                _viewGearIndex = Mathf.Clamp(_viewGearIndex, 0, 6);
-                Debug.Log("ギアチェンジ失敗");
-                _uiManager.UpdateGearText(_viewGearIndex);
-            }
+        }
+        Debug.Log("現在のギアは"+_currentGearIndex);
+    }
+    private void UpdateUI(int updateValue)
+    {
+        if(_uiManager != null)
+        {
+            _uiManager.UpdateGearText(updateValue);
         }
     }
 
@@ -78,9 +82,10 @@ public class BaseBike : MonoBehaviour
         if(_currentGearIndex > 0)
         {
             _currentGearIndex--;
-            _viewGearIndex = _currentGearIndex;
-            _uiManager.UpdateGearText(_viewGearIndex);
+            UpdateUI(_currentGearIndex);
         }
+        Debug.Log("現在のギアは" + _currentGearIndex);
+
     }
 
     /// <summary>
@@ -88,8 +93,6 @@ public class BaseBike : MonoBehaviour
     /// </summary>
     public virtual void MoveForward()
     {
-        //Debug.Log(_rigidBody.velocity.magnitude);
-        //_clutchValue = Mathf.Lerp(_clutchValue, _targetClutchValue, Time.deltaTime * _gearSpeeds[_currentGearIndex]);
         Vector3 force = transform.forward;
         switch (_currentGearIndex)
         {
@@ -146,7 +149,6 @@ public class BaseBike : MonoBehaviour
             float initCurve = _status.GearCurve[_currentGearIndex].Evaluate(speedNormalized);
             force = (transform.forward * _gearSpeeds[_currentGearIndex] * _axelValue);
             _rigidBody.AddForce(force);
-            //Debug.Log("加える力は"+force);
             if (speed >= _status.GearMaxSpeeds[_currentGearIndex])
             {
                 _rigidBody.velocity = new Vector3(

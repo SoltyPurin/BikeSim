@@ -7,13 +7,10 @@ public class AIDetectGearChangeCurve : MonoBehaviour
     [SerializeField, Header("‚Ç‚ê‚­‚ç‚¢‹È‚ª‚Á‚Ä‚¢‚½‚çƒMƒA‚ð‰º‚°‚é‚©")]
     private float _curveThshould = 10f;
 
-    private BaseBike _bike = default;
-
     private AIBikeController _controll = default;
 
     public void Initialize()
     {
-        _bike = GetComponent<BaseBike>();
         _controll = GetComponent<AIBikeController>();
     }
 

@@ -8,14 +8,13 @@ public class HandringBike : BaseBike
     [SerializeField, Header("AI制御か？")]
     private bool _isAIControll = false;
 
-    private void Awake()
+    private void Start()
     {
         if (_isAIControll)
         {
             for (int i = 0; i < _status.AIGearSpeeds.Count; i++)
             {
                 _gearSpeeds.Add(_status.AIGearSpeeds[i]);
-                Debug.Log("AIの" + i + "速のスピードは" + _gearSpeeds[i]);
             }
 
         }
@@ -24,7 +23,6 @@ public class HandringBike : BaseBike
             for (int i = 0; i < _status.GearSpeeds.Count; i++)
             {
                 _gearSpeeds.Add(_status.GearSpeeds[i]);
-                Debug.Log(i + "速のスピードは" + _gearSpeeds[i]);
             }
         }
         //_gearChangeCoolTime = 0.3f;
@@ -39,6 +37,10 @@ public class HandringBike : BaseBike
 
     private void FixedUpdate()
     {
+        if(_isAIControll)
+        {
+            return;
+        }
         MoveForward();
     }
 

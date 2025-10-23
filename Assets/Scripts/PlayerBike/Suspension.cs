@@ -4,13 +4,14 @@ public class Suspension : MonoBehaviour
 {
     private RaycastHit _raycastHit;
     private int _layerMask;
-    private float _distance = 0.1f;
+    [SerializeField,Header("レイの長さ")]
+    private float _distance = 1f;
     private bool _isGrounded;
     [SerializeField, Header("中心から見て横のレイのスタート地点")]
     private float _besideRayPos = 0.5f;
 
-    [SerializeField] private bool _isPlayer = false;
-
+    [SerializeField, Header("下げる値")]
+    private float _downValue = 0.1f;
     private void Awake()
     {
         _layerMask = LayerMask.GetMask("Ground");
@@ -21,18 +22,40 @@ public class Suspension : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        Vector3 rayOrigin = transform.position + Vector3.down * 0.5f;
-        Vector3 rayDirection = Vector3.down;
-        Debug.DrawRay(rayOrigin, rayDirection * _distance, Color.red);
+        //Debug.DrawRay(rayOrigin, rayDirection * _distance, Color.red);
+        float curZ = transform.rotation.z;
 
-        if (!_isGrounded)
+        switch (ReturnLeftOrRightFloat())
         {
-            float fallSpeed = 1.5f;
-            Vector3 newPosition = transform.position;
-            newPosition.y -= fallSpeed * Time.deltaTime;
-            transform.position = newPosition;
+            case 0:
+                Debug.Log("浮いてない");
+                break;
 
+            case 1:
+                //左が浮いてるためZプラス
+                curZ += _downValue;
+                transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, curZ);
+                break;
+
+            case 2:
+                //右が浮いてるためZマイナス
+                curZ -= _downValue;
+                transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, curZ);
+
+                break;
+
+            default:
+                break;
         }
+
+        //if (!_isGrounded)
+        //{
+        //    float fallSpeed = 1.5f;
+        //    Vector3 newPosition = transform.position;
+        //    newPosition.y -= fallSpeed * Time.deltaTime;
+        //    transform.position = newPosition;
+
+        //}
     }
     /// <summary>
     /// 左右どちらかが浮いてるか確認するメソッド
@@ -44,7 +67,7 @@ public class Suspension : MonoBehaviour
         Vector3 rayDirection = Vector3.down;
         Vector3 leftRay = transform.position + Vector3.left * _besideRayPos;
         Vector3 rightRay = transform.position + Vector3.right * _besideRayPos;
-        if(Physics.Raycast(leftRay,rayDirection,out _raycastHit, _distance, _layerMask))
+        if (Physics.Raycast(leftRay,rayDirection,out _raycastHit, _distance, _layerMask))
         {
             Debug.Log("左側が浮いてる");
             leftOrRight = 1;
@@ -54,5 +77,15 @@ public class Suspension : MonoBehaviour
             leftOrRight = 2;
         }
         return leftOrRight;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Vector3 rayDirection = Vector3.down;
+        Vector3 leftRay = transform.position + Vector3.left * _besideRayPos;
+        Vector3 rightRay = transform.position + Vector3.right * _besideRayPos;
+
+        Debug.DrawRay(leftRay, rayDirection * _distance, Color.red);
+        Debug.DrawRay(rightRay, rayDirection * _distance, Color.red);
     }
 }

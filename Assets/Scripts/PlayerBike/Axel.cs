@@ -22,7 +22,6 @@ public class Axel : MonoBehaviour
     private void Update()
     {
         _rightTrigger = _gamePad.rightTrigger.ReadValue();
-        //Debug.Log(_rightTrigger);
         float outPutValue = Mathf.Clamp(_rightTrigger * 100, 0.1f, 100);
         _baseBike.UpdateAxelValue(outPutValue);
     }

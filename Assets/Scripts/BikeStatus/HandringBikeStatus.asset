@@ -193,12 +193,12 @@ MonoBehaviour:
     m_RotationOrder: 4
   _aiGearSpeeds:
   - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
+  - 5
+  - 10
+  - 15
+  - 20
+  - 25
+  - 30
   _curveAddValue: 2
   _gearChangeCoolTime: 0.3
   _attenuationRate: 0.6

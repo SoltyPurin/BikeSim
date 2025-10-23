@@ -6,22 +6,22 @@ public class AIBikeController : MonoBehaviour,IAiInitializer
 {
     [SerializeField,Header("バイク本体のスクリプト")]
     private BaseBike _bike;
-    [SerializeField,Header("クラッチのスクリプト")]
-    private Clutch _aiClutch;
     [SerializeField,Header("目標地点を登録する")]
     private List<Transform> _waypoints;
     [SerializeField, Header("ハンドリング精度の最低値")]
     private float _handringMinValue = 10;
     [SerializeField, Header("ハンドリング精度の最大値")]
     private float _handringMaxValue = 30;
+    [SerializeField,Header("アクセルに追加していく値")]
+    private float _axelPlusValue = 1;
     private AIDetectGearChangeCurve _detectCurve = default;
+    private AIGearChange _gearChange = default;
     private int _currentWaypointIndex = 0;
     private float _personalHandlingSpeed;
     private float _reachThreshold = 10f;
     private float _randomWaypointDeviationsX;
     private float _randomWaypointDeviationsZ;
     private Vector3 _waypointDeviationOffset;
-    private float _initClutchValue = 0;
     private float _initAxelValue = 0;
     public void Initialize()
     {
@@ -31,6 +31,7 @@ public class AIBikeController : MonoBehaviour,IAiInitializer
         _personalHandlingSpeed = Random.Range(_handringMinValue, _handringMaxValue);
         _detectCurve =GetComponent<AIDetectGearChangeCurve>();
         _detectCurve.Initialize();
+        _gearChange = GetComponent<AIGearChange>();
         CheckCurve();
     }
 
@@ -38,17 +39,16 @@ public class AIBikeController : MonoBehaviour,IAiInitializer
 
     private void FixedUpdate()
     {
-        // 最初にクラッチを全開に離す
-        _bike.UpdateClutchValue(ClutchPlus());
-
         //アクセルを徐々にふかす
         _bike.UpdateAxelValue(AxelPlus());
         // 自動で前に進む処理
         _bike.MoveForward();
 
+        if (_gearChange.MesureSpeed(_bike.Status.GearMaxSpeeds[_bike.CurrentGearIndex]))
+        {
+            UpGearProtocol();
+        }
         HandleWaypointMovement();
-
-        //Debug.Log(_bike.CurrentGearIndex);
     }
 
     /// <summary>
@@ -57,38 +57,15 @@ public class AIBikeController : MonoBehaviour,IAiInitializer
     /// <returns></returns>
     private float AxelPlus()
     {
-        _initAxelValue += 0.5f;
+        _initAxelValue += _axelPlusValue;
+        _initAxelValue *= 100;
         _initAxelValue = Mathf.Clamp(_initAxelValue, 0.1f, 100);
         return _initAxelValue;
     }
 
     public void ResetAxel()
     {
-        //if(_)
-        _initAxelValue = 0;
-    }
-
-    /// <summary>
-    /// クラッチを徐々に開いていく
-    /// </summary>
-    /// <returns>現在のクラッチレバーの値</returns>
-    private float ClutchPlus()
-    {
-        if(_initClutchValue >0.5f &&  _initClutchValue < 0.7f)
-        {
-            _initClutchValue += 0.001f;
-        }
-        else
-        {
-            _initClutchValue += 0.01f;
-        }
-        _initClutchValue = Mathf.Clamp(_initClutchValue, 0, 1);
-        return _initClutchValue;
-    }
-
-    public void ResetClutch()
-    {
-        _initClutchValue = 0;
+        _initAxelValue = 0.1f;
     }
 
     /// <summary>
@@ -146,30 +123,25 @@ public class AIBikeController : MonoBehaviour,IAiInitializer
         {
             case 0:
                 _bike.DownGear();
-                if (_bike.CurrentGearIndex == 1)
-                {
-                    _bike.DownGear();
-                }
-                ResetClutch();
                 ResetAxel();
                 Debug.Log("AIギア下げる");
                 break;
 
             case 1:
-                _bike.UpGear();
-                if (_bike.CurrentGearIndex == 1)
-                {
-                    _bike.UpGear();
-                }
-                ResetClutch();
                 ResetAxel();
-                Debug.Log("AIギア上げる");
+                UpGearProtocol();
                 break;
 
             default:
                 Debug.Log("AIそのまま");
                 break;
         }
+    }
+
+    private void UpGearProtocol()
+    {
+        Debug.Log("AIギア上げる");
+        _bike.UpGear();
     }
 
 }
