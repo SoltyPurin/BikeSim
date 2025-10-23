@@ -310,7 +310,7 @@ Transform:
   m_GameObject: {fileID: 82780172}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -218.71, y: 1.141, z: -35.22}
+  m_LocalPosition: {x: -218.71, y: 1.141, z: -37.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1539,10 +1539,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: HandringBike
       objectReference: {fileID: 0}
+    - target: {fileID: 7990895370191890273, guid: 2f7f967fff699004b8ac3be19aa76217, type: 3}
+      propertyPath: m_Constraints
+      value: 80
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6529873636067302075, guid: 2f7f967fff699004b8ac3be19aa76217, type: 3}
+      insertIndex: 10
+      addedObject: {fileID: 2063706378}
   m_SourcePrefab: {fileID: 100100000, guid: 2f7f967fff699004b8ac3be19aa76217, type: 3}
 --- !u!1001 &874909625
 PrefabInstance:
@@ -2306,6 +2313,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 525f1d5730fe927409ef4f806ebcfb56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _besideRayPos: 0.5
   _isPlayer: 0
 --- !u!114 &1112650345
 MonoBehaviour:
@@ -4404,7 +4412,7 @@ Transform:
   m_GameObject: {fileID: 2037247106}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -192.2, y: 0.548, z: -21.65}
+  m_LocalPosition: {x: -192.2, y: 0.548, z: -28.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4626,6 +4634,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1004726039}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2063706365 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6529873636067302075, guid: 2f7f967fff699004b8ac3be19aa76217, type: 3}
+  m_PrefabInstance: {fileID: 862302493}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2063706378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2063706365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 525f1d5730fe927409ef4f806ebcfb56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _besideRayPos: 0.5
+  _isPlayer: 0
 --- !u!1 &2072695981
 GameObject:
   m_ObjectHideFlags: 0
