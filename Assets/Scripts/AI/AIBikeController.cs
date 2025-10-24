@@ -16,9 +16,12 @@ public class AIBikeController : MonoBehaviour,IAiInitializer
     private float _axelPlusValue = 1;
     [SerializeField, Header("プレイヤーとどれくらい離れたらギアを下げるか決める距離")]
     private float _gearDownDistance = 10f;
+    [SerializeField, Header("どれくらいの角度差までなら進行方向が合致しているかの数字")]
+    private float _valueWithAllowableError = 40f;
     private AIMesureDistanceToPlayer _mesureDistance = default;
     private AIDetectGearChangeCurve _detectCurve = default;
     private AIGearChange _gearChange = default;
+    private AICompareWhitchSidePlayer _frontAndBack = default;
     private int _currentWaypointIndex = 0;
     private float _personalHandlingSpeed;
     private float _reachThreshold = 10f;
@@ -26,6 +29,8 @@ public class AIBikeController : MonoBehaviour,IAiInitializer
     private float _randomWaypointDeviationsZ;
     private Vector3 _waypointDeviationOffset;
     private float _currentAxelValue = 0;
+
+    private readonly string PLAYER_TAG = "Player";
     public void Initialize()
     {
         _randomWaypointDeviationsX = Random.Range(-10, 10);
@@ -36,7 +41,10 @@ public class AIBikeController : MonoBehaviour,IAiInitializer
         _detectCurve.Initialize();
         _gearChange = GetComponent<AIGearChange>();
         _mesureDistance = GetComponent<AIMesureDistanceToPlayer>();
-        _mesureDistance.Initialize();
+        _frontAndBack = GetComponent<AICompareWhitchSidePlayer>();
+        GameObject playerObj = GameObject.FindWithTag(PLAYER_TAG);
+        _mesureDistance.Initialize(playerObj);
+        _frontAndBack.Initialize(playerObj);
         CheckCurve();
     }
 

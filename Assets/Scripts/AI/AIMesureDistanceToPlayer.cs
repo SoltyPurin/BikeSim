@@ -7,9 +7,9 @@ public class AIMesureDistanceToPlayer : MonoBehaviour
     private readonly string PLAYER_TAG = "Player";
     private GameObject _playerObj = default;
 
-    public void Initialize()
+    public void Initialize(GameObject player)
     {
-        _playerObj = GameObject.FindWithTag(PLAYER_TAG);
+        _playerObj = player;
     }
 
     public bool MesureDistance(float compareDistance)
