@@ -53,12 +53,30 @@ public class AIBikeController : MonoBehaviour,IAiInitializer
         {
             ShiftUpProtocol();
         }
+        HandleWaypointMovement();
         if (_mesureDistance.MesureDistance(_gearDownDistance))
         {
-            ResetAxel();
-            ShiftDownProtocol();
+            _bike.UpdateAxelValue(AxelDown());
+            if(_bike.CurrentGearIndex <= 1)
+            {
+                return;
+            }
+             ShiftDownProtocol();
         }
-        HandleWaypointMovement();
+
+
+    }
+
+    /// <summary>
+    /// アクセルを徐々に解除していく
+    /// </summary>
+    /// <returns>現在のアクセルの値</returns>
+    private float AxelDown()
+    {
+        _currentAxelValue -= _axelPlusValue;
+        _currentAxelValue *= 100;
+        _currentAxelValue = Mathf.Clamp(_currentAxelValue, 0.1f, 100);
+        return _currentAxelValue;
     }
 
     /// <summary>
