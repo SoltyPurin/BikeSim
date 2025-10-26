@@ -6,8 +6,8 @@ public class AIBikeController : MonoBehaviour,IAiInitializer
 {
     [SerializeField,Header("バイク本体のスクリプト")]
     private BaseBike _bike;
-    [SerializeField,Header("目標地点を登録する")]
-    private List<Transform> _waypoints;
+    [SerializeField, Header("ウェイポイントが登録してある親")]
+    private Transform _wayPointsParent = default;
     [SerializeField, Header("ハンドリング精度の最低値")]
     private float _handringMinValue = 10;
     [SerializeField, Header("ハンドリング精度の最大値")]
@@ -22,6 +22,7 @@ public class AIBikeController : MonoBehaviour,IAiInitializer
     private AIDetectGearChangeCurve _detectCurve = default;
     private AIGearChange _gearChange = default;
     private AICompareWhitchSidePlayer _frontAndBack = default;
+    private List<Transform> _waypoints = new List<Transform>();
     private int _currentWaypointIndex = 0;
     private float _personalHandlingSpeed;
     private float _reachThreshold = 10f;
@@ -33,6 +34,13 @@ public class AIBikeController : MonoBehaviour,IAiInitializer
     private readonly string PLAYER_TAG = "Player";
     public void Initialize()
     {
+        int wayPointCount = _wayPointsParent.childCount;
+        Debug.Log(wayPointCount);
+        for(int i = 0; i< wayPointCount; i++)
+        {
+            _waypoints.Add(_wayPointsParent.GetChild(i));
+            Debug.Log(_wayPointsParent.GetChild(i));
+        }
         _randomWaypointDeviationsX = Random.Range(-10, 10);
         _randomWaypointDeviationsZ = Random.Range(-10, 10);
         _waypointDeviationOffset = new Vector3(_randomWaypointDeviationsX, 0, _randomWaypointDeviationsZ);
