@@ -197,12 +197,5 @@ public class BaseBike : MonoBehaviour
         _axelValue = value;
     }
 
-    /// <summary>
-    /// ブレーキをかけるメソッド
-    /// </summary>
-    public  void BrakeProtocol()
-    {
-        _axelValue = -1;
-    }
 
 }

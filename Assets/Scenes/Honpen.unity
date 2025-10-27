@@ -621,6 +621,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e504373fe96207e48816a3365032073e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerFrontM: 100
 --- !u!114 &61491034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5576,6 +5577,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1119076690561903948, guid: 2f7f967fff699004b8ac3be19aa76217, type: 3}
+      propertyPath: _physicsMaterial
+      value: 
+      objectReference: {fileID: 13400000, guid: f560bc26ab1a59e4d9ffb41a2772bd8c, type: 2}
     - target: {fileID: 6529873636067302075, guid: 2f7f967fff699004b8ac3be19aa76217, type: 3}
       propertyPath: m_Name
       value: HandringBike
@@ -7577,6 +7582,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e504373fe96207e48816a3365032073e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerFrontM: 100
 --- !u!114 &1163710591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10367,6 +10373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e504373fe96207e48816a3365032073e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerFrontM: 100
 --- !u!1 &1595265228
 GameObject:
   m_ObjectHideFlags: 0
@@ -11708,6 +11715,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e504373fe96207e48816a3365032073e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerFrontM: 100
 --- !u!114 &1740989026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13611,6 +13619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e504373fe96207e48816a3365032073e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerFrontM: 100
 --- !u!114 &1987257501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13893,6 +13902,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e504373fe96207e48816a3365032073e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerFrontM: 100
 --- !u!114 &2003487193
 MonoBehaviour:
   m_ObjectHideFlags: 0
