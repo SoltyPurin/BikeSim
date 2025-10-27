@@ -4,39 +4,34 @@ using UnityEngine;
 
 public class AICompareWhitchSidePlayer : MonoBehaviour
 {
+    //次のウェイポイントととの距離を測る
+    //そしてそのウェイポイントとの距離がどちらが短いかで判断する
+    [SerializeField, Header("ウェイポイントからプレイヤーが何m離れてたら返り値を強制的にfalseにするか")]
+    private float _playerFrontM = 100f;
     private GameObject _playerObj = default;
     public void Initialize(GameObject playerObj)
     {
         _playerObj = playerObj;
     }
-    public bool IsCurrentFront(float errorValue)
+    /// <summary>
+    /// 現在プレイヤーより前にいるかどうか
+    /// </summary>
+    /// <param name="currentWayPoint">現在のウェイポイント</param>
+    /// <returns>プレイヤーの前にいるかどうか</returns>
+    public bool IsCurrentFront(Vector3 currentWayPoint)
     {
-        bool isFront = false;
+        float enDistance = Vector3.Distance(currentWayPoint,this.transform.position);
+        float plDistance = Vector3.Distance(currentWayPoint, _playerObj.transform.position);
 
-        bool isTravelDirectionMatch = false;
+        Debug.Log("敵のウェイポイントとの距離は" + enDistance);
+        Debug.Log("プレイヤーのウェイポイントとの距離は" + plDistance);
 
-        Vector3 currentRotation = this.gameObject.transform.rotation.eulerAngles;
+        bool isFront = enDistance < plDistance;
 
-        Vector3 playerRotation = _playerObj.transform.rotation.eulerAngles;
-
-        float curY = currentRotation.y; 
-        float playerY = playerRotation.y;
-        //現在のY軸回転とプレイヤーのY軸回転を比較して
-        //近似値であれば進行方向が合致している
-        if (curY -  playerY < errorValue)
+        if(plDistance >= _playerFrontM)
         {
-            isTravelDirectionMatch = true;
+            isFront = false;
         }
-
-        if (!isTravelDirectionMatch)
-        {
-            return false;   
-        }
-
-        //その状態で進行方向を計測
-        //進行方向がx,zがそれぞれプラス方面かどうかを判断して
-        //前後の判定を行う
-
 
         return isFront;
     }

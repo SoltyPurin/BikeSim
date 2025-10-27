@@ -18,6 +18,8 @@ public class AIBikeController : MonoBehaviour,IAiInitializer
     private float _gearDownDistance = 10f;
     [SerializeField, Header("どれくらいの角度差までなら進行方向が合致しているかの数字")]
     private float _valueWithAllowableError = 40f;
+    [SerializeField, Header("どれくらいの時間プレイヤーの前にいたら減速するか")]
+    private float _downSpeedTime = 10f;
     private AIMesureDistanceToPlayer _mesureDistance = default;
     private AIDetectGearChangeCurve _detectCurve = default;
     private AIGearChange _gearChange = default;
@@ -30,16 +32,15 @@ public class AIBikeController : MonoBehaviour,IAiInitializer
     private float _randomWaypointDeviationsZ;
     private Vector3 _waypointDeviationOffset;
     private float _currentAxelValue = 0;
+    private float _currentPlayerFrontTime = 0;
 
     private readonly string PLAYER_TAG = "Player";
     public void Initialize()
     {
         int wayPointCount = _wayPointsParent.childCount;
-        Debug.Log(wayPointCount);
         for(int i = 0; i< wayPointCount; i++)
         {
             _waypoints.Add(_wayPointsParent.GetChild(i));
-            Debug.Log(_wayPointsParent.GetChild(i));
         }
         _randomWaypointDeviationsX = Random.Range(-10, 10);
         _randomWaypointDeviationsZ = Random.Range(-10, 10);
@@ -70,16 +71,35 @@ public class AIBikeController : MonoBehaviour,IAiInitializer
             ShiftUpProtocol();
         }
         HandleWaypointMovement();
-        if (_mesureDistance.MesureDistance(_gearDownDistance))
-        {
-            _bike.UpdateAxelValue(AxelDown());
-            if(_bike.CurrentGearIndex <= 1)
-            {
-                return;
-            }
-             ShiftDownProtocol();
-        }
+        //if (_mesureDistance.MesureDistance(_gearDownDistance))
+        //{
+        //    _bike.UpdateAxelValue(AxelDown());
+        //     ShiftDownProtocol();
+        //}
 
+        LongTimeCheckFront();
+
+    }
+
+    /// <summary>
+    /// どれくらいの時間プレイヤーの前にいるかを計測する
+    /// </summary>
+    private void LongTimeCheckFront()
+    {
+        if (!_frontAndBack.IsCurrentFront(_waypoints[_currentWaypointIndex].position))
+        {
+            Debug.Log("プレイヤーの方が前");
+            _currentPlayerFrontTime = 0;
+            return;
+        }
+        _currentPlayerFrontTime += Time.fixedDeltaTime;
+
+        if (_downSpeedTime <= _currentPlayerFrontTime)
+        {
+            Debug.Log("長く前に居すぎたので下がります");
+            _currentPlayerFrontTime = 0;
+            ShiftDownProtocol();
+        }
 
     }
 
@@ -189,6 +209,10 @@ public class AIBikeController : MonoBehaviour,IAiInitializer
 
     private void ShiftDownProtocol()
     {
+        if (_bike.CurrentGearIndex <= 1)
+        {
+            return;
+        }
         Debug.Log("AIギア下げる");
         _bike.DownGear();
     }
