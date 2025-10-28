@@ -24,13 +24,13 @@ public class SimpleGearChange : MonoBehaviour
     {
         if(_gears.GearChange.GearUp.triggered)
         {
-            Debug.Log("プレイヤーギア上げる");
+            //Debug.Log("プレイヤーギア上げる");
             _baseBike.UpGear();
             //ギアアップ
         }
         if(_gears.GearChange.GearDown.triggered)
         {
-            Debug.Log("プレイヤーギア下げる");
+            //Debug.Log("プレイヤーギア下げる");
             _baseBike.DownGear();
             //ギアダウン
         }

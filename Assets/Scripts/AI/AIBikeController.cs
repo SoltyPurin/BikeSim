@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AIBikeController : MonoBehaviour,IAiInitializer
+public class AIBikeController : MonoBehaviour,IAiInitializer,IAIUpdater
 {
     [SerializeField,Header("バイク本体のスクリプト")]
     private BaseBike _bike;
@@ -33,6 +33,7 @@ public class AIBikeController : MonoBehaviour,IAiInitializer
     private Vector3 _waypointDeviationOffset;
     private float _currentAxelValue = 0;
     private float _currentPlayerFrontTime = 0;
+    private bool _isFrontPlayer = false;
 
     private readonly string PLAYER_TAG = "Player";
     public void Initialize()
@@ -55,45 +56,49 @@ public class AIBikeController : MonoBehaviour,IAiInitializer
         _mesureDistance.Initialize(playerObj);
         _frontAndBack.Initialize(playerObj);
         CheckCurve();
+        ShiftUpProtocol();
     }
 
 
 
-    private void FixedUpdate()
+    public void InterfaceUpdate(ObservationPlayerNearWayPoint observation)
     {
         //アクセルを徐々にふかす
         _bike.UpdateAxelValue(AxelPlus());
         // 自動で前に進む処理
         _bike.MoveForward();
 
-        if (_gearChange.MesureSpeed(_bike.Status.GearMaxSpeeds[_bike.CurrentGearIndex]))
+        HandleWaypointMovement();
+
+        LongTimeCheckFront(observation);
+        bool isSpeedEnough = _gearChange.MesureSpeed(_bike.Status.GearMaxSpeeds[_bike.CurrentGearIndex]);
+        if (!isSpeedEnough)
+        {
+            return;
+        }
+        if (_isFrontPlayer)
         {
             ShiftUpProtocol();
         }
-        HandleWaypointMovement();
-        //if (_mesureDistance.MesureDistance(_gearDownDistance))
-        //{
-        //    _bike.UpdateAxelValue(AxelDown());
-        //     ShiftDownProtocol();
-        //}
 
-        LongTimeCheckFront();
 
     }
 
     /// <summary>
     /// どれくらいの時間プレイヤーの前にいるかを計測する
     /// </summary>
-    private void LongTimeCheckFront()
+    private void LongTimeCheckFront(ObservationPlayerNearWayPoint observation)
     {
-        if (!_frontAndBack.IsCurrentFront(_waypoints[_currentWaypointIndex].position))
+        if (!_frontAndBack.IsCurrentFront(observation.MostPlayerNearPointIndex,_currentWaypointIndex))
         {
             Debug.Log("プレイヤーの方が前");
+            _isFrontPlayer = true;
             _currentPlayerFrontTime = 0;
             return;
         }
         _currentPlayerFrontTime += Time.fixedDeltaTime;
 
+        _isFrontPlayer = false;
         if (_downSpeedTime <= _currentPlayerFrontTime)
         {
             Debug.Log("長く前に居すぎたので下がります");

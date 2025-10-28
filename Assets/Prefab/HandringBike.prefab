@@ -1228,6 +1228,7 @@ GameObject:
   - component: {fileID: 1366968318758745086}
   - component: {fileID: 1468962178554105888}
   - component: {fileID: 1119076690561903948}
+  - component: {fileID: 2048049277463634764}
   - component: {fileID: 7990895370191890273}
   - component: {fileID: 7715694509978589332}
   m_Layer: 0
@@ -1374,6 +1375,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b9d24f073b0ef24c90501e0f05ef344, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _brakeFrictionMaxValue: 3
+  _brakeMultiplier: 2
+  _physicsMaterial: {fileID: 13400000, guid: f560bc26ab1a59e4d9ffb41a2772bd8c, type: 2}
+--- !u!114 &2048049277463634764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6529873636067302075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 525f1d5730fe927409ef4f806ebcfb56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _distance: 0.1
+  _besideRayPos: 0.5
+  _downValue: 0.1
 --- !u!54 &7990895370191890273
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1408,7 +1427,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6529873636067302075}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: f560bc26ab1a59e4d9ffb41a2772bd8c, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

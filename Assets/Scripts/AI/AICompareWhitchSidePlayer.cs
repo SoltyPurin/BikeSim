@@ -6,8 +6,6 @@ public class AICompareWhitchSidePlayer : MonoBehaviour
 {
     //次のウェイポイントととの距離を測る
     //そしてそのウェイポイントとの距離がどちらが短いかで判断する
-    [SerializeField, Header("ウェイポイントからプレイヤーが何m離れてたら返り値を強制的にfalseにするか")]
-    private float _playerFrontM = 100f;
     private GameObject _playerObj = default;
     public void Initialize(GameObject playerObj)
     {
@@ -16,22 +14,11 @@ public class AICompareWhitchSidePlayer : MonoBehaviour
     /// <summary>
     /// 現在プレイヤーより前にいるかどうか
     /// </summary>
-    /// <param name="currentWayPoint">現在のウェイポイント</param>
     /// <returns>プレイヤーの前にいるかどうか</returns>
-    public bool IsCurrentFront(Vector3 currentWayPoint)
+    public bool IsCurrentFront(int plIndex,int enIndex)
     {
-        float enDistance = Vector3.Distance(currentWayPoint,this.transform.position);
-        float plDistance = Vector3.Distance(currentWayPoint, _playerObj.transform.position);
 
-        Debug.Log("敵のウェイポイントとの距離は" + enDistance);
-        Debug.Log("プレイヤーのウェイポイントとの距離は" + plDistance);
-
-        bool isFront = enDistance < plDistance;
-
-        if(plDistance >= _playerFrontM)
-        {
-            isFront = false;
-        }
+        bool isFront = enIndex >= plIndex;
 
         return isFront;
     }

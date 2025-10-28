@@ -22,70 +22,43 @@ public class Suspension : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        //Debug.DrawRay(rayOrigin, rayDirection * _distance, Color.red);
-        float curZ = transform.rotation.z;
-
-        switch (ReturnLeftOrRightFloat())
+        if (IsBikeFloating())
         {
-            case 0:
-                Debug.Log("浮いてない");
-                break;
-
-            case 1:
-                //左が浮いてるためZプラス
-                curZ += _downValue;
-                transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, curZ);
-                break;
-
-            case 2:
-                //右が浮いてるためZマイナス
-                curZ -= _downValue;
-                transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, curZ);
-
-                break;
-
-            default:
-                break;
+            Debug.Log("触れてない");
+            return;
         }
 
-        //if (!_isGrounded)
-        //{
-        //    float fallSpeed = 1.5f;
-        //    Vector3 newPosition = transform.position;
-        //    newPosition.y -= fallSpeed * Time.deltaTime;
-        //    transform.position = newPosition;
-
-        //}
+        Vector3 curPos = transform.position;
+        curPos.y -= _downValue;
+        transform.position = curPos;
     }
     /// <summary>
     /// 左右どちらかが浮いてるか確認するメソッド
     /// </summary>
-    /// <returns>0だったら地面ピッタリ、1は左が浮いてる、2は右が浮いてる</returns>
-    private int ReturnLeftOrRightFloat()
+    /// <returns>浮いてるかどうか</returns>
+    private bool IsBikeFloating()
     {
-        int leftOrRight = 0;
+        bool isFloat = true;
         Vector3 rayDirection = Vector3.down;
-        Vector3 leftRay = transform.position + Vector3.left * _besideRayPos;
-        Vector3 rightRay = transform.position + Vector3.right * _besideRayPos;
-        if (Physics.Raycast(leftRay,rayDirection,out _raycastHit, _distance, _layerMask))
+        Vector3 underRay = transform.position + rayDirection * _besideRayPos;
+        if (!Physics.Raycast(underRay, rayDirection, out _raycastHit, _distance, _layerMask))
         {
-            Debug.Log("左側が浮いてる");
-            leftOrRight = 1;
-        }else if(Physics.Raycast(rightRay, rayDirection, out _raycastHit, _distance, _layerMask))
-        {
-            Debug.Log("右側が浮いてる");
-            leftOrRight = 2;
+            Debug.Log("触れてる");
+            isFloat = false;
         }
-        return leftOrRight;
+        else
+        {
+            Debug.Log("触れてない");
+        }
+            return isFloat;
     }
 
     private void OnDrawGizmos()
     {
         Vector3 rayDirection = Vector3.down;
-        Vector3 leftRay = transform.position + Vector3.left * _besideRayPos;
-        Vector3 rightRay = transform.position + Vector3.right * _besideRayPos;
+        Vector3 underRay = transform.position + rayDirection * _besideRayPos;
 
-        Debug.DrawRay(leftRay, rayDirection * _distance, Color.red);
-        Debug.DrawRay(rightRay, rayDirection * _distance, Color.red);
+
+        Debug.DrawRay(underRay, rayDirection * _distance, Color.red);
     }
 }
