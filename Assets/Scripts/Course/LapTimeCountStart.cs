@@ -92,7 +92,7 @@ public class LapTimeCountStart : MonoBehaviour
         if (_canAddTimeToList)
         {
             _lapTimeList.Add(time);
-            Debug.Log(time);
+            //Debug.Log(time);
             _canAddTimeToList=false;
             if(_prevLapCount != 0 && _prevLapCount < _lapTimeList.Count)
             {

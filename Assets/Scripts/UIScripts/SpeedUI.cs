@@ -8,7 +8,7 @@ public class SpeedUI : MonoBehaviour
 
     public void UpdateSpeedText(float speed)
     {
-        Debug.Log(speed);
-        _speedText.text = speed.ToString();
+        speed *= 2;
+        _speedText.text = speed.ToString("F0");
     }
 }

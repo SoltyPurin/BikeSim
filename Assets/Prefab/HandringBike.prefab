@@ -753,7 +753,7 @@ GameObject:
   - component: {fileID: 7684883141282788728}
   m_Layer: 0
   m_Name: BikeObj
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1385,13 +1385,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6529873636067302075}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 525f1d5730fe927409ef4f806ebcfb56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _distance: 0.1
-  _besideRayPos: 0.5
+  _distance: 0.7
+  _besideRayPos: 0
   _downValue: 0.1
 --- !u!54 &7990895370191890273
 Rigidbody:
