@@ -16,15 +16,10 @@ public class Suspension : MonoBehaviour
     {
         _layerMask = LayerMask.GetMask("Ground");
     }
-    public bool IsGrounded
-    {
-        get { return _isGrounded; }
-    }
     private void FixedUpdate()
     {
-        if (IsBikeFloating())
+        if (IsGrounded())
         {
-            Debug.Log("触れてない");
             return;
         }
 
@@ -36,21 +31,21 @@ public class Suspension : MonoBehaviour
     /// 左右どちらかが浮いてるか確認するメソッド
     /// </summary>
     /// <returns>浮いてるかどうか</returns>
-    private bool IsBikeFloating()
+    private bool IsGrounded()
     {
-        bool isFloat = true;
+        bool isGrounded = false;
         Vector3 rayDirection = Vector3.down;
         Vector3 underRay = transform.position + rayDirection * _besideRayPos;
-        if (!Physics.Raycast(underRay, rayDirection, out _raycastHit, _distance, _layerMask))
+        if (Physics.Raycast(underRay, rayDirection, out _raycastHit, _distance, _layerMask))
         {
+            isGrounded = true;
             Debug.Log("触れてる");
-            isFloat = false;
         }
         else
         {
             Debug.Log("触れてない");
         }
-            return isFloat;
+        return isGrounded;
     }
 
     private void OnDrawGizmos()

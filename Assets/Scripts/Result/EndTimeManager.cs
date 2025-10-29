@@ -18,9 +18,14 @@ public class EndTimeManager : MonoBehaviour
     private List<float> _lapTime = new List<float>();
     void Start()
     {
+        Debug.Log("実行してるオブジェクトは" + this.gameObject.name);
         _lapCountObject = GameObject.FindWithTag(LAPOBJECTTAGNAME);
         _lapScript = _lapCountObject.GetComponent<LapTimeCountStart>();
         _lapTime = new List<float>(_lapScript.LapTimeList);
+        for(int i = 0; i< _lapTime.Count; i++)
+        {
+            Debug.Log(i + "番目のカウントは" +  _lapTime[i]);   
+        }
         //0番目にはなにも入ってないので1から書く
         _firstLapText.text = "Lap1 Time :"+_lapTime[1].ToString();
         _secondLapText.text = "Lap2 Time :"+_lapTime[2].ToString();

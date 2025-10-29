@@ -17,17 +17,17 @@ MonoBehaviour:
   - 1.7
   - 2
   - 3
+  - 3.2
+  - 3.5
   - 4
-  - 5
-  - 6
   _gearMaxSpeeds:
   - 0
   - 20
   - 40
   - 60
+  - 65
+  - 70
   - 80
-  - 100
-  - 120
   _successGearChangeRatio: 0.6
   _gearCurve:
   - serializedVersion: 2

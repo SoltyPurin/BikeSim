@@ -34,7 +34,7 @@ public class LapTimeCountStart : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.gameObject.CompareTag("Player"))
         {
             _currentLapCount++;
             _playerTouchLineCount++;
@@ -76,7 +76,7 @@ public class LapTimeCountStart : MonoBehaviour
             if (_canAddTimeToList)
             {
                 AddTimeToList(_lapTime);
-                PrevLapCountPlus(); // Å© Ç±ÇÍÇÇ±Ç±Ç…à⁄ìÆÅI
+                PrevLapCountPlus(); 
             }
         }
 
@@ -92,6 +92,7 @@ public class LapTimeCountStart : MonoBehaviour
         if (_canAddTimeToList)
         {
             _lapTimeList.Add(time);
+            Debug.Log(time);
             _canAddTimeToList=false;
             if(_prevLapCount != 0 && _prevLapCount < _lapTimeList.Count)
             {

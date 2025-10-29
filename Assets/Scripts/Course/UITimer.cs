@@ -15,6 +15,7 @@ public class UITimer : MonoBehaviour
 
     public void PrevLapTime(float time)
     {
+        Debug.Log("‘‚«‚İ‚Ü‚µ‚½");
         _lapCount++;
         _lapText.text += "Lap" + _lapCount + ":" + time.ToString("F3") + "\n";
     }
