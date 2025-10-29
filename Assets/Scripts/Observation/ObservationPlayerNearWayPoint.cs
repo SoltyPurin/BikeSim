@@ -17,11 +17,16 @@ public class ObservationPlayerNearWayPoint : MonoBehaviour
     {
         get { return  _mostPlayerNearPointIndex; }
     }
+    private Vector3 _nearPosition = Vector3.zero;
+    public Vector3 NearPosition
+    {
+        get { return _nearPosition; }
+    }
 
     private readonly string PLAYER_TAG = "Player";
-    private void Awake()
+    public void Initialize(GameObject player)
     {
-        _player = GameObject.FindWithTag(PLAYER_TAG);
+        _player = player;
         _listCount = _wayPointParent.childCount;
         for(int i =0; i < _listCount; i++)
         {
@@ -30,9 +35,10 @@ public class ObservationPlayerNearWayPoint : MonoBehaviour
         float distance = Vector3.Distance(_player.transform.position, _wayPointPos[0]);
         _mostNearDistance = distance;
         _mostPlayerNearPointIndex = 0;
+        _nearPosition = _wayPointPos[_mostPlayerNearPointIndex];
     }
 
-    private void Update()
+    public void Run()
     {
         _mostNearDistance = Mathf.Infinity;
         for (int i = 0; i < _listCount; i++)
@@ -42,8 +48,8 @@ public class ObservationPlayerNearWayPoint : MonoBehaviour
             {
                 _mostNearDistance = distance;
                 _mostPlayerNearPointIndex = i;
+                _nearPosition = _wayPointPos[i];
             }
         }
-        //Debug.Log("プレイヤーに一番近い座標インデックスは" + _mostPlayerNearPointIndex);
     }
 }

@@ -9,7 +9,7 @@ public class BikeSpawn : MonoBehaviour
     private int _bikeIndex = default;
     [SerializeField]private GameObject[] _bikeObjectArray = new GameObject[4];
     private Quaternion _spawnRotation = Quaternion.Euler(0, -90, 0);
-    private void Start()
+    private void Awake()
     {
         _bikeButtonObject = GameObject.FindWithTag(TITLEMANAGERTAG);
         if (_bikeButtonObject != null)

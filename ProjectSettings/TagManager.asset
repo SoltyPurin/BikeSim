@@ -4,20 +4,16 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Wall
-  - ClutchText
-  - GearNumberText
-  - TitleManager
-  - LapLine
+  - Car
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Ground
+  - 
   - Water
   - UI
-  - ObstacleOnly
-  - 
+  - car
+  - Wheels
   - 
   - 
   - 
@@ -45,7 +41,4 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: UI
-    uniqueID: 1048513469
     locked: 0

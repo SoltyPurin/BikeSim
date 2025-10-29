@@ -165,7 +165,7 @@ public class BaseBike : MonoBehaviour
     /// 現在のスピードを計算するメソッド
     /// </summary>
     /// <returns>現在の速度</returns>
-    private float CalcCurrentBikeSpeed()
+    public float CalcCurrentBikeSpeed()
     {
         float speed = (float)Mathf.Sqrt(Mathf.Pow(_rigidBody.velocity.x, 2) + Mathf.Pow(_rigidBody.velocity.z, 2));
         return speed;
