@@ -20,7 +20,6 @@ public class ObservationPlayerSpeed : MonoBehaviour
     {
         if(_baseBike != null)
         {
-            Debug.Log(_baseBike.CalcCurrentBikeSpeed());
             _speedUI.UpdateSpeedText(_baseBike.CalcCurrentBikeSpeed());
         }
     }
