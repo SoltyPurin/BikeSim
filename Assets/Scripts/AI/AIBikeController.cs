@@ -24,8 +24,6 @@ public class AIBikeController : MonoBehaviour,IAiInitializer,IAIUpdater
     private AIDetectGearChangeCurve _detectCurve = default;
     private AIGearChange _gearChange = default;
     private AICompareWhitchSidePlayer _frontAndBack = default;
-    private List<Transform> _waypoints = new List<Transform>();
-    private int _currentWaypointIndex = 0;
     private float _personalHandlingSpeed;
     private float _reachThreshold = 10f;
     private float _randomWaypointDeviationsX;
@@ -34,6 +32,19 @@ public class AIBikeController : MonoBehaviour,IAiInitializer,IAIUpdater
     private float _currentAxelValue = 0;
     private float _currentPlayerFrontTime = 0;
     private bool _isFrontPlayer = false;
+
+    private int _currentWaypointIndex = 0;
+    public int CurrentWaypointIndex
+    {
+        get { return _currentWaypointIndex; }
+    }
+
+    private List<Transform> _waypoints = new List<Transform>();
+    public List<Transform> WayPoints
+    {
+        get { return _waypoints; }
+    }
+
 
     private readonly string PLAYER_TAG = "Player";
     public void Initialize()
@@ -116,7 +127,7 @@ public class AIBikeController : MonoBehaviour,IAiInitializer,IAIUpdater
     {
         _currentAxelValue -= _axelPlusValue;
         _currentAxelValue *= 100;
-        _currentAxelValue = Mathf.Clamp(_currentAxelValue, 0.1f, 100);
+        _currentAxelValue = Mathf.Clamp(_currentAxelValue, 1f, 100);
         return _currentAxelValue;
     }
 

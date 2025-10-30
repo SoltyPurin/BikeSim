@@ -5,11 +5,15 @@ TagManager:
   serializedVersion: 2
   tags:
   - Car
+  - LapLine
+  - ClutchText
+  - GearNumberText
+  - TitleManager
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Course
   - Water
   - UI
   - car

@@ -35,9 +35,14 @@ public class BikeHandring : MonoBehaviour
     private void Awake()
     {
         _yReturnAddValue = _status.CurveAddValue;
+        _yawRoll = transform.rotation.y;
     }
     private void FixedUpdate()
     {
+        if(Input.GetAxis(HORIZONTAL) == 0)
+        {
+            return;
+        }
         InputHandring();
     }
 
