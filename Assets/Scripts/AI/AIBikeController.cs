@@ -184,11 +184,8 @@ public class AIBikeController : MonoBehaviour,IAiInitializer,IAIUpdater
             //配列の終点だった場合はインデックスをリセットし、揺らぎ及びハンドリングの制度を設定しなおす
             else
             {
+                PointDeviationReset();
                 _currentWaypointIndex = 0;
-                _personalHandlingSpeed = Random.Range(6, 15);
-                _randomWaypointDeviationsX = Random.Range(-10, 10);
-                _randomWaypointDeviationsZ = Random.Range(-10, 10);
-                _waypointDeviationOffset = new Vector3(_randomWaypointDeviationsX, 0, _randomWaypointDeviationsZ);
             }
             CheckCurve();
 
@@ -219,7 +216,7 @@ public class AIBikeController : MonoBehaviour,IAiInitializer,IAIUpdater
 
     private void ShiftUpProtocol()
     {
-        Debug.Log("AIギア上げる");
+        //Debug.Log("AIギア上げる");
         _bike.UpGear();
     }
 
@@ -229,8 +226,16 @@ public class AIBikeController : MonoBehaviour,IAiInitializer,IAIUpdater
         {
             return;
         }
-        Debug.Log("AIギア下げる");
+        //Debug.Log("AIギア下げる");
         _bike.DownGear();
+    }
+
+    public void PointDeviationReset()
+    {
+        _personalHandlingSpeed = Random.Range(6, 15);
+        _randomWaypointDeviationsX = Random.Range(-10, 10);
+        _randomWaypointDeviationsZ = Random.Range(-10, 10);
+        _waypointDeviationOffset = new Vector3(_randomWaypointDeviationsX, 0, _randomWaypointDeviationsZ);
     }
 
 }

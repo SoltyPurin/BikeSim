@@ -55,6 +55,6 @@ public class AIGearChange : MonoBehaviour
     {
         await UniTask.WaitForSeconds(_gearChangeCoolTime);
         _isUnlockCoolTime = true;
-        Debug.Log("クールタイム明けました");
+        //Debug.Log("クールタイム明けました");
     }
 }

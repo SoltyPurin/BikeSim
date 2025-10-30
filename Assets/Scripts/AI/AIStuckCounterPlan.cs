@@ -1,51 +1,84 @@
+using Cysharp.Threading.Tasks;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using static UnityEngine.UI.Image;
 
 public class AIStuckCounterPlan : MonoBehaviour
 {
-    [SerializeField, Header("前方検知のレイの長さ")]
-    private float _rayDistance = 5;
-    [SerializeField, Header("スタック判定とする時間")]
-    private float _stuckCheckTime = 3f;
-    [SerializeField,Header("検知するレイヤー")]
-    private LayerMask _layerMask = default;
+    [SerializeField, Header("状態をスタックと決定する時間")]
+    private int _stuckTolleranceTime = 3;
+    [SerializeField, Header("前回の地点との距離がどれくらい以内であればスタックと判定するか")]
+    private float _stuckDecisiveValue = 3.0f;
 
-    private AIReturnPrevPosition _returnPos = default;
-    private Vector3 _rayStartPoint = Vector3.zero;
-    private float _currentFrontObstacleTime = 0;
+    private AIReturnPrevPosition _returnScript = default;
+    private float _currentCountTime = 0;
+    private Vector3 _currentPosition = Vector3.zero;
+    private Vector3 _prevPosition = Vector3.zero;
+    //private CancellationToken _token = default;
 
-    private void Awake()
+    private void Start()
     {
-        _returnPos = GetComponent<AIReturnPrevPosition>();
+        _returnScript = GetComponent<AIReturnPrevPosition>();
+        _currentPosition = transform.position;
+        _prevPosition = transform.position;
+        //_token = this.GetCancellationTokenOnDestroy();
+        ////↑ゲームオブジェクトがデストロイされたときにキャンセル発行
+        ////トークンはシーン通して一つにするべき
+        ///
     }
-
     private void FixedUpdate()
     {
-        Vector3 origin = transform.position + _rayStartPoint;
-        RaycastHit hit;
-        bool isFront = Physics.Raycast(origin, transform.forward, out hit, _rayDistance, _layerMask, QueryTriggerInteraction.Ignore);
-        if (isFront)
+        _currentPosition = transform.position;
+        _currentCountTime += Time.fixedDeltaTime;
+        if(_currentCountTime >= _stuckTolleranceTime)
         {
-            Debug.Log("スタック中");
-            _currentFrontObstacleTime += Time.fixedDeltaTime;
-        }
-        else
-        {
-            Debug.Log("スタックじゃない");
-            _currentFrontObstacleTime = 0;
-        }
-
-        if(_currentFrontObstacleTime > _stuckCheckTime)
-        {
-            _returnPos.Jugemu();
+            //Debug.Log("チェックします");
+            CheckStuck();
         }
     }
 
-    private void OnDrawGizmos()
+    private void CheckStuck()
     {
-        Debug.DrawRay(transform.position + _rayStartPoint, transform.forward * _rayDistance, Color.red);
+        float prevDistance = Vector3.Distance(_currentPosition, _prevPosition);
+        if (prevDistance < _stuckDecisiveValue)
+        {
+            _returnScript.Jugemu();
+        }
+        _prevPosition = transform.position;
+        _currentCountTime = 0;
 
     }
+
+    //private async UniTask<bool> IsStuck(CancellationToken token)
+    //{
+    //    await UniTask.WaitForEndOfFrame
+    //        try
+    //    {
+    //        //例外を監視しながら実行する
+
+    //        await UniTask.WaitForSeconds(duration:_stuckTolleranceTime, cancellationToken:token);
+    //    }
+    //    catch
+    //    {
+    //        //例外が起きたらこっちに行く
+    //        //ゲームが終了するときとかにこっちに行くらしい
+    //        //
+    //        throw new Exception();
+    //        //↑例外を投げられる。意図的に1/0等の色々なエラーを出す
+    //        return false;
+    //    }
+    //    await UniTask.Delay(TimeSpan.FromSeconds((_stuckTolleranceTime),token);
+    //    bool isStucking = false;
+    //    float distance = Vector3.Distance(_prevPosition, _currentPosition);
+    //    if(distance < _stuckDecisiveValue)
+    //    {
+    //        isStucking=true;
+    //    }
+    //    _prevPosition = transform.position;
+    //    return isStucking;
+
+    //}
 }

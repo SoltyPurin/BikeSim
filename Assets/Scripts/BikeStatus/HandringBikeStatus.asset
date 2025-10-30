@@ -28,7 +28,7 @@ MonoBehaviour:
   - 65
   - 70
   - 80
-  _successGearChangeRatio: 0.6
+  _successGearChangeRatio: 0.7
   _gearCurve:
   - serializedVersion: 2
     m_Curve:
@@ -127,20 +127,29 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1
-      outSlope: 1
+      inSlope: 0.6692902
+      outSlope: 0.6692902
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.6837392
+      value: 0.45761994
+      inSlope: 1.1921337
+      outSlope: 1.1921337
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 1
-      outSlope: 1
+      inSlope: 1.7149773
+      outSlope: 1.7149773
       tangentMode: 34
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.33333334
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2

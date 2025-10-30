@@ -35,14 +35,11 @@ public class BikeHandring : MonoBehaviour
     private void Awake()
     {
         _yReturnAddValue = _status.CurveAddValue;
-        _yawRoll = transform.rotation.y;
+        _yawRoll = _rigidBody.transform.rotation.eulerAngles.y;
+        _prevY = _rigidBody.transform.rotation.eulerAngles.y;
     }
     private void FixedUpdate()
     {
-        if(Input.GetAxis(HORIZONTAL) == 0)
-        {
-            return;
-        }
         InputHandring();
     }
 
@@ -74,7 +71,7 @@ public class BikeHandring : MonoBehaviour
             }
         }
         _yawRoll = _prevY;
-        _currentZ = Mathf.Clamp(_currentZ, -_zClampValue, _zClampValue);
+        _currentZ= Mathf.Clamp(_currentZ, -_zClampValue, _zClampValue);
         float initZ = transform.rotation.eulerAngles.z;
         Quaternion rotation = Quaternion.Euler(0, _yawRoll, initZ);
         _bikeObject.transform.rotation = Quaternion.Euler(0,_yawRoll, _currentZ);

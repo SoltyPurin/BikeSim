@@ -2,58 +2,53 @@ using UnityEngine;
 
 public class Suspension : MonoBehaviour
 {
-    private RaycastHit _raycastHit;
-    private int _layerMask;
-    [SerializeField,Header("レイの長さ")]
-    private float _distance = 1f;
-    private bool _isGrounded;
-    [SerializeField, Header("中心から見て横のレイのスタート地点")]
-    private float _besideRayPos = 0.5f;
-
+    [SerializeField, Header("中心から見て前のどれくらいの座標にレイを出すか")]
+    private float _rayStartDistance = 0.5f;
+    [SerializeField, Header("レイの長さ")]
+    private float _rayDistance = 1f;
     [SerializeField, Header("下げる値")]
     private float _downValue = 0.1f;
-    private void Awake()
-    {
-        _layerMask = LayerMask.GetMask("Ground");
-    }
     private void FixedUpdate()
     {
-        if (IsGrounded())
+        if (IsTouchTheGround())
         {
             return;
         }
 
-        Vector3 curPos = transform.position;
-        curPos.y -= _downValue;
-        transform.position = curPos;
+        Vector3 currentPos = transform.position;    
+        currentPos.y -= _downValue;
+        transform.position = currentPos;
     }
-    /// <summary>
-    /// 左右どちらかが浮いてるか確認するメソッド
-    /// </summary>
-    /// <returns>浮いてるかどうか</returns>
-    private bool IsGrounded()
+
+    private bool IsTouchTheGround()
     {
-        bool isGrounded = false;
-        Vector3 rayDirection = Vector3.down;
-        Vector3 underRay = transform.position + rayDirection * _besideRayPos;
-        if (Physics.Raycast(underRay, rayDirection, out _raycastHit, _distance, _layerMask))
+        RaycastHit hit;
+        bool isTouchGround = false;
+        Vector3 origin = transform.position;
+        origin.x += _rayStartDistance;
+        Vector3 direction = Vector3.down;
+        if (Physics.Raycast(origin, direction, out hit,_rayDistance))
         {
-            isGrounded = true;
-            Debug.Log("触れてる");
+            int hitObjLayer = hit.collider.gameObject.layer;
+            if ((hitObjLayer ==3))
+            {
+                Debug.Log("接地");
+                isTouchGround = true;
+            }
+            else
+            {
+                Debug.Log("飛んでる");
+            }
         }
-        else
-        {
-            Debug.Log("触れてない");
-        }
-        return isGrounded;
+
+        return isTouchGround;
     }
 
     private void OnDrawGizmos()
     {
-        Vector3 rayDirection = Vector3.down;
-        Vector3 underRay = transform.position + rayDirection * _besideRayPos;
-
-
-        Debug.DrawRay(underRay, rayDirection * _distance, Color.red);
+        Vector3 origin = transform.position;
+        origin.x += _rayStartDistance;
+        Vector3 direction = Vector3.down * _rayDistance;
+        Debug.DrawRay(origin, direction, Color.blue);
     }
 }
