@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 public class ObservationPlayerNearWayPoint : MonoBehaviour
 {
@@ -23,7 +22,6 @@ public class ObservationPlayerNearWayPoint : MonoBehaviour
         get { return _nearPosition; }
     }
 
-    private readonly string PLAYER_TAG = "Player";
     public void Initialize(GameObject player)
     {
         _player = player;

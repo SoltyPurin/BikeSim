@@ -8,15 +8,21 @@ public class Suspension : MonoBehaviour
     private float _rayDistance = 1f;
     [SerializeField, Header("â∫Ç∞ÇÈíl")]
     private float _downValue = 0.1f;
+    [SerializeField, Header("è„Ç∞ÇÈíl")]
+    private float _upValue = 0.001f;
     private void FixedUpdate()
     {
+        Vector3 currentPos = transform.position;
+
         if (IsTouchTheGround())
         {
-            return;
+            currentPos.y += _upValue;
+        }
+        else
+        {
+            currentPos.y -= _downValue;
         }
 
-        Vector3 currentPos = transform.position;    
-        currentPos.y -= _downValue;
         transform.position = currentPos;
     }
 
