@@ -83,7 +83,7 @@ public class BaseBike : MonoBehaviour
             _currentGearIndex--;
             UpdateUI(_currentGearIndex);
         }
-        Debug.Log("åªç›ÇÃÉMÉAÇÕ" + _currentGearIndex);
+        //Debug.Log("åªç›ÇÃÉMÉAÇÕ" + _currentGearIndex);
 
     }
 

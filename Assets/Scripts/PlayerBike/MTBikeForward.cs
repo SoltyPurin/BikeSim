@@ -10,7 +10,6 @@ public class MTBikeForward : MonoBehaviour
     //大体1.0fで50km
     private float[] _gearSpeeds = { 0.4f,0.0f, 0.8f, 1.2f, 1.8f, 2.4f, 3.0f };
     private readonly string[] GearNames = { "1", "N", "2", "3", "4", "5", "6" };
-    private float _prevSpeedValue = 0.0f;
     [SerializeField] private Text _initGearText = default;
 
     //無駄な処理を走らせないためにこっちからギアチェンをしたときだけ情報を送る。ただしやりとりはここだけ
@@ -21,7 +20,6 @@ public class MTBikeForward : MonoBehaviour
     private const float ORIGINATTENUATIONVALUE = 0.6f;
 
     [SerializeField] private Clutch _clutchScript;
-    [SerializeField] private MeasureBikeVelocity _bikeVelocity;
     private float _clutchValue = 0.0f;
 
     private bool _isFirst = true;
@@ -89,7 +87,6 @@ public class MTBikeForward : MonoBehaviour
     {
         if(_gearIndex > MINGEARINDEX)
         {
-            _prevSpeedValue = _gearSpeeds[_gearIndex];
             _gearIndex--;
         }
     }
@@ -97,6 +94,5 @@ public class MTBikeForward : MonoBehaviour
     public void EngineStop()
     {
         _gearIndex = 1;
-        //transform.Translate(0, 0, _gearSpeeds[_gearIndex] * 0);
     }
 }

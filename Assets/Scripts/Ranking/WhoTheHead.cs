@@ -5,16 +5,14 @@ using UnityEngine.UI;
 
 public class WhoTheHead : MonoBehaviour
 {
+    //バグが多発するので要修正
     [SerializeField, Header("プレイヤーのウェイポイント監視者")]
     private ObservationPlayerNearWayPoint _playerNearWayPoint = default;
     private List<GameObject> _bikers = new List<GameObject>();
-    private List<float> _distances = new List<float>();
     private GameObject _playerObj = default;
 
     [SerializeField, Header("順位を書き出すテキスト")]
     private Text _rankingText = default;
-
-    private float _currentYValue = 0;
 
     private readonly string PLAYER_TAG = "Player";
     private readonly string ENEMY_TAG = "Enemy";
@@ -69,12 +67,16 @@ public class WhoTheHead : MonoBehaviour
         AIBikeController farController = mostFarEnemy.GetComponent<AIBikeController>();
         int nearIndex = nearController.CurrentWaypointIndex;
         int farIndex = farController.CurrentWaypointIndex;
+        Debug.Log("近い敵の目指してるポイントは" + nearIndex);
+        Debug.Log("遠い敵の目指してるポイントは" + farIndex);
         if(farIndex < nearIndex)
         {
+            Debug.Log("プレイヤーが先頭付近にいるよ");
             PlayerNearHead(playerNearPos,mostNearEnemy);
         }
         else
         {
+            Debug.Log("プレイヤーは後ろの方にいるよ");
             PlayerFarHeader(playerNearPos,farController);
         }
     }
@@ -84,13 +86,13 @@ public class WhoTheHead : MonoBehaviour
         Vector3 mostFarPoint = farControler.WayPoints[farControler.CurrentWaypointIndex].transform.position;
         float playerDistance = Vector3.Distance(mostFarPoint, _playerObj.transform.position);
         GameObject[] enemys = GameObject.FindGameObjectsWithTag(ENEMY_TAG);
-        int frontEnemyCount = 1;
+        int frontEnemyCount = enemys.Length + 1;
         for(int i = 0; i < enemys.Length; i++)
         {
             float tmpDistance = Vector3.Distance(mostFarPoint, enemys[i].transform.position);
-            if(tmpDistance < playerDistance)
+            if(tmpDistance >= playerDistance)
             {
-                frontEnemyCount++;
+                frontEnemyCount--;
             }
         }
 

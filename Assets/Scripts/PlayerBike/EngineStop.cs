@@ -6,7 +6,6 @@ public class EngineStop : MonoBehaviour
     [SerializeField] private Clutch _clutch = default;
     //[SerializeField] private MTBikeForward _bikeForward = default;
     [SerializeField] private BaseBike _baseBike = default;
-    [SerializeField] private MeasureBikeVelocity _bikeVelocity = default;
 
     //クラッチ入れる前のギアを保存、クラッチの値が一定以上になったときに前のギアと比較、ギア差が
 
@@ -45,11 +44,9 @@ public class EngineStop : MonoBehaviour
 
     private IEnumerator CheckVelocityAfterGearChange()
     {
-        _prevVelocity = _bikeVelocity.Velocity;
 
         yield return new WaitForSeconds(_callCheckVelocityAfterGearChange);
 
-        _afterGearChangeVelocity = _bikeVelocity.Velocity;
         if (Mathf.Abs(_afterGearChangeVelocity - _prevVelocity) > _permissionVelocity)
         {
             _baseBike.EngineStop();
