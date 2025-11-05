@@ -24,32 +24,159 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
     ""name"": ""InputMap"",
     ""maps"": [
         {
+            ""name"": ""Controll"",
+            ""id"": ""84bef2c1-ae0e-4947-b229-3bd2bb904b38"",
+            ""actions"": [
+                {
+                    ""name"": ""ViewPointMove"",
+                    ""type"": ""Value"",
+                    ""id"": ""02d63f5c-7cc1-4011-af64-d410c306ea00"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""Pad"",
+                    ""id"": ""2c6f4d17-effb-4723-a2ad-30715b21db60"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ViewPointMove"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""b3c0e55f-3bf8-4cb9-825a-a9a8ade10c8e"",
+                    ""path"": ""<Gamepad>/rightStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ViewPointMove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""d778b6b2-175f-4a6e-ad64-530209f9846c"",
+                    ""path"": ""<Gamepad>/rightStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ViewPointMove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""a215b5d8-c0c7-466b-9dd1-7c47ffd0146d"",
+                    ""path"": ""<Gamepad>/rightStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ViewPointMove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""c12cb5ee-71e2-4a35-b64c-7b292b15730b"",
+                    ""path"": ""<Gamepad>/rightStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ViewPointMove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Mouse"",
+                    ""id"": ""b033a937-0de6-4c44-9aaa-a0f8e5073bce"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ViewPointMove"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""b7189068-ae4a-4f5a-8835-649f340aec60"",
+                    ""path"": ""<Mouse>/delta/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ViewPointMove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""9986cdce-2b19-42ed-afaf-ecad9daced5d"",
+                    ""path"": ""<Mouse>/delta/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ViewPointMove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""8d763b44-84a8-4ea6-8f7d-ac6ac6b4ce72"",
+                    ""path"": ""<Mouse>/delta/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ViewPointMove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""9b151004-706c-4351-8ba4-af510ced5d35"",
+                    ""path"": ""<Mouse>/delta/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ViewPointMove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                }
+            ]
+        },
+        {
             ""name"": ""GearChange"",
-            ""id"": ""7945de2d-af1f-4a3b-9684-4f26de37afab"",
+            ""id"": ""89ffee06-b951-4868-b197-d2442c6cdf7b"",
             ""actions"": [
                 {
                     ""name"": ""GearUp"",
                     ""type"": ""Button"",
-                    ""id"": ""87981ee3-71bd-4dcf-b592-f245335cd3bf"",
+                    ""id"": ""2a6b87f5-5169-48ef-87fa-98de80f4fea7"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
                     ""name"": ""GearDown"",
                     ""type"": ""Button"",
-                    ""id"": ""d70e28b6-f737-44ed-83dc-1fea288d50e5"",
+                    ""id"": ""34b16852-0d78-4057-a520-4ce991a1855f"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""5768d6df-0a64-48c9-947e-34dfe11c1d6e"",
+                    ""id"": ""424d0184-56cc-4a73-8f9a-10e2b7bf68e0"",
                     ""path"": ""<Gamepad>/leftShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -60,7 +187,7 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""ae3b034d-f581-4f6c-a150-6bc8fbebabe0"",
+                    ""id"": ""7a6217e6-c388-4967-b044-2f2f12793631"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -71,7 +198,7 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""13793721-12f1-45f6-9176-bc83217c4b65"",
+                    ""id"": ""91c81675-310c-4f73-8fc5-809d19f2f7bf"",
                     ""path"": ""<Gamepad>/rightShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -82,7 +209,7 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""d1b1c1d5-9c59-45a5-91c6-61df4a17964f"",
+                    ""id"": ""446bcc48-c2d5-4aa5-8975-3b132fe2955c"",
                     ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -96,6 +223,9 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
     ],
     ""controlSchemes"": []
 }");
+        // Controll
+        m_Controll = asset.FindActionMap("Controll", throwIfNotFound: true);
+        m_Controll_ViewPointMove = m_Controll.FindAction("ViewPointMove", throwIfNotFound: true);
         // GearChange
         m_GearChange = asset.FindActionMap("GearChange", throwIfNotFound: true);
         m_GearChange_GearUp = m_GearChange.FindAction("GearUp", throwIfNotFound: true);
@@ -158,6 +288,52 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
+    // Controll
+    private readonly InputActionMap m_Controll;
+    private List<IControllActions> m_ControllActionsCallbackInterfaces = new List<IControllActions>();
+    private readonly InputAction m_Controll_ViewPointMove;
+    public struct ControllActions
+    {
+        private @InputMap m_Wrapper;
+        public ControllActions(@InputMap wrapper) { m_Wrapper = wrapper; }
+        public InputAction @ViewPointMove => m_Wrapper.m_Controll_ViewPointMove;
+        public InputActionMap Get() { return m_Wrapper.m_Controll; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(ControllActions set) { return set.Get(); }
+        public void AddCallbacks(IControllActions instance)
+        {
+            if (instance == null || m_Wrapper.m_ControllActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_ControllActionsCallbackInterfaces.Add(instance);
+            @ViewPointMove.started += instance.OnViewPointMove;
+            @ViewPointMove.performed += instance.OnViewPointMove;
+            @ViewPointMove.canceled += instance.OnViewPointMove;
+        }
+
+        private void UnregisterCallbacks(IControllActions instance)
+        {
+            @ViewPointMove.started -= instance.OnViewPointMove;
+            @ViewPointMove.performed -= instance.OnViewPointMove;
+            @ViewPointMove.canceled -= instance.OnViewPointMove;
+        }
+
+        public void RemoveCallbacks(IControllActions instance)
+        {
+            if (m_Wrapper.m_ControllActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IControllActions instance)
+        {
+            foreach (var item in m_Wrapper.m_ControllActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_ControllActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public ControllActions @Controll => new ControllActions(this);
+
     // GearChange
     private readonly InputActionMap m_GearChange;
     private List<IGearChangeActions> m_GearChangeActionsCallbackInterfaces = new List<IGearChangeActions>();
@@ -211,6 +387,10 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
         }
     }
     public GearChangeActions @GearChange => new GearChangeActions(this);
+    public interface IControllActions
+    {
+        void OnViewPointMove(InputAction.CallbackContext context);
+    }
     public interface IGearChangeActions
     {
         void OnGearUp(InputAction.CallbackContext context);

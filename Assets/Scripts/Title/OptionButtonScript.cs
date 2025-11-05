@@ -10,6 +10,8 @@ public class OptionButtonScript : MonoBehaviour
     private GameObject _firstButtons = default;
     [SerializeField, Header("オプション画面の親オブジェ")]
     private GameObject _optionParentObj = default;
+    [SerializeField, Header("バイク選択画面の親オブジェクト")]
+    private GameObject _bikeSelectParentObj = default;
     [SerializeField,Header("最初の画面に戻った時に最初に選択するボタン")]
     private GameObject _firstSelectButton = default;
     [SerializeField, Header("敵の最大数")]
@@ -40,6 +42,7 @@ public class OptionButtonScript : MonoBehaviour
     public void PressReturnButton()
     {
         _optionParentObj.SetActive(false);
+        _bikeSelectParentObj.SetActive(false);
         _firstButtons.SetActive(true);
         EventSystem.current.SetSelectedGameObject(_firstSelectButton);
     }

@@ -10,6 +10,7 @@ TagManager:
   - GearNumberText
   - TitleManager
   - Enemy
+  - WayPoint
   layers:
   - Default
   - TransparentFX

@@ -10,17 +10,24 @@ public class ObservationParent : MonoBehaviour
 
     private readonly string PLAYER_TAG = "Player";
 
-    private void Awake()
+    private bool _isStart = false;  
+
+    public void Initializer()
     {
         _wayPoint = GetComponent<ObservationPlayerNearWayPoint>();
         _speed = GetComponent<ObservationPlayerSpeed>();
         _player = GameObject.FindWithTag(PLAYER_TAG);
         _wayPoint.Initialize(_player);
         _speed.Initialize(_player);
+        _isStart = true;
     }
 
     private void FixedUpdate()
     {
+        if (!_isStart)
+        {
+            return;
+        }
         _wayPoint.Run();
         _speed.Run();
     }
