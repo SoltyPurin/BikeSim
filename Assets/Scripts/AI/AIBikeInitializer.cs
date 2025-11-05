@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class AIBikeInitializer : MonoBehaviour
 {
+    [SerializeField,Header("テストする際にこのリストにぶち込んでおくこと")]
     private List<GameObject> _aiBikes = new List<GameObject>();
     [SerializeField, Header("何秒後にイニシャライズを行うか")]
     private int _initializeTime = 3;
