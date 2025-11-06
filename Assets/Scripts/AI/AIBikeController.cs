@@ -50,7 +50,10 @@ public class AIBikeController : MonoBehaviour,IAiInitializer,IAIUpdater
     private readonly string WAYPOINT_TAG = "WayPoint";
     public void Initialize()
     {
-        _wayPointsParent = GameObject.FindGameObjectWithTag(WAYPOINT_TAG).GetComponent<Transform>();
+        if(_wayPointsParent == null)
+        {
+            _wayPointsParent = GameObject.FindGameObjectWithTag(WAYPOINT_TAG).GetComponent<Transform>();
+        }
         int wayPointCount = _wayPointsParent.childCount;
         for(int i = 0; i< wayPointCount; i++)
         {

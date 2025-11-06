@@ -21,7 +21,7 @@ public class CameraControll : MonoBehaviour
 
     private void MoveCameraLookObj(float hori,float ver)
     {
-        Debug.Log("右スティックの入力は" + hori + ver);
+        //Debug.Log("右スティックの入力は" + hori + ver);
         Vector3 cameraPos = _lookAtObj.transform.localPosition;
         cameraPos.x = hori;
         cameraPos.y = ver;

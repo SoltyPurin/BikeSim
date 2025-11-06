@@ -219,6 +219,76 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Engine"",
+            ""id"": ""248f8af9-0c0b-4404-9370-fc43efa17742"",
+            ""actions"": [
+                {
+                    ""name"": ""Axel"",
+                    ""type"": ""Value"",
+                    ""id"": ""7e03ec55-1c0d-445f-964d-406d105e2c85"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Brake"",
+                    ""type"": ""Value"",
+                    ""id"": ""be74dd14-6a34-4bfe-8cdd-a2f87354a6b8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""ee07af35-bb80-41f2-a018-f726528c600a"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Axel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9ddec980-d2c9-4581-8d3f-585076bba080"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Axel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""db7514df-54df-4b84-a89b-97f6be855920"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Brake"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ab7b1644-c9ea-42be-8359-7239302f9f69"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Brake"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -230,6 +300,10 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
         m_GearChange = asset.FindActionMap("GearChange", throwIfNotFound: true);
         m_GearChange_GearUp = m_GearChange.FindAction("GearUp", throwIfNotFound: true);
         m_GearChange_GearDown = m_GearChange.FindAction("GearDown", throwIfNotFound: true);
+        // Engine
+        m_Engine = asset.FindActionMap("Engine", throwIfNotFound: true);
+        m_Engine_Axel = m_Engine.FindAction("Axel", throwIfNotFound: true);
+        m_Engine_Brake = m_Engine.FindAction("Brake", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -387,6 +461,60 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
         }
     }
     public GearChangeActions @GearChange => new GearChangeActions(this);
+
+    // Engine
+    private readonly InputActionMap m_Engine;
+    private List<IEngineActions> m_EngineActionsCallbackInterfaces = new List<IEngineActions>();
+    private readonly InputAction m_Engine_Axel;
+    private readonly InputAction m_Engine_Brake;
+    public struct EngineActions
+    {
+        private @InputMap m_Wrapper;
+        public EngineActions(@InputMap wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Axel => m_Wrapper.m_Engine_Axel;
+        public InputAction @Brake => m_Wrapper.m_Engine_Brake;
+        public InputActionMap Get() { return m_Wrapper.m_Engine; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(EngineActions set) { return set.Get(); }
+        public void AddCallbacks(IEngineActions instance)
+        {
+            if (instance == null || m_Wrapper.m_EngineActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_EngineActionsCallbackInterfaces.Add(instance);
+            @Axel.started += instance.OnAxel;
+            @Axel.performed += instance.OnAxel;
+            @Axel.canceled += instance.OnAxel;
+            @Brake.started += instance.OnBrake;
+            @Brake.performed += instance.OnBrake;
+            @Brake.canceled += instance.OnBrake;
+        }
+
+        private void UnregisterCallbacks(IEngineActions instance)
+        {
+            @Axel.started -= instance.OnAxel;
+            @Axel.performed -= instance.OnAxel;
+            @Axel.canceled -= instance.OnAxel;
+            @Brake.started -= instance.OnBrake;
+            @Brake.performed -= instance.OnBrake;
+            @Brake.canceled -= instance.OnBrake;
+        }
+
+        public void RemoveCallbacks(IEngineActions instance)
+        {
+            if (m_Wrapper.m_EngineActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IEngineActions instance)
+        {
+            foreach (var item in m_Wrapper.m_EngineActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_EngineActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public EngineActions @Engine => new EngineActions(this);
     public interface IControllActions
     {
         void OnViewPointMove(InputAction.CallbackContext context);
@@ -395,5 +523,10 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
     {
         void OnGearUp(InputAction.CallbackContext context);
         void OnGearDown(InputAction.CallbackContext context);
+    }
+    public interface IEngineActions
+    {
+        void OnAxel(InputAction.CallbackContext context);
+        void OnBrake(InputAction.CallbackContext context);
     }
 }

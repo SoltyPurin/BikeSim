@@ -9,9 +9,12 @@ public class Brake : MonoBehaviour
     private float _brakeFrictionMaxValue = 2.0f;
     [SerializeField, Header("入力値に乗算する値")]
     private float _brakeMultiplier = 2f;
+    [SerializeField, Header("トレイルレンダラー")]
+    private TrailRenderer _trailRenderer = default;
     [SerializeField,Header("物理マテリアル")]
     private PhysicMaterial _physicsMaterial = default;
     private Gamepad _gamePad;
+    private InputMap _inputMap = default;
 
     private float _leftTriggerValue = default;
     private float _brakeValue = 0;
@@ -21,13 +24,24 @@ public class Brake : MonoBehaviour
     {
         _gamePad = Gamepad.current;
         _frictionMinimumValue = _physicsMaterial.dynamicFriction;
+        _inputMap = new InputMap();
+        _inputMap.Enable();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        _leftTriggerValue = _gamePad.leftTrigger.ReadValue();
+
+        _leftTriggerValue = _inputMap.Engine.Brake.ReadValue<float>();
         _brakeValue = _leftTriggerValue * _brakeMultiplier;
         _brakeValue = Mathf.Clamp(_brakeValue,_frictionMinimumValue,_brakeFrictionMaxValue);
         _physicsMaterial.dynamicFriction = _brakeValue;
+        if(_leftTriggerValue >= 1)
+        {
+            _trailRenderer.emitting = true;
+        }
+        else
+        {
+            _trailRenderer.emitting = false;
+        }
     }
 }

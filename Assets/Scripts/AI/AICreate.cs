@@ -14,6 +14,7 @@ public class AICreate : MonoBehaviour
     private readonly string TITLEMANAGERTAG = "TitleManager";
     [SerializeField, Header("バイクをスポーンさせる場所のリスト")]
     private List<Transform> _spawnPos = new List<Transform>();
+    private Quaternion _spawnRota = Quaternion.Euler(0,90,0);   
 
     private void Awake()
     {
@@ -29,7 +30,7 @@ public class AICreate : MonoBehaviour
     {
         for(int i = 0; i<value; i++)
         {
-            GameObject obj= Instantiate(_aiBike, _spawnPos[i].position,Quaternion.identity);
+            GameObject obj= Instantiate(_aiBike, _spawnPos[i].position, _spawnRota);
             _initializer.ListAdder(obj);
         }
     }

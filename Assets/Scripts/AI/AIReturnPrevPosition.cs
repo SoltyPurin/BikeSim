@@ -14,6 +14,10 @@ public class AIReturnPrevPosition : MonoBehaviour
     public void Jugemu()
     {
         Debug.Log("前のポイントに戻るよ");
+        if(_controller.CurrentWaypointIndex == 0)
+        {
+            return;
+        }
         Vector3 prevWaypoint = _controller.WayPoints[_controller.CurrentWaypointIndex - 1].position;
         this.transform.position = prevWaypoint;
         _controller.PointDeviationReset();

@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Bike_Status")]
 public class BikeStatus : ScriptableObject
 {
-    [SerializeField,Header("ŠeƒMƒA‚Ì‘¬“x")]
+    [SerializeField,Header("ŠeƒMƒA‚Å—^‚¦‚é”{—¦")]
     private  List<float> _gearSpeeds = new List<float>();
     public List<float> GearSpeeds
     {

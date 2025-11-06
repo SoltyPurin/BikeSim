@@ -3,26 +3,29 @@ using UnityEngine.InputSystem;
 
 public class Axel : MonoBehaviour
 {
-    private Gamepad _gamePad;
-    private float _rightTrigger = default;
+    #region Serializeïœêî
     [SerializeField] private bool _isAIControl = false;
 
     [SerializeField] BaseBike _baseBike = default;
+    #endregion
 
-    public float RightTrigger
-    {
-        get { return _rightTrigger; }
-    }
+    #region ïœêî
+    private float _rightTriggerValue = default;
+    private InputMap _inputMap = default;
+    #endregion
 
-    private void Awake()
+    private void Start()
     {
-        _gamePad = Gamepad.current;
+        _inputMap = new InputMap();
+        _inputMap.Enable();
+
     }
 
     private void Update()
     {
-        _rightTrigger = _gamePad.rightTrigger.ReadValue();
-        float outPutValue = Mathf.Clamp(_rightTrigger * 100, 0.1f, 100);
+        _rightTriggerValue = _inputMap.Engine.Axel.ReadValue<float>();
+        float outPutValue = Mathf.Clamp(_rightTriggerValue * 100, 0.1f, 100);
+        Debug.Log(outPutValue);
         _baseBike.UpdateAxelValue(outPutValue);
     }
 
