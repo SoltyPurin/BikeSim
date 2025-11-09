@@ -657,8 +657,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 880420465013518811}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.16631822, y: -0.000000059604638, z: 0.00000002235174, w: 0.9860721}
-  m_LocalPosition: {x: -0.0000000037252903, y: 0.6839447, z: 0.03820801}
+  m_LocalRotation: {x: 0.1663314, y: -0, z: 0.0000000074505797, w: 0.9860699}
+  m_LocalPosition: {x: -0.0000000037252903, y: 0.68395233, z: 0.038269047}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -857,8 +857,8 @@ Transform:
   m_GameObject: {fileID: 1237450380221207999}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.5400009, z: -0.20001224}
-  m_LocalScale: {x: 0.80000013, y: 0.8, z: 0.80000013}
+  m_LocalPosition: {x: 0, y: -0.54, z: -0.2}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 524290027167863791}
@@ -1940,8 +1940,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3501937235193089902}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.16631822, y: -0.000000059604638, z: 0.00000002235174, w: 0.9860721}
-  m_LocalPosition: {x: -0.0000000037252903, y: 0.6839447, z: 0.03820801}
+  m_LocalRotation: {x: 0.1663314, y: -0, z: 0.0000000074505797, w: 0.9860699}
+  m_LocalPosition: {x: -0.0000000037252903, y: 0.68395233, z: 0.038269047}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3511,7 +3511,7 @@ MonoBehaviour:
   _rayStartDistance: 0.8
   _rayDistance: 0.6
   _downValue: 0.1
-  _upValue: 0.01
+  _upValue: 0.001
 --- !u!114 &2622854353019828510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3638,7 +3638,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.5, y: 1, z: 1.6}
   m_Center: {x: 0, y: 0, z: 0}
@@ -3721,7 +3721,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Height: 1
