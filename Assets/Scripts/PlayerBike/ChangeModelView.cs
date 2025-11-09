@@ -20,7 +20,11 @@ public class ChangeModelView : MonoBehaviour
         foreach (Transform ob in children)
         {
             MeshRenderer mesh = ob.gameObject.GetComponent<MeshRenderer>();
-            mesh.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
+            if(mesh != null)
+            {
+                mesh.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
+
+            }
         }
     }
 
@@ -36,7 +40,10 @@ public class ChangeModelView : MonoBehaviour
         foreach (Transform ob in children)
         {
             MeshRenderer mesh = ob.gameObject.GetComponent<MeshRenderer>();
-            mesh.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+            if (mesh != null)
+            {
+                mesh.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+            }
         }
     }
 }

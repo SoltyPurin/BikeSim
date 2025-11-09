@@ -30,8 +30,7 @@ public class Suspension : MonoBehaviour
     {
         RaycastHit hit;
         bool isTouchGround = false;
-        Vector3 origin = transform.position;
-        origin.x += _rayStartDistance;
+        Vector3 origin = transform.forward * _rayStartDistance;
         Vector3 direction = Vector3.down;
         if (Physics.Raycast(origin, direction, out hit,_rayDistance))
         {
@@ -52,8 +51,7 @@ public class Suspension : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Vector3 origin = transform.position;
-        origin.x += _rayStartDistance;
+        Vector3 origin = transform.forward * _rayStartDistance;
         Vector3 direction = Vector3.down * _rayDistance;
         Debug.DrawRay(origin, direction, Color.blue);
     }

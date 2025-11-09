@@ -67,8 +67,8 @@ public class WhoTheHead : MonoBehaviour
         AIBikeController farController = mostFarEnemy.GetComponent<AIBikeController>();
         int nearIndex = nearController.CurrentWaypointIndex;
         int farIndex = farController.CurrentWaypointIndex;
-        Debug.Log("近い敵の目指してるポイントは" + nearIndex);
-        Debug.Log("遠い敵の目指してるポイントは" + farIndex);
+        //Debug.Log("近い敵の目指してるポイントは" + nearIndex);
+        //Debug.Log("遠い敵の目指してるポイントは" + farIndex);
         if(farIndex < nearIndex)
         {
             Debug.Log("プレイヤーが先頭付近にいるよ");
