@@ -5,8 +5,9 @@ public class AutoMatic : BaseBike
     private float _attenuation = 0.8f;
     private float _accelHoldTime = 0.0f;
     [SerializeField] private const float GEARUPTIME = 5.0f;
-    [SerializeField, Header("ギアをリセットする速度")]
-    private float _gearResetThreshold = 10;
+    [SerializeField, Header("ギアを一段階下げるまでの時間")]
+    private float _gearOneDownTime = 3;
+    private float _curNotHoldAxelTime = 0.0f;   
     private bool _isHoldAxel = false;  
     private void Start()
     {
@@ -21,12 +22,9 @@ public class AutoMatic : BaseBike
 
     private void FixedUpdate()
     {
+        Debug.Log(_currentGearIndex);
         //_clutchValue = 1.0f;
         MoveForward();
-        if(_clutchValue != 0.0f && _currentGearIndex == 1)
-        {
-            _currentGearIndex = 0;
-        }
     }
 
     public override void MoveForward()
@@ -49,14 +47,20 @@ public class AutoMatic : BaseBike
             Debug.Log("ギアチェンジ");
         }
 
-        if(!_isHoldAxel && _rigidBody.velocity.magnitude <= _gearResetThreshold)
+        if(!_isHoldAxel)
         {
-            Debug.Log("ギアリセット");
-            _currentGearIndex = 0;
+            _curNotHoldAxelTime += Time.fixedDeltaTime;
         }
-
-        Debug.Log(_isHoldAxel);
-
+        if(_currentGearIndex <= 0)
+        {
+            return;
+        }
+        if(_curNotHoldAxelTime >= _gearOneDownTime)
+        {
+            Debug.Log("ギア一段階ダウン");
+            _currentGearIndex--;
+            _curNotHoldAxelTime = 0;    
+        }
     }
 
 }

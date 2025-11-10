@@ -2667,7 +2667,7 @@ GameObject:
   - component: {fileID: 6601581263396429280}
   - component: {fileID: 8415633983045182118}
   m_Layer: 0
-  m_Name: AutomaticBike
+  m_Name: AutoMaticBike
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2722,8 +2722,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1247139add07059418a001a4e2a05790, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseBike: {fileID: 0}
-  _playerBike: {fileID: 5149874304523033636}
+  _baseBike: {fileID: 891087808708270839}
   _bikeObject: {fileID: 3462830082387430176}
   _status: {fileID: 11400000, guid: 205a093516e88e24ea9f624f9bfb43e6, type: 2}
   _rigidBody: {fileID: 1926367991706152692}

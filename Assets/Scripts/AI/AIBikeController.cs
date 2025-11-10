@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class AIBikeController : MonoBehaviour,IAiInitializer,IAIUpdater
 {
+    private enum EnemyState
+    {
+        PlayerFront,
+        BehindThePlayer,
+        NoChange,
+    }
+    private EnemyState _state = EnemyState.NoChange;
     [SerializeField,Header("バイク本体のスクリプト")]
     private BaseBike _bike;
     [SerializeField, Header("ウェイポイントが登録してある親")]
@@ -79,8 +86,21 @@ public class AIBikeController : MonoBehaviour,IAiInitializer,IAIUpdater
 
     public void InterfaceUpdate(ObservationPlayerNearWayPoint observation)
     {
+        switch (_state)
+        {
+            case EnemyState.PlayerFront:
+                PlayerFrontProtocol();
+                break;  
+            case EnemyState.BehindThePlayer:
+                BehindThePlayerProtocol();
+                break;
+            case EnemyState.NoChange:
+                NoChangeProtocol();
+                break;
+        }
+
+        Debug.Log("敵のステートは" +  _state); 
         //アクセルを徐々にふかす
-        _bike.UpdateAxelValue(AxelPlus());
         // 自動で前に進む処理
         _bike.MoveForward();
 
@@ -96,8 +116,27 @@ public class AIBikeController : MonoBehaviour,IAiInitializer,IAIUpdater
         {
             ShiftUpProtocol();
         }
-
-
+    }
+    /// <summary>
+    /// プレイヤーの前にいる時のプロトコル。やることはアクセルのダウン
+    /// </summary>
+    private void PlayerFrontProtocol()
+    {
+        AxelDown();
+    }
+    /// <summary>
+    /// プレイヤーの後ろにいる時のプロトコル。やることはアクセルのアップ
+    /// </summary>
+    private void BehindThePlayerProtocol()
+    {
+        _bike.UpdateAxelValue(AxelPlus());
+    }
+    /// <summary>
+    /// 特に今の状況を変えたくない時のプロトコル。やることは不定
+    /// </summary>
+    private void NoChangeProtocol()
+    {
+        _bike.UpdateAxelValue(AxelPlus());
     }
 
     /// <summary>
@@ -110,6 +149,7 @@ public class AIBikeController : MonoBehaviour,IAiInitializer,IAIUpdater
             Debug.Log("プレイヤーの方が前");
             _isFrontPlayer = true;
             _currentPlayerFrontTime = 0;
+            _state = EnemyState.BehindThePlayer;
             return;
         }
         _currentPlayerFrontTime += Time.fixedDeltaTime;
@@ -120,8 +160,8 @@ public class AIBikeController : MonoBehaviour,IAiInitializer,IAIUpdater
             Debug.Log("長く前に居すぎたので下がります");
             _currentPlayerFrontTime = 0;
             ShiftDownProtocol();
+            _state = EnemyState.PlayerFront;
         }
-
     }
 
     /// <summary>
