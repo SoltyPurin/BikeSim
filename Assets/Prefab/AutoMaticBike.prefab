@@ -2709,7 +2709,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _status: {fileID: 11400000, guid: d6df3861c378c4241bfa6763b85f7e07, type: 2}
-  _gearResetThreshold: 10
+  _gearOneDownTime: 3
 --- !u!114 &9079741057898002669
 MonoBehaviour:
   m_ObjectHideFlags: 0

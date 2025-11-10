@@ -27,10 +27,13 @@ public class AIBikeController : MonoBehaviour,IAiInitializer,IAIUpdater
     private float _valueWithAllowableError = 40f;
     [SerializeField, Header("どれくらいの時間プレイヤーの前にいたら減速するか")]
     private float _downSpeedTime = 10f;
+    [SerializeField, Header("どれくらいプレイヤーの後ろにいたら強制的にギアを上げるか")]
+    private float _forceGearUpTime = 5f;
     private AIMesureDistanceToPlayer _mesureDistance = default;
     private AIDetectGearChangeCurve _detectCurve = default;
     private AIGearChange _gearChange = default;
     private AICompareWhitchSidePlayer _frontAndBack = default;
+    private float _currentPlayerBehindTime = 0;
     private float _personalHandlingSpeed;
     private float _reachThreshold = 10f;
     private float _randomWaypointDeviationsX;
@@ -126,10 +129,18 @@ public class AIBikeController : MonoBehaviour,IAiInitializer,IAIUpdater
     }
     /// <summary>
     /// プレイヤーの後ろにいる時のプロトコル。やることはアクセルのアップ
+    /// もし後ろすぎたら強制的にギアを上げる
     /// </summary>
     private void BehindThePlayerProtocol()
     {
         _bike.UpdateAxelValue(AxelPlus());
+        _currentPlayerBehindTime += Time.fixedDeltaTime;
+        if(_currentPlayerBehindTime >= _forceGearUpTime)
+        {
+            Debug.Log("強制ギアアップ");
+            ShiftUpProtocol();
+            _currentPlayerBehindTime = 0;
+        }
     }
     /// <summary>
     /// 特に今の状況を変えたくない時のプロトコル。やることは不定

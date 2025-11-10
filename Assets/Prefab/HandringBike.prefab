@@ -3383,7 +3383,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6529873636067302075}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -855, y: 98, z: -924}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3397,7 +3397,7 @@ Transform:
   - {fileID: 5617337902552969926}
   - {fileID: 185088076200649892}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2641046260961171641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3425,7 +3425,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _baseBike: {fileID: 2641046260961171641}
-  _playerBike: {fileID: 6529873636067302075}
   _bikeObject: {fileID: 4250790151937691086}
   _status: {fileID: 11400000, guid: 205a093516e88e24ea9f624f9bfb43e6, type: 2}
   _rigidBody: {fileID: 7990895370191890273}
@@ -3493,7 +3492,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _brakeFrictionMaxValue: 3
-  _brakeMultiplier: 2
   _trailRenderer: {fileID: 3411441359656116546}
   _physicsMaterial: {fileID: 13400000, guid: f560bc26ab1a59e4d9ffb41a2772bd8c, type: 2}
 --- !u!114 &2048049277463634764
@@ -3538,31 +3536,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _camera: {fileID: 7893174346351122428}
-  _action:
-    m_Name: Action
-    m_Type: 1
-    m_ExpectedControlType: Button
-    m_Id: 8a700bbe-3df7-48ed-8084-aa5acf3f11d2
-    m_Processors: 
-    m_Interactions: Press
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: d901f9be-5e77-48b7-882b-7da46b8cd2b2
-      m_Path: <Gamepad>/rightStickPress
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Action
-      m_Flags: 0
-    - m_Name: 
-      m_Id: df3e4679-8a58-47c5-9905-99124164ef73
-      m_Path: <Mouse>/middleButton
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Action
-      m_Flags: 0
-    m_Flags: 0
+  _changePersonName: ChangePerson
 --- !u!114 &310493641770527667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3699,6 +3673,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: be74dd14-6a34-4bfe-8cdd-a2f87354a6b8
     m_ActionName: 'Engine/Brake[/XInputControllerWindows1/leftTrigger,/Keyboard/space]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4ff5d6cb-f567-4921-b282-2616bbb067a7
+    m_ActionName: 'Controll/ChangePerson[/XInputControllerWindows/rightStickPress,/Mouse/middleButton]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Controll

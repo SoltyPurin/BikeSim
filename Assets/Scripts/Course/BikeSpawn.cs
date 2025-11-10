@@ -9,10 +9,8 @@ public class BikeSpawn : MonoBehaviour
     private int _bikeIndex = default;
     [SerializeField]private GameObject[] _bikeObjectArray = new GameObject[4];
     [SerializeField, Header("バイクをスポーンさせる場所")]
-    private Vector3 _bikeSpawnPoint = default;
+    private Transform _bikeSpawnPoint = default;
 
-    [SerializeField,Header("スタート時のバイクの回転")]
-    private Quaternion _quaternion = Quaternion.identity;
     private void Awake()
     {
         _bikeButtonObject = GameObject.FindWithTag(TITLEMANAGERTAG);
@@ -21,12 +19,8 @@ public class BikeSpawn : MonoBehaviour
             _selectBikeButton = _bikeButtonObject.GetComponent<SelectBikeButton>();
             _bikeIndex = _selectBikeButton.BikeNumber;
             SceneManager.UnloadSceneAsync("Title");
-            Instantiate(_bikeObjectArray[_bikeIndex],_bikeSpawnPoint,_quaternion);
+            Instantiate(_bikeObjectArray[_bikeIndex],_bikeSpawnPoint.position,_bikeSpawnPoint.rotation);
 
-        }
-        else
-        {
-            return;
         }
 
     }

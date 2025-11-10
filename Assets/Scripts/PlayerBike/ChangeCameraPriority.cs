@@ -8,11 +8,10 @@ public class ChangeCameraPriority : MonoBehaviour
 {
     [SerializeField, Header("優先度を変えるカメラ")]
     private CinemachineVirtualCamera _camera = default;
-    [SerializeField, Header("プレイヤーの入力スクリプト")]
-    private PlayerInput _input = default;
     [SerializeField, Header("視点変更のアクションの名前")]
     private string _changePersonName = "ChangePerson";
-  
+
+    private PlayerInput _input = default;
     private InputAction _changeView;
     private ChangeModelView _model = default;
 
@@ -23,6 +22,10 @@ public class ChangeCameraPriority : MonoBehaviour
 
     private void Start()
     {
+        if(_input == null)
+        {
+            _input = GetComponent<PlayerInput>();
+        }
         _changeView = _input.actions.FindAction(_changePersonName);
         _model = GetComponent<ChangeModelView>();
         _model.ShadowOnly();
