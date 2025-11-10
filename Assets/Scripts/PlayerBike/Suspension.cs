@@ -10,6 +10,16 @@ public class Suspension : MonoBehaviour
     private float _downValue = 0.1f;
     [SerializeField, Header("è„Ç∞ÇÈíl")]
     private float _upValue = 0.001f;
+
+    private int _roadLayer = 3;
+
+    private readonly string ROAD_TAG = "Road";
+
+    private void Start()
+    {
+        GameObject road = GameObject.FindWithTag(ROAD_TAG);
+        _roadLayer = road.layer;
+    }
     private void FixedUpdate()
     {
         Vector3 currentPos = transform.position;
@@ -30,19 +40,14 @@ public class Suspension : MonoBehaviour
     {
         RaycastHit hit;
         bool isTouchGround = false;
-        Vector3 origin = transform.forward * _rayStartDistance;
+        Vector3 origin = transform.position+ transform.forward * _rayStartDistance;
         Vector3 direction = Vector3.down;
         if (Physics.Raycast(origin, direction, out hit,_rayDistance))
         {
             int hitObjLayer = hit.collider.gameObject.layer;
-            if ((hitObjLayer ==3))
+            if ((hitObjLayer ==_roadLayer))
             {
-                Debug.Log("ê⁄ín");
                 isTouchGround = true;
-            }
-            else
-            {
-                Debug.Log("îÚÇÒÇ≈ÇÈ");
             }
         }
 
@@ -51,7 +56,7 @@ public class Suspension : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Vector3 origin = transform.forward * _rayStartDistance;
+        Vector3 origin = transform.position + transform.forward * _rayStartDistance;
         Vector3 direction = Vector3.down * _rayDistance;
         Debug.DrawRay(origin, direction, Color.blue);
     }

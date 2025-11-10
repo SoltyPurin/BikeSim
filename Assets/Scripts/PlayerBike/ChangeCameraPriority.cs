@@ -8,24 +8,35 @@ public class ChangeCameraPriority : MonoBehaviour
 {
     [SerializeField, Header("優先度を変えるカメラ")]
     private CinemachineVirtualCamera _camera = default;
-    [SerializeField,Header("インプットシステム")]
-    private InputAction _action;
-
+    [SerializeField, Header("プレイヤーの入力スクリプト")]
+    private PlayerInput _input = default;
+    [SerializeField, Header("視点変更のアクションの名前")]
+    private string _changePersonName = "ChangePerson";
+  
+    private InputAction _changeView;
     private ChangeModelView _model = default;
 
     private int _highPriority = 10;
     private int _lowPriority = 0;
     private bool _isFirstPerson = true;
 
+
     private void Start()
     {
-        _action.performed += ChangeCamera;
-        _action?.Enable();
+        _changeView = _input.actions.FindAction(_changePersonName);
         _model = GetComponent<ChangeModelView>();
         _model.ShadowOnly();
     }
 
-    public void ChangeCamera(InputAction.CallbackContext context)
+    private void Update()
+    {
+        if (_changeView.WasPressedThisFrame())
+        {
+            ChangeCamera();
+        }
+
+    }
+    private void ChangeCamera()
     {
         Debug.Log("視点変更");
         switch (_isFirstPerson)

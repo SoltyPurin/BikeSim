@@ -7,8 +7,6 @@ public class BikeHandring : MonoBehaviour
     //右曲がりはY軸がプラスのZ軸がマイナス
     #region Serialize変数
     [SerializeField] private BaseBike _baseBike = default;
-    [SerializeField,Header("バイク本体")] 
-    private GameObject _playerBike = default;
     [SerializeField,Header("バイク本体の見た目")]
     private GameObject _bikeObject = default;
     [SerializeField, Header("ステータスを読み込むScriptableObject")]

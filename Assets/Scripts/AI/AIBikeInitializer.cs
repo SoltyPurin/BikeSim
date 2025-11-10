@@ -20,9 +20,8 @@ public class AIBikeInitializer : MonoBehaviour
     {
         _aiBikes.Add(obj);
     }
-    private async void Start()
+    public void Initialize()
     {
-        await UniTask.WaitForSeconds(_initializeTime);
         _updater = GetComponent<AIUpdater>();
         foreach(GameObject ai in _aiBikes)
         {

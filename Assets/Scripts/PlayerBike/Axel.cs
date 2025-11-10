@@ -12,20 +12,28 @@ public class Axel : MonoBehaviour
     #region ïœêî
     private float _rightTriggerValue = default;
     private InputMap _inputMap = default;
+    private bool _canStart = false;
     #endregion
 
     private void Start()
     {
         _inputMap = new InputMap();
         _inputMap.Enable();
+    }
 
+    public void PermissionStart()
+    {
+        _canStart = true;
     }
 
     private void Update()
     {
+        if (!_canStart)
+        {
+            return;
+        }
         _rightTriggerValue = _inputMap.Engine.Axel.ReadValue<float>();
         float outPutValue = Mathf.Clamp(_rightTriggerValue * 100, 0.1f, 100);
-        Debug.Log(outPutValue);
         _baseBike.UpdateAxelValue(outPutValue);
     }
 

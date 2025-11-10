@@ -145,8 +145,8 @@ public class BaseBike : MonoBehaviour
             float maxSpeed = _status.GearMaxSpeeds[_currentGearIndex];
             float speedNormalized = Mathf.Clamp(speed/maxSpeed, 0.1f, 1f);
             //xŽ²‚ª‘¬“x‚ÌyŽ²‚ª‘¬“x‚Ìã‚ª‚è‚â‚·‚³
-            float initCurve = _status.GearCurve[_currentGearIndex].Evaluate(speedNormalized);
-            force = (transform.forward * _gearSpeeds[_currentGearIndex] * _axelValue);
+            float initCurve = _status.GearCurve[_currentGearIndex].Evaluate(speedNormalized)+1;
+            force = (transform.forward * _gearSpeeds[_currentGearIndex] * _axelValue) * initCurve;
             _rigidBody.AddForce(force);
             if (speed >= _status.GearMaxSpeeds[_currentGearIndex])
             {

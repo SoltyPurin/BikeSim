@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class BikeUIManager : MonoBehaviour
 {
     //[SerializeField] private Text _clutchValueText = default;
-    private Text _gearNumberText = default;
+    protected Text _gearNumberText = default;
 
     [SerializeField] private BaseBike _baseBike = default;
 
@@ -17,7 +17,7 @@ public class BikeUIManager : MonoBehaviour
         //_clutchValueText = GameObject.FindWithTag(CLUTHTEXTNAME).GetComponent<Text>();
         _gearNumberText = GameObject.FindWithTag(GEARNUMBERTEXT).GetComponent <Text>();
     }
-    public void UpdateGearText(int gearNumber)
+    public virtual void UpdateGearText(int gearNumber)
     {
         _gearNumberText.text = _gearNames[gearNumber];
     }

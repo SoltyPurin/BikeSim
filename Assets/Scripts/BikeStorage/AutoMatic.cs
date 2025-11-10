@@ -8,12 +8,11 @@ public class AutoMatic : BaseBike
     [SerializeField, Header("ギアをリセットする速度")]
     private float _gearResetThreshold = 10;
     private bool _isHoldAxel = false;  
-    private void Awake()
+    private void Start()
     {
         for (int i = 0; i < _status.GearSpeeds.Count; i++)
         {
             _gearSpeeds.Add(_status.GearSpeeds[i]);
-            Debug.Log(i + "速のスピードは" + _gearSpeeds[i]);
         }
 
         _attenuationRate = _attenuation;
@@ -45,8 +44,8 @@ public class AutoMatic : BaseBike
         if(_accelHoldTime >= GEARUPTIME)
         {
 
-                UpGear();
-                _accelHoldTime = 0;
+            UpGear();
+            _accelHoldTime = 0;
             Debug.Log("ギアチェンジ");
         }
 

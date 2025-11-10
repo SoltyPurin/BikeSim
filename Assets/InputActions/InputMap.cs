@@ -35,6 +35,15 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ChangePerson"",
+                    ""type"": ""Button"",
+                    ""id"": ""4ff5d6cb-f567-4921-b282-2616bbb067a7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -147,6 +156,28 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
                     ""action"": ""ViewPointMove"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""48c38bc0-3e05-4ce6-9fdf-e492f2352c74"",
+                    ""path"": ""<Gamepad>/rightStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangePerson"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b6972e01-1864-4d24-8925-3a1d2bea9773"",
+                    ""path"": ""<Mouse>/middleButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangePerson"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -296,6 +327,7 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
         // Controll
         m_Controll = asset.FindActionMap("Controll", throwIfNotFound: true);
         m_Controll_ViewPointMove = m_Controll.FindAction("ViewPointMove", throwIfNotFound: true);
+        m_Controll_ChangePerson = m_Controll.FindAction("ChangePerson", throwIfNotFound: true);
         // GearChange
         m_GearChange = asset.FindActionMap("GearChange", throwIfNotFound: true);
         m_GearChange_GearUp = m_GearChange.FindAction("GearUp", throwIfNotFound: true);
@@ -366,11 +398,13 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Controll;
     private List<IControllActions> m_ControllActionsCallbackInterfaces = new List<IControllActions>();
     private readonly InputAction m_Controll_ViewPointMove;
+    private readonly InputAction m_Controll_ChangePerson;
     public struct ControllActions
     {
         private @InputMap m_Wrapper;
         public ControllActions(@InputMap wrapper) { m_Wrapper = wrapper; }
         public InputAction @ViewPointMove => m_Wrapper.m_Controll_ViewPointMove;
+        public InputAction @ChangePerson => m_Wrapper.m_Controll_ChangePerson;
         public InputActionMap Get() { return m_Wrapper.m_Controll; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -383,6 +417,9 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
             @ViewPointMove.started += instance.OnViewPointMove;
             @ViewPointMove.performed += instance.OnViewPointMove;
             @ViewPointMove.canceled += instance.OnViewPointMove;
+            @ChangePerson.started += instance.OnChangePerson;
+            @ChangePerson.performed += instance.OnChangePerson;
+            @ChangePerson.canceled += instance.OnChangePerson;
         }
 
         private void UnregisterCallbacks(IControllActions instance)
@@ -390,6 +427,9 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
             @ViewPointMove.started -= instance.OnViewPointMove;
             @ViewPointMove.performed -= instance.OnViewPointMove;
             @ViewPointMove.canceled -= instance.OnViewPointMove;
+            @ChangePerson.started -= instance.OnChangePerson;
+            @ChangePerson.performed -= instance.OnChangePerson;
+            @ChangePerson.canceled -= instance.OnChangePerson;
         }
 
         public void RemoveCallbacks(IControllActions instance)
@@ -518,6 +558,7 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
     public interface IControllActions
     {
         void OnViewPointMove(InputAction.CallbackContext context);
+        void OnChangePerson(InputAction.CallbackContext context);
     }
     public interface IGearChangeActions
     {
