@@ -20,11 +20,12 @@ public class OptionButtonScript : MonoBehaviour
     private Text _enemyCountText = default;
 
     private int _enemyCount = 1;
-    public int EnemyCount
-    {
-        get { return _enemyCount; }
-    }
 
+    private void Start()
+    {
+        PlayerPrefs.SetInt("EnemyCount", _enemyCount);
+        Debug.Log("Å‰‚Ì“G‚Ì”‚Í" + PlayerPrefs.GetInt("EnemyCount"));
+    }
     public void CountPlus()
     {
         _enemyCount++;
@@ -41,6 +42,7 @@ public class OptionButtonScript : MonoBehaviour
 
     public void PressReturnButton()
     {
+        PlayerPrefs.SetInt("EnemyCount",_enemyCount);
         _optionParentObj.SetActive(false);
         _bikeSelectParentObj.SetActive(false);
         _firstButtons.SetActive(true);

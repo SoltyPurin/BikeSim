@@ -18,12 +18,14 @@ public class AICreate : MonoBehaviour
 
     private void Awake()
     {
-        _getObject = GameObject.FindWithTag(TITLEMANAGERTAG);
-        if (_getObject != null)
-        {
-            _optionButtonScript = _getObject.GetComponent<OptionButtonScript>();
-            CreatAIProtocol(_optionButtonScript.EnemyCount);
-        }
+        //_getObject = GameObject.FindWithTag(TITLEMANAGERTAG);
+        //if (_getObject != null)
+        //{
+            //_optionButtonScript = _getObject.GetComponent<OptionButtonScript>();
+            int enemyCount = PlayerPrefs.GetInt("EnemyCount");
+            Debug.Log("AIÇÃêîÇÕ" + enemyCount);
+            CreatAIProtocol(enemyCount);
+        //}
     }
 
     private void CreatAIProtocol(int value)

@@ -12,6 +12,16 @@ public class BaseBike : MonoBehaviour
         get { return _status; }
     }
 
+    [SerializeField, Header("玉のリジッドボディ")]
+    private Rigidbody _ballRigidBody = default;
+    [SerializeField, Header("上のリジッドボディ")]
+    private Rigidbody _onBallRigidBody = default;
+
+    [SerializeField, Header("どれくらい加速しやすいか")]
+    private float _accelarationValue = 0.5f;
+
+
+
     //デコレーター、分けた方がいい。重すぎる
     //神クラスを作ってそれの関係性を明らかにしてそれを分割
     protected List<float> _gearSpeeds = new List<float>(); //必ず速度を子クラスで設定する
@@ -34,16 +44,10 @@ public class BaseBike : MonoBehaviour
     protected const float ORIGINATTENUATIONVALUE = 0.6f;
     protected float _axelEngageThreshold = 0.2f; //ベタ押し検知
 
-    protected Rigidbody _rigidBody = default;
-    public Rigidbody RigidBody
-    {
-        get { return _rigidBody; }
-    }
     private BikeUIManager _uiManager = default;
 
     public virtual void Awake()
     {
-        _rigidBody = GetComponent<Rigidbody>();
         _uiManager = GetComponent<BikeUIManager>();
     }
 
@@ -115,13 +119,16 @@ public class BaseBike : MonoBehaviour
         if (_isFirst)
         {
             force = (transform.forward * _gearSpeeds[_currentGearIndex] * _axelValue);
-            _rigidBody.AddForce(force);
+            _ballRigidBody.AddForce(force);
+
         }
         else
         {
-            force = (transform.forward * _gearSpeeds[0] * _attenuationRate * _axelValue);
-            _rigidBody.AddForce(force);
+            force = (transform.forward * _gearSpeeds[0] * _axelValue);
+            _ballRigidBody.AddForce(force);
             _attenuationRate *= _decelerationMultiplication;
+
+
         }
 
     }
@@ -135,27 +142,31 @@ public class BaseBike : MonoBehaviour
         if (_axelValue <= _axelEngageThreshold)
         {
             force = (transform.forward * _gearSpeeds[_currentGearIndex] * _attenuationRate);
-            _rigidBody.AddForce(force);
+            _ballRigidBody.AddForce(force);
             _attenuationRate *= _decelerationMultiplication;
 
         }
         else
         {
-            float speed = CalcCurrentBikeSpeed();
-            float maxSpeed = _status.GearMaxSpeeds[_currentGearIndex];
-            float speedNormalized = Mathf.Clamp(speed/maxSpeed, 0.1f, 1f);
-            //x軸が速度のy軸が速度の上がりやすさ
-            float initCurve = _status.GearCurve[_currentGearIndex].Evaluate(speedNormalized)+1;
-            force = (transform.forward * _gearSpeeds[_currentGearIndex] * _axelValue) * initCurve;
-            _rigidBody.AddForce(force);
-            if (speed >= _status.GearMaxSpeeds[_currentGearIndex])
-            {
-                _rigidBody.velocity = new Vector3(
-                    _rigidBody.velocity.x / (speed / _status.GearMaxSpeeds[_currentGearIndex]),
-                    _rigidBody.velocity.y,
-                    _rigidBody.velocity.z / (speed / _status.GearMaxSpeeds[_currentGearIndex])
-                    );
-            }
+            Vector3 curSpeed = Vector3.Lerp(_ballRigidBody.velocity, this.gameObject.transform.forward * _axelValue * _gearSpeeds[_currentGearIndex], _accelarationValue);
+            _ballRigidBody.velocity = curSpeed;
+
+
+            //float speed = CalcCurrentBikeSpeed();
+            //float maxSpeed = _status.GearMaxSpeeds[_currentGearIndex];
+            //float speedNormalized = Mathf.Clamp(speed/maxSpeed, 0.1f, 1f);
+            ////x軸が速度のy軸が速度の上がりやすさ
+            //float initCurve = _status.GearCurve[_currentGearIndex].Evaluate(speedNormalized)+1;
+            //force = (transform.forward * _gearSpeeds[_currentGearIndex] * _axelValue) * initCurve;
+            //_rigidBody.AddForce(force);
+            //if (speed >= _status.GearMaxSpeeds[_currentGearIndex])
+            //{
+            //    _rigidBody.velocity = new Vector3(
+            //        _rigidBody.velocity.x / (speed / _status.GearMaxSpeeds[_currentGearIndex]),
+            //        _rigidBody.velocity.y,
+            //        _rigidBody.velocity.z / (speed / _status.GearMaxSpeeds[_currentGearIndex])
+            //        );
+            //}
             _attenuationRate = ORIGINATTENUATIONVALUE;
         }
         _isFirst = false;
@@ -167,7 +178,7 @@ public class BaseBike : MonoBehaviour
     /// <returns>現在の速度</returns>
     public float CalcCurrentBikeSpeed()
     {
-        float speed = (float)Mathf.Sqrt(Mathf.Pow(_rigidBody.velocity.x, 2) + Mathf.Pow(_rigidBody.velocity.z, 2));
+        float speed = (float)Mathf.Sqrt(Mathf.Pow(_ballRigidBody.velocity.x, 2) + Mathf.Pow(_ballRigidBody.velocity.z, 2));
         return speed;
     }
 

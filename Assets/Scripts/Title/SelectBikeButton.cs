@@ -14,27 +14,28 @@ public class SelectBikeButton : MonoBehaviour
     private const int SPEED = 3;
 
     private readonly string HONPENNAME = "Honpen";
+
     public void Automatic()
     {
-        _bikeNumber = AUTOMATIC;
+        PlayerPrefs.SetInt("BikeNumber",AUTOMATIC);
         EnterHonpen();
     }
 
     public void Clutch()
     {
-        _bikeNumber = CLUTCH;
+        PlayerPrefs.SetInt("BikeNumber", CLUTCH);
         EnterHonpen();
     }
 
     public void Handring()
     {
-        _bikeNumber = HANDRING;
+        PlayerPrefs.SetInt("BikeNumber", HANDRING);
         EnterHonpen();
     }
 
     public void Speed()
     {
-        _bikeNumber = SPEED;
+        PlayerPrefs.SetInt("BikeNumber", SPEED);
         EnterHonpen();
     }
 
@@ -45,6 +46,10 @@ public class SelectBikeButton : MonoBehaviour
 
     private void EnterHonpen()
     {
-        SceneManager.LoadScene(HONPENNAME,LoadSceneMode.Additive);
+        if (SceneManager.GetSceneByName(HONPENNAME).isLoaded)
+        {
+            return;
+        }
+        SceneManager.LoadSceneAsync(HONPENNAME);
     }
 }

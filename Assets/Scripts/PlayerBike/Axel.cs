@@ -33,8 +33,7 @@ public class Axel : MonoBehaviour
             return;
         }
         _rightTriggerValue = _inputMap.Engine.Axel.ReadValue<float>();
-        float outPutValue = Mathf.Clamp(_rightTriggerValue * 100, 0.1f, 100);
-        _baseBike.UpdateAxelValue(outPutValue);
+        _baseBike.UpdateAxelValue(_rightTriggerValue);
     }
 
 }

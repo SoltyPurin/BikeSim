@@ -23,19 +23,21 @@ public class AIBikeController : MonoBehaviour,IAiInitializer,IAIUpdater
     private float _axelPlusValue = 1;
     [SerializeField, Header("プレイヤーとどれくらい離れたらギアを下げるか決める距離")]
     private float _gearDownDistance = 10f;
-    [SerializeField, Header("どれくらいの角度差までなら進行方向が合致しているかの数字")]
-    private float _valueWithAllowableError = 40f;
+    //[SerializeField, Header("どれくらいの角度差までなら進行方向が合致しているかの数字")]
+    //private float _valueWithAllowableError = 40f;
     [SerializeField, Header("どれくらいの時間プレイヤーの前にいたら減速するか")]
     private float _downSpeedTime = 10f;
     [SerializeField, Header("どれくらいプレイヤーの後ろにいたら強制的にギアを上げるか")]
     private float _forceGearUpTime = 5f;
+    [SerializeField,Header("どれくらいウェイポイントに近づいたら通過判定にするか")]
+    private float _reachThreshold = 10f;
+
     private AIMesureDistanceToPlayer _mesureDistance = default;
     private AIDetectGearChangeCurve _detectCurve = default;
     private AIGearChange _gearChange = default;
     private AICompareWhitchSidePlayer _frontAndBack = default;
     private float _currentPlayerBehindTime = 0;
     private float _personalHandlingSpeed;
-    private float _reachThreshold = 10f;
     private float _randomWaypointDeviationsX;
     private float _randomWaypointDeviationsZ;
     private Vector3 _waypointDeviationOffset;
@@ -194,8 +196,7 @@ public class AIBikeController : MonoBehaviour,IAiInitializer,IAIUpdater
     private float AxelPlus()
     {
         _currentAxelValue += _axelPlusValue;
-        _currentAxelValue *= 100;
-        _currentAxelValue = Mathf.Clamp(_currentAxelValue, 0.1f, 100);
+        _currentAxelValue = Mathf.Clamp(_currentAxelValue, 0.1f, 1);
         return _currentAxelValue;
     }
 
@@ -255,7 +256,7 @@ public class AIBikeController : MonoBehaviour,IAiInitializer,IAIUpdater
         switch (curve)
         {
             case 0:
-                ShiftDownProtocol();
+                //ShiftDownProtocol();
                 ResetAxel();
                 break;
 

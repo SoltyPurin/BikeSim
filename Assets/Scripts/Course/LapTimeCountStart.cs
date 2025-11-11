@@ -27,7 +27,7 @@ public class LapTimeCountStart : MonoBehaviour
 
     private void Start()
     {
-        DontDestroyOnLoad(this);
+
         _endText.SetActive(false);
 
     }

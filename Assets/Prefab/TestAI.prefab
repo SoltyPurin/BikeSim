@@ -3764,6 +3764,8 @@ MonoBehaviour:
   _gearDownDistance: 20
   _valueWithAllowableError: 40
   _downSpeedTime: 10
+  _forceGearUpTime: 5
+  _reachThreshold: 20
 --- !u!114 &2151687205663590454
 MonoBehaviour:
   m_ObjectHideFlags: 0

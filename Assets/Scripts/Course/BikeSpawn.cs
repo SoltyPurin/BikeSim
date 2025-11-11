@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class BikeSpawn : MonoBehaviour
 {
     private GameObject _bikeButtonObject = default;
-    private SelectBikeButton _selectBikeButton = default;
+    //private SelectBikeButton _selectBikeButton = default;
     private readonly string TITLEMANAGERTAG = "TitleManager";
     private int _bikeIndex = default;
     [SerializeField]private GameObject[] _bikeObjectArray = new GameObject[4];
@@ -13,15 +13,13 @@ public class BikeSpawn : MonoBehaviour
 
     private void Awake()
     {
-        _bikeButtonObject = GameObject.FindWithTag(TITLEMANAGERTAG);
-        if (_bikeButtonObject != null)
+        GameObject player = GameObject.FindWithTag("Player");
+        if(player != null)
         {
-            _selectBikeButton = _bikeButtonObject.GetComponent<SelectBikeButton>();
-            _bikeIndex = _selectBikeButton.BikeNumber;
-            SceneManager.UnloadSceneAsync("Title");
-            Instantiate(_bikeObjectArray[_bikeIndex],_bikeSpawnPoint.position,_bikeSpawnPoint.rotation);
-
+            return;
         }
-
+        _bikeIndex = PlayerPrefs.GetInt("BikeNumber");
+        Instantiate(_bikeObjectArray[_bikeIndex],_bikeSpawnPoint.position,_bikeSpawnPoint.rotation);
     }
+
 }
