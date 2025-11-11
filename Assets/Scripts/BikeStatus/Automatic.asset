@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Automatic
   m_EditorClassIdentifier: 
   _gearSpeeds:
-  - 1.7
-  - 2
-  - 3
-  - 3.2
-  - 3.5
-  - 4
+  - 17
+  - 20
+  - 30
+  - 40
+  - 45
+  - 50
   _gearMaxSpeeds:
   - 20
   - 40

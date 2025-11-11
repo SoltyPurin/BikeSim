@@ -11,7 +11,8 @@ public class BikeHandring : MonoBehaviour
     private GameObject _bikeObject = default;
     [SerializeField, Header("ステータスを読み込むScriptableObject")]
     private BikeStatus _status = default;
-    [SerializeField] Rigidbody _rigidBody = default;
+    [SerializeField,Header("上のリジッドボディ")]
+    private Rigidbody _onBallRigidBody = default;
 
     #endregion
     #region 変数
@@ -21,6 +22,8 @@ public class BikeHandring : MonoBehaviour
     private float _prevY = 0;
     private float _zClampValue = 60;
     private float _yReturnAddValue ;
+    private float _horizontalValue = 0;
+    private float _initialY;
     #endregion
     #region 定数
     private const float TORELANCE = 0.5f; //許容範囲
@@ -33,8 +36,9 @@ public class BikeHandring : MonoBehaviour
     private void Awake()
     {
         _yReturnAddValue = _status.CurveAddValue;
-        _yawRoll = _rigidBody.transform.rotation.eulerAngles.y;
-        _prevY = _rigidBody.transform.rotation.eulerAngles.y;
+        _initialY = _onBallRigidBody.transform.eulerAngles.y;
+        //_yawRoll = _onBallRigidBody.transform.rotation.eulerAngles.y;
+        //_prevY = _onBallRigidBody.transform.rotation.eulerAngles.y;
     }
     private void FixedUpdate()
     {
@@ -43,14 +47,15 @@ public class BikeHandring : MonoBehaviour
 
     private void InputHandring()
     {
+        _horizontalValue = Input.GetAxis(HORIZONTAL);
         if (Input.GetAxis(HORIZONTAL) > _zero) //右曲がり
         {
-            _prevY += _yReturnAddValue;
+            //_prevY += _yReturnAddValue;
             _currentZ -= Z_RETURN_ADDVALUE;
         }
         else if (Input.GetAxis(HORIZONTAL) < _zero) //左曲がり
         {
-            _prevY -= _yReturnAddValue;
+            //_prevY -= _yReturnAddValue;
             _currentZ += Z_RETURN_ADDVALUE;
         }
         else //入力無し
@@ -71,10 +76,13 @@ public class BikeHandring : MonoBehaviour
         _yawRoll = _prevY;
         _currentZ= Mathf.Clamp(_currentZ, -_zClampValue, _zClampValue);
         float initZ = transform.rotation.eulerAngles.z;
-        Quaternion rotation = Quaternion.Euler(0, _yawRoll, initZ);
-        _bikeObject.transform.rotation = Quaternion.Euler(0,_yawRoll, _currentZ);
-        _rigidBody.MoveRotation(rotation);
+        float yaw = _onBallRigidBody.transform.eulerAngles.y - _initialY;
 
+        //_bikeObject.transform.rotation = Quaternion.Euler(0,0, _currentZ);
+        _bikeObject.transform.localRotation = Quaternion.Euler(0, 0, _currentZ);
+        //Quaternion rotation = Quaternion.Euler(0, _yawRoll, initZ);
+        //_onBallRigidBody.MoveRotation(rotation);
+        _onBallRigidBody.AddTorque(Vector3.up * (_horizontalValue * 10));
     }
 
     /// <summary>
