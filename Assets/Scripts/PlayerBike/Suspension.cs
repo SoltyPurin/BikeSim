@@ -8,22 +8,36 @@ public class Suspension : MonoBehaviour
     private Rigidbody _onBallRigidBody = default;
     [SerializeField, Header("èdóÕ")]
     private float _downForce = 5;
+    [SerializeField, Header("AIÇ©î€Ç©")]
+    private bool _isAI = false;
 
     private RaycastHit _hit;
     private float _sphereRadius = 0;
 
     private void Start()
     {
+        //if (_isAI)
+        //{
+        //    return;
+        //}
         _sphereRadius = _ballRigidBody.gameObject.GetComponent<SphereCollider>().radius + 0.2f;
     }
 
     private void Update()
     {
+        //if (_isAI)
+        //{
+        //    return;
+        //}
         Physics.Raycast(_ballRigidBody.position, Vector3.down, out _hit, _sphereRadius);
     }
 
     private void FixedUpdate()
     {
+        //if (_isAI)
+        //{
+        //    return;
+        //}
         _ballRigidBody.AddForce(-transform.up * _downForce * _ballRigidBody.mass);
 
         Quaternion rota = Quaternion.Slerp(_onBallRigidBody.transform.rotation, Quaternion.FromToRotation(_onBallRigidBody.transform.up, _hit.normal) * _onBallRigidBody.transform.rotation, 0.02f);
