@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: HandringBikeStatus
   m_EditorClassIdentifier: 
   _gearSpeeds:
+  - 0
   - 17
   - 20
   - 30
@@ -27,7 +28,7 @@ MonoBehaviour:
   - 65
   - 70
   - 80
-  _successGearChangeRatio: 0.7
+  _successGearChangeRatio: 0.6
   _gearCurve:
   - serializedVersion: 2
     m_Curve:
@@ -113,11 +114,11 @@ MonoBehaviour:
       time: 0
       value: 1
       inSlope: -0.9
-      outSlope: -0.9
-      tangentMode: 34
-      weightedMode: 0
+      outSlope: -0.25197804
+      tangentMode: 1
+      weightedMode: 3
       inWeight: 0
-      outWeight: 0.33333334
+      outWeight: 0.6458333
     - serializedVersion: 3
       time: 1
       value: 0.1
@@ -142,17 +143,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0.075
     - serializedVersion: 3
-      time: 0.0889225
-      value: 0.62473226
-      inSlope: -1.4242063
-      outSlope: -1.4242063
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
       time: 1
-      value: 0.1
+      value: 0.2
       inSlope: 0.081034765
       outSlope: 0.081034765
       tangentMode: 0
@@ -175,7 +167,7 @@ MonoBehaviour:
       outWeight: 0
     - serializedVersion: 3
       time: 1
-      value: 0
+      value: 0.1
       inSlope: 0.016868994
       outSlope: 0.016868994
       tangentMode: 0

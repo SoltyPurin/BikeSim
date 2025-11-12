@@ -148,10 +148,15 @@ public class BaseBike : MonoBehaviour
         }
         else
         {
-            Vector3 curSpeed = Vector3.Lerp(_ballRigidBody.velocity, this.gameObject.transform.forward * _axelValue * _gearSpeeds[_currentGearIndex], _accelarationValue);
+            float speed = CalcCurrentBikeSpeed();
+            float maxSpeed = _status.GearMaxSpeeds[_currentGearIndex];
+            float speedNormalized = Mathf.Clamp(speed / maxSpeed, 0.1f, 1f);
+            float initCurve = _status.GearCurve[_currentGearIndex].Evaluate(speedNormalized)/* + 1*/;
+            Debug.Log(initCurve);
+            Vector3 curSpeed = Vector3.Lerp(_ballRigidBody.velocity, this.gameObject.transform.forward * _axelValue * _gearSpeeds[_currentGearIndex], _accelarationValue) * initCurve;
             _ballRigidBody.velocity = curSpeed;
 
-
+            #region コメントアウト
             //float speed = CalcCurrentBikeSpeed();
             //float maxSpeed = _status.GearMaxSpeeds[_currentGearIndex];
             //float speedNormalized = Mathf.Clamp(speed/maxSpeed, 0.1f, 1f);
@@ -167,6 +172,7 @@ public class BaseBike : MonoBehaviour
             //        _rigidBody.velocity.z / (speed / _status.GearMaxSpeeds[_currentGearIndex])
             //        );
             //}
+            #endregion
             _attenuationRate = ORIGINATTENUATIONVALUE;
         }
         _isFirst = false;

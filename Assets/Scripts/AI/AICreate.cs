@@ -23,7 +23,7 @@ public class AICreate : MonoBehaviour
         //{
             //_optionButtonScript = _getObject.GetComponent<OptionButtonScript>();
             int enemyCount = PlayerPrefs.GetInt("EnemyCount");
-            Debug.Log("AI‚Ì”‚Í" + enemyCount);
+            //Debug.Log("AI‚Ì”‚Í" + enemyCount);
             CreatAIProtocol(enemyCount);
         //}
     }

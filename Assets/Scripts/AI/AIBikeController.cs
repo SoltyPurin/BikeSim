@@ -91,6 +91,7 @@ public class AIBikeController : MonoBehaviour,IAiInitializer,IAIUpdater
 
     public void InterfaceUpdate(ObservationPlayerNearWayPoint observation)
     {
+        //Debug.Log("現在追跡しているウェイポイントは" + _currentWaypointIndex + ",プレイヤーに一番近いポイントは" + observation.MostPlayerNearPointIndex);
         switch (_state)
         {
             case EnemyState.PlayerFront:

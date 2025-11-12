@@ -24,7 +24,7 @@ public class OptionButtonScript : MonoBehaviour
     private void Start()
     {
         PlayerPrefs.SetInt("EnemyCount", _enemyCount);
-        Debug.Log("Å‰‚Ì“G‚Ì”‚Í" + PlayerPrefs.GetInt("EnemyCount"));
+        //Debug.Log("Å‰‚Ì“G‚Ì”‚Í" + PlayerPrefs.GetInt("EnemyCount"));
     }
     public void CountPlus()
     {

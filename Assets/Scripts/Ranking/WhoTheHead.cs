@@ -71,12 +71,12 @@ public class WhoTheHead : MonoBehaviour
         //Debug.Log("遠い敵の目指してるポイントは" + farIndex);
         if(farIndex < nearIndex)
         {
-            Debug.Log("プレイヤーが先頭付近にいるよ");
+            //Debug.Log("プレイヤーが先頭付近にいるよ");
             PlayerNearHead(playerNearPos,mostNearEnemy);
         }
         else
         {
-            Debug.Log("プレイヤーは後ろの方にいるよ");
+            //Debug.Log("プレイヤーは後ろの方にいるよ");
             PlayerFarHeader(playerNearPos,farController);
         }
     }
