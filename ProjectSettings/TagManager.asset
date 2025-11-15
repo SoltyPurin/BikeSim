@@ -12,6 +12,8 @@ TagManager:
   - Enemy
   - WayPoint
   - Road
+  - Wall
+  - Observer
   layers:
   - Default
   - TransparentFX

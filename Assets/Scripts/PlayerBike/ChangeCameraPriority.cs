@@ -41,7 +41,7 @@ public class ChangeCameraPriority : MonoBehaviour
     }
     private void ChangeCamera()
     {
-        Debug.Log("視点変更");
+        //Debug.Log("視点変更");
         switch (_isFirstPerson)
         {
             case true:

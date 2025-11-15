@@ -36,6 +36,7 @@ public class AIBikeController : MonoBehaviour,IAiInitializer,IAIUpdater
     private AIDetectGearChangeCurve _detectCurve = default;
     private AIGearChange _gearChange = default;
     private AICompareWhitchSidePlayer _frontAndBack = default;
+    private SoundManager _sound = default;
     private float _currentPlayerBehindTime = 0;
     private float _personalHandlingSpeed;
     private float _randomWaypointDeviationsX;
@@ -77,6 +78,7 @@ public class AIBikeController : MonoBehaviour,IAiInitializer,IAIUpdater
         _personalHandlingSpeed = Random.Range(_handringMinValue, _handringMaxValue);
         _detectCurve =GetComponent<AIDetectGearChangeCurve>();
         _detectCurve.Initialize();
+        _sound = GetComponent<SoundManager>();
         _gearChange = GetComponent<AIGearChange>();
         _mesureDistance = GetComponent<AIMesureDistanceToPlayer>();
         _frontAndBack = GetComponent<AICompareWhitchSidePlayer>();
@@ -275,6 +277,7 @@ public class AIBikeController : MonoBehaviour,IAiInitializer,IAIUpdater
     private void ShiftUpProtocol()
     {
         //Debug.Log("AIÉMÉAè„Ç∞ÇÈ");
+        _sound.UpGear();
         _bike.UpGear();
     }
 
@@ -285,6 +288,7 @@ public class AIBikeController : MonoBehaviour,IAiInitializer,IAIUpdater
             return;
         }
         //Debug.Log("AIÉMÉAâ∫Ç∞ÇÈ");
+        _sound.DownGear();
         _bike.DownGear();
     }
 

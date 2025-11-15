@@ -7,7 +7,8 @@ public class AIGearChange : MonoBehaviour
 {
     private BaseBike _base = default;
     private BikeStatus _status = default;
-    private Rigidbody _rigidBody = default;
+    [SerializeField,Header("ボールのリジッドボディ")]
+    private Rigidbody _ballRigidBody = default;
 
     [SerializeField, Header("ギアチェンジのクールタイム")]
     private float _gearChangeCoolTime = 5.0f;
@@ -16,7 +17,6 @@ public class AIGearChange : MonoBehaviour
     {
         _base = GetComponent<BaseBike>();
         _status = _base.Status;
-        _rigidBody = GetComponent<Rigidbody>();
     }
     /// <summary>
     /// 現在の速度を加味してギアアップが可能か判断する
@@ -30,7 +30,7 @@ public class AIGearChange : MonoBehaviour
             return false;
         }
         bool canGearUp = false;
-        float gearConnectValue = maxSpeed* _status.SuccessGearChangeRatio;
+        float gearConnectValue = maxSpeed* _status.AISuccessGearChangeRatio;
         if (CalcCurrentBikeSpeed() >= gearConnectValue)
         {
             canGearUp = true;
@@ -47,7 +47,7 @@ public class AIGearChange : MonoBehaviour
     /// <returns>現在の速度</returns>
         private float CalcCurrentBikeSpeed()
     {
-        float speed = (float)Mathf.Sqrt(Mathf.Pow(_rigidBody.velocity.x, 2) + Mathf.Pow(_rigidBody.velocity.z, 2));
+        float speed = (float)Mathf.Sqrt(Mathf.Pow(_ballRigidBody.velocity.x, 2) + Mathf.Pow(_ballRigidBody.velocity.z, 2));
         return speed;
     }
 

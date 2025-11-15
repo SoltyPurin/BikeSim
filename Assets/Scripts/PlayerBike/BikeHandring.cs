@@ -82,7 +82,7 @@ public class BikeHandring : MonoBehaviour
         _bikeObject.transform.localRotation = Quaternion.Euler(0, 0, _currentZ);
         //Quaternion rotation = Quaternion.Euler(0, _yawRoll, initZ);
         //_onBallRigidBody.MoveRotation(rotation);
-        _onBallRigidBody.AddTorque(Vector3.up * (_horizontalValue * 10));
+        _onBallRigidBody.AddTorque(Vector3.up * (_horizontalValue * _status.CurveAddValue));
     }
 
     /// <summary>

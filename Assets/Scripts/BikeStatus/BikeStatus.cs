@@ -23,6 +23,13 @@ public class BikeStatus : ScriptableObject
     {
         get{ return _successGearChangeRatio; }
     }
+    [SerializeField, Header("AIはそのギアの何%出てたらギアチェンさせるか")]
+    private float _aiSuccessGearChangeRatio = 0.5f;
+
+    public float AISuccessGearChangeRatio
+    {
+        get { return _aiSuccessGearChangeRatio; }
+    }
     [SerializeField,Header("各ギアごとの速度の上昇値を決めるカーブ")]
     private List<AnimationCurve> _gearCurve = new List<AnimationCurve>();
     public List<AnimationCurve> GearCurve
@@ -40,6 +47,7 @@ public class BikeStatus : ScriptableObject
     public float CurveAddValue
     {
         get { return _curveAddValue; }
+        set { _curveAddValue = value; }
     }
     [SerializeField,Header("ギアチェンジのクールタイム")]
     private float _gearChangeCoolTime = default;

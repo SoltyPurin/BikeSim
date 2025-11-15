@@ -13,10 +13,12 @@ public class Axel : MonoBehaviour
     private float _rightTriggerValue = default;
     private InputMap _inputMap = default;
     private bool _canStart = false;
+    private SoundManager _sound = default;
     #endregion
 
     private void Start()
     {
+        _sound = GetComponent<SoundManager>();
         _inputMap = new InputMap();
         _inputMap.Enable();
     }
@@ -34,6 +36,14 @@ public class Axel : MonoBehaviour
         }
         _rightTriggerValue = _inputMap.Engine.Axel.ReadValue<float>();
         _baseBike.UpdateAxelValue(_rightTriggerValue);
+        if(_rightTriggerValue >= 0.1f)
+        {
+            _sound.AxelAccelerating();
+        }
+        else
+        {
+            _sound.NotInputAxel();
+        }
     }
 
 }

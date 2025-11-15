@@ -17,7 +17,7 @@ public class PlayerCatcher : MonoBehaviour
         }
     }
 
-    private void WarpTheNearWayPoint(GameObject playerObj)
+    public void WarpTheNearWayPoint(GameObject playerObj)
     {
         Vector3 nearPos = _havingMostNearWaypointScript.NearPosition;
         nearPos.y += _verticalPlusValue;

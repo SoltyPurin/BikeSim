@@ -13,7 +13,7 @@ public class AIReturnPrevPosition : MonoBehaviour
 
     public void Jugemu()
     {
-        Debug.Log("前のポイントに戻るよ");
+        //Debug.Log("前のポイントに戻るよ");
         if(_controller.CurrentWaypointIndex == 0)
         {
             return;

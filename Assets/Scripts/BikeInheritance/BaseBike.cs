@@ -141,9 +141,9 @@ public class BaseBike : MonoBehaviour
     {
         if (_axelValue <= _axelEngageThreshold)
         {
-            force = (transform.forward * _gearSpeeds[_currentGearIndex] * _attenuationRate);
-            _ballRigidBody.AddForce(force);
-            _attenuationRate *= _decelerationMultiplication;
+            //force = (transform.forward * _gearSpeeds[_currentGearIndex] * _attenuationRate);
+            //_ballRigidBody.AddForce(force);
+            //_attenuationRate *= _decelerationMultiplication;
 
         }
         else
@@ -151,28 +151,19 @@ public class BaseBike : MonoBehaviour
             float speed = CalcCurrentBikeSpeed();
             float maxSpeed = _status.GearMaxSpeeds[_currentGearIndex];
             float speedNormalized = Mathf.Clamp(speed / maxSpeed, 0.1f, 1f);
-            float initCurve = _status.GearCurve[_currentGearIndex].Evaluate(speedNormalized)/* + 1*/;
-            Debug.Log(initCurve);
-            Vector3 curSpeed = Vector3.Lerp(_ballRigidBody.velocity, this.gameObject.transform.forward * _axelValue * _gearSpeeds[_currentGearIndex], _accelarationValue) * initCurve;
-            _ballRigidBody.velocity = curSpeed;
+            //x軸が速度のy軸が速度の上がりやすさ
+            float initCurve = _status.GearCurve[_currentGearIndex].Evaluate(speedNormalized) + 1;
+            force = (transform.forward * _gearSpeeds[_currentGearIndex] * _axelValue) * initCurve;
+            _ballRigidBody.AddForce(force);
+            if (speed >= _status.GearMaxSpeeds[_currentGearIndex])
+            {
+                _ballRigidBody.velocity = new Vector3(
+                    _ballRigidBody.velocity.x / (speed / _status.GearMaxSpeeds[_currentGearIndex]),
+                    _ballRigidBody.velocity.y,
+                    _ballRigidBody.velocity.z / (speed / _status.GearMaxSpeeds[_currentGearIndex])
+                    );
+            }
 
-            #region コメントアウト
-            //float speed = CalcCurrentBikeSpeed();
-            //float maxSpeed = _status.GearMaxSpeeds[_currentGearIndex];
-            //float speedNormalized = Mathf.Clamp(speed/maxSpeed, 0.1f, 1f);
-            ////x軸が速度のy軸が速度の上がりやすさ
-            //float initCurve = _status.GearCurve[_currentGearIndex].Evaluate(speedNormalized)+1;
-            //force = (transform.forward * _gearSpeeds[_currentGearIndex] * _axelValue) * initCurve;
-            //_rigidBody.AddForce(force);
-            //if (speed >= _status.GearMaxSpeeds[_currentGearIndex])
-            //{
-            //    _rigidBody.velocity = new Vector3(
-            //        _rigidBody.velocity.x / (speed / _status.GearMaxSpeeds[_currentGearIndex]),
-            //        _rigidBody.velocity.y,
-            //        _rigidBody.velocity.z / (speed / _status.GearMaxSpeeds[_currentGearIndex])
-            //        );
-            //}
-            #endregion
             _attenuationRate = ORIGINATTENUATIONVALUE;
         }
         _isFirst = false;
