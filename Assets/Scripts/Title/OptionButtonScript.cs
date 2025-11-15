@@ -14,35 +14,47 @@ public class OptionButtonScript : MonoBehaviour
     private GameObject _bikeSelectParentObj = default;
     [SerializeField,Header("最初の画面に戻った時に最初に選択するボタン")]
     private GameObject _firstSelectButton = default;
-    [SerializeField, Header("敵の最大数")]
-    private int _enemyMaxCount = 10;
-    [SerializeField, Header("敵の数のテキスト")]
+    [SerializeField, Header("時間帯を表示するテキスト")]
     private Text _enemyCountText = default;
+    [SerializeField,Header("時間帯")]
+    private List<string>_timeZones = new List<string>();
 
-    private int _enemyCount = 1;
-
+    private int _currentTimeZoneIndex = 0;
     private void Start()
     {
-        PlayerPrefs.SetInt("EnemyCount", _enemyCount);
-        //Debug.Log("最初の敵の数は" + PlayerPrefs.GetInt("EnemyCount"));
+        _enemyCountText.text = _timeZones[_currentTimeZoneIndex];
+        PlayerPrefs.SetInt("TimeZone", _currentTimeZoneIndex);
     }
     public void CountPlus()
     {
-        _enemyCount++;
-        _enemyCount = Mathf.Clamp(_enemyCount, 1, _enemyMaxCount);
-        _enemyCountText.text = _enemyCount.ToString();
+        if(_currentTimeZoneIndex >= _timeZones.Count - 1)
+        {
+            _currentTimeZoneIndex = 0;
+        }
+        else
+        {
+            _currentTimeZoneIndex++;
+        }
+        _enemyCountText.text = _timeZones[_currentTimeZoneIndex];
+        PlayerPrefs.SetInt("TimeZone",_currentTimeZoneIndex);
     }
 
     public void CountMinus()
     {
-        _enemyCount--;
-        _enemyCount = Mathf.Clamp(_enemyCount, 1, _enemyMaxCount);
-        _enemyCountText.text = _enemyCount.ToString();
+        if(_currentTimeZoneIndex <= 0)
+        {
+            _currentTimeZoneIndex = _timeZones.Count - 1;
+        }
+        else
+        {
+            _currentTimeZoneIndex--;
+        }
+        _enemyCountText.text = _timeZones[_currentTimeZoneIndex];
+        PlayerPrefs.SetInt("TimeZone", _currentTimeZoneIndex);
     }
 
     public void PressReturnButton()
     {
-        PlayerPrefs.SetInt("EnemyCount",_enemyCount);
         _optionParentObj.SetActive(false);
         _bikeSelectParentObj.SetActive(false);
         _firstButtons.SetActive(true);

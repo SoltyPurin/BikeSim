@@ -277,7 +277,6 @@ public class AIBikeController : MonoBehaviour,IAiInitializer,IAIUpdater
     private void ShiftUpProtocol()
     {
         //Debug.Log("AIÉMÉAè„Ç∞ÇÈ");
-        _sound.UpGear();
         _bike.UpGear();
     }
 
@@ -288,7 +287,6 @@ public class AIBikeController : MonoBehaviour,IAiInitializer,IAIUpdater
             return;
         }
         //Debug.Log("AIÉMÉAâ∫Ç∞ÇÈ");
-        _sound.DownGear();
         _bike.DownGear();
     }
 

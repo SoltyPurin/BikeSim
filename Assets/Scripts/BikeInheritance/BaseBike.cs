@@ -45,10 +45,12 @@ public class BaseBike : MonoBehaviour
     protected float _axelEngageThreshold = 0.2f; //ベタ押し検知
 
     private BikeUIManager _uiManager = default;
+    private SoundManager _sound = default;
 
     public virtual void Awake()
     {
         _uiManager = GetComponent<BikeUIManager>();
+        _sound = GetComponent<SoundManager>();
     }
 
     /// <summary>
@@ -64,6 +66,7 @@ public class BaseBike : MonoBehaviour
                 //Debug.Log("ギアチェンジ成功！");
                 _currentGearIndex++;
                 _currentGearIndex = Mathf.Clamp(_currentGearIndex, 0, 6);
+                _sound.UpGear(_currentGearIndex);
                 UpdateUI(_currentGearIndex);
             }
         }
@@ -85,6 +88,8 @@ public class BaseBike : MonoBehaviour
         if(_currentGearIndex > 0)
         {
             _currentGearIndex--;
+            _currentGearIndex = Mathf.Clamp(_currentGearIndex, 0, 6);
+            _sound.DownGear(_currentGearIndex);
             UpdateUI(_currentGearIndex);
         }
         //Debug.Log("現在のギアは" + _currentGearIndex);
@@ -96,14 +101,20 @@ public class BaseBike : MonoBehaviour
     /// </summary>
     public virtual void MoveForward()
     {
+        Debug.Log("現在のギアは" + _currentGearIndex);
+        Debug.Log("現在の速度は" + _ballRigidBody.velocity.magnitude);
+        Debug.Log("次のギアに行くための速度" + _status.GearMaxSpeeds[_currentGearIndex] * _status.SuccessGearChangeRatio);
+        Debug.Log("現在のアクセルの値" + _axelValue);
         Vector3 force = transform.forward;
         switch (_currentGearIndex)
         {
             case NEUTRALGEARINDEX:
+                Debug.Log("N部分");
                 NeutralProtocol(force);
                 break;
 
             default:
+                Debug.Log("加速部分");
                 ElseGearProtocol(force);
                 break;
         }
@@ -153,6 +164,7 @@ public class BaseBike : MonoBehaviour
             float speedNormalized = Mathf.Clamp(speed / maxSpeed, 0.1f, 1f);
             //x軸が速度のy軸が速度の上がりやすさ
             float initCurve = _status.GearCurve[_currentGearIndex].Evaluate(speedNormalized) + 1;
+            Debug.Log("カーブ評価値" + initCurve);
             force = (transform.forward * _gearSpeeds[_currentGearIndex] * _axelValue) * initCurve;
             _ballRigidBody.AddForce(force);
             if (speed >= _status.GearMaxSpeeds[_currentGearIndex])

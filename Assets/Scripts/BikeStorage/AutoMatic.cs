@@ -17,12 +17,11 @@ public class AutoMatic : BaseBike
         }
 
         _attenuationRate = _attenuation;
-        _currentGearIndex = 0;
+        _currentGearIndex = 1;
     }
 
     private void FixedUpdate()
     {
-        Debug.Log(_currentGearIndex);
         //_clutchValue = 1.0f;
         MoveForward();
     }
@@ -30,10 +29,13 @@ public class AutoMatic : BaseBike
     public override void MoveForward()
     {
         base.MoveForward();
-        Vector3 force = transform.forward;
         if(_axelValue > 0)
         {
             _isHoldAxel = true;
+        }
+        else
+        {
+            _isHoldAxel = false;
         }
         if (_isHoldAxel)
         {
@@ -51,7 +53,7 @@ public class AutoMatic : BaseBike
         {
             _curNotHoldAxelTime += Time.fixedDeltaTime;
         }
-        if(_currentGearIndex <= 0)
+        if(_currentGearIndex <= 1)
         {
             return;
         }

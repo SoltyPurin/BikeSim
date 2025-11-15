@@ -1188,9 +1188,12 @@ GameObject:
   - component: {fileID: 2438307523181266280}
   - component: {fileID: 7639333477369008122}
   - component: {fileID: 777433323176800713}
+  - component: {fileID: 6142949319684308384}
+  - component: {fileID: 4926238403191834020}
   - component: {fileID: 4658713535162990391}
   - component: {fileID: 4091104558993433667}
   - component: {fileID: 4687663505387923982}
+  - component: {fileID: 7001300953816809511}
   m_Layer: 0
   m_Name: TestHandringBike
   m_TagString: Player
@@ -1322,7 +1325,7 @@ MonoBehaviour:
   _brakeFrictionMaxValue: 10
   _trailRenderer: {fileID: 2620293047282266427}
   _physicsMaterial: {fileID: 13400000, guid: f560bc26ab1a59e4d9ffb41a2772bd8c, type: 2}
-  _handringAddValue: 10
+  _handringAddValue: 20
   _status: {fileID: 11400000, guid: 205a093516e88e24ea9f624f9bfb43e6, type: 2}
 --- !u!114 &4381479958662897748
 MonoBehaviour:
@@ -1398,6 +1401,66 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bikeModelParent: {fileID: 8136680724878495981}
   _skinMesh: {fileID: 1728182768719289749}
+--- !u!114 &6142949319684308384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2906574859270532087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea2b999c3da05d34080306767460d1fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _crashJudgementSpeed: 40
+  _ballRigidBody: {fileID: 7800148796703243884}
+--- !u!114 &4926238403191834020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2906574859270532087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbca8bf2d35df1c4d9f9a06ade7147df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _engineSoundList:
+  - {fileID: 8300000, guid: f9a81e510d0c1f7418b470a9f797fcf9, type: 3}
+  - {fileID: 8300000, guid: 4ef6ff53e558fec4aa70db6fe25245f1, type: 3}
+  - {fileID: 8300000, guid: 4ef6ff53e558fec4aa70db6fe25245f1, type: 3}
+  - {fileID: 8300000, guid: 06671bccfb0c2fe41b120edcefa2af3b, type: 3}
+  - {fileID: 8300000, guid: ee572b16064c72c4db173616a9691649, type: 3}
+  - {fileID: 8300000, guid: ee572b16064c72c4db173616a9691649, type: 3}
+  - {fileID: 8300000, guid: 35a3dc0f78e6bd649a47df064e8f4527, type: 3}
+  _idlingSpeed: 4
+  _pitchCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _status: {fileID: 11400000, guid: 205a093516e88e24ea9f624f9bfb43e6, type: 2}
 --- !u!54 &4658713535162990391
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1514,6 +1577,102 @@ CapsuleCollider:
   m_Height: 1.7
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!82 &7001300953816809511
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2906574859270532087}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 5
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &2976755700618984312
 GameObject:
   m_ObjectHideFlags: 0
@@ -2324,6 +2483,13 @@ MonoBehaviour:
     GateFit: 2
     FocusDistance: 10
     m_SensorSize: {x: 1, y: 1}
+    Iso: 200
+    ShutterSpeed: 0.005
+    Aperture: 16
+    BladeCount: 5
+    Curvature: {x: 2, y: 11}
+    BarrelClipping: 0.25
+    Anamorphism: 0
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -3343,8 +3509,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6234353106137263372}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.16632703, y: 0.0000018477438, z: -0.00000031664965, w: 0.98607063}
-  m_LocalPosition: {x: 0.000023078173, y: 0.68395233, z: 0.038244545}
+  m_LocalRotation: {x: 0.15309674, y: -0.3852891, z: 0.06498572, w: 0.9076842}
+  m_LocalPosition: {x: 41.218117, y: -2.8160553, z: -94.02026}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3630,6 +3796,13 @@ MonoBehaviour:
     GateFit: 2
     FocusDistance: 10
     m_SensorSize: {x: 1, y: 1}
+    Iso: 200
+    ShutterSpeed: 0.005
+    Aperture: 16
+    BladeCount: 5
+    Curvature: {x: 2, y: 11}
+    BarrelClipping: 0.25
+    Anamorphism: 0
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0

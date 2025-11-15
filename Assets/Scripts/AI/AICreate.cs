@@ -14,18 +14,13 @@ public class AICreate : MonoBehaviour
     private readonly string TITLEMANAGERTAG = "TitleManager";
     [SerializeField, Header("バイクをスポーンさせる場所のリスト")]
     private List<Transform> _spawnPos = new List<Transform>();
-    private Quaternion _spawnRota = Quaternion.Euler(0,135,0);   
+    private Quaternion _spawnRota = Quaternion.Euler(0,135,0);
+
+    private int _enemySpawnCount = 10;
 
     private void Awake()
     {
-        //_getObject = GameObject.FindWithTag(TITLEMANAGERTAG);
-        //if (_getObject != null)
-        //{
-            //_optionButtonScript = _getObject.GetComponent<OptionButtonScript>();
-            int enemyCount = PlayerPrefs.GetInt("EnemyCount");
-            //Debug.Log("AIの数は" + enemyCount);
-            CreatAIProtocol(enemyCount);
-        //}
+            CreatAIProtocol(_enemySpawnCount);
     }
 
     private void CreatAIProtocol(int value)

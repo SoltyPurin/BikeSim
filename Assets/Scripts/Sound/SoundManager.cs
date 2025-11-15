@@ -16,6 +16,8 @@ public class SoundManager : MonoBehaviour
     private float _idlingSpeed = 4f;
     [SerializeField, Header("音のピッチの変わり方を明示するカーブ")]
     private AnimationCurve _pitchCurve = default;
+    [SerializeField, Header("ステータス")]
+    private BikeStatus _status = default;
 
     //エンジン音を変える時にピッチチェックに引っかからないようにするための最小値
     private float _changeMinPitch = 1.1f;
@@ -33,6 +35,29 @@ public class SoundManager : MonoBehaviour
         PlayIdleSound();
     }
 
+
+    private void Update()
+    {
+
+        if (_state == PlayerState.Idle)
+        {
+            return;
+        }
+        //if(_rigidBody.velocity.magnitude <= _idlingSpeed)
+        //{
+        //    PlayIdleSound();
+        //    return;
+        //}
+        float speed = _rigidBody.velocity.magnitude;
+        float t = Mathf.InverseLerp(0f, _status.GearMaxSpeeds[_curEngineIndex], speed);
+        float pitch = Mathf.Lerp(1, 2, t);
+        //_audioSource.pitch = Mathf.Lerp(_audioSource.pitch, pitchValue, Time.deltaTime * 2);
+        _audioSource.pitch = pitch;
+
+        _isIdlingPlaying = false;
+        //ReadPitch(_audioSource.pitch);
+}
+
     private void PlayIdleSound()
     {
 
@@ -44,36 +69,8 @@ public class SoundManager : MonoBehaviour
         _audioSource.pitch = _changeMinPitch;
         _audioSource.clip = _engineSoundList[0];
         _audioSource.Play();
-        _isIdlingPlaying=true;
+        _isIdlingPlaying = true;
     }
-
-    private void Update()
-    {
-
-        if (_state == PlayerState.Idle)
-        {
-            return;
-        }
-        if(_rigidBody.velocity.magnitude <= _idlingSpeed)
-        {
-            PlayIdleSound();
-            return;
-        }
-
-        float pitchValue = _pitchCurve.Evaluate(_rigidBody.velocity.magnitude);
-        if (_isAccelerating)
-        {
-            // ピッチを上げてエンジン音を高回転にする
-            _audioSource.pitch = Mathf.Lerp(_audioSource.pitch, 2.0f, Time.deltaTime * 2);
-        }
-        else
-        {
-            // ピッチを下げてエンジン音をアイドリングに戻す
-            _audioSource.pitch = Mathf.Lerp(_audioSource.pitch, 1.0f, Time.deltaTime * 2);
-        }
-        _isIdlingPlaying = false;
-        //ReadPitch(_audioSource.pitch);
-}
 
     public void AxelAccelerating()
     {
@@ -84,9 +81,9 @@ public class SoundManager : MonoBehaviour
     {
         _isAccelerating = false;
     }
-    public void UpGear()
+    public void UpGear(int index)
     {
-        _curEngineIndex++;
+        _curEngineIndex = index;
         _curEngineIndex = Mathf.Clamp(_curEngineIndex,0,_engineSoundList.Count-1);
         _audioSource.Stop();
         _audioSource.clip = _engineSoundList[_curEngineIndex];
@@ -94,9 +91,9 @@ public class SoundManager : MonoBehaviour
         _audioSource.pitch = _changeMinPitch;
     }
 
-    public void DownGear()
+    public void DownGear(int index)
     {
-        _curEngineIndex--;
+        _curEngineIndex = index;
         _curEngineIndex = Mathf.Clamp(_curEngineIndex, 0, _engineSoundList.Count - 1);
         _audioSource.Stop();
         _audioSource.clip = _engineSoundList[_curEngineIndex];
