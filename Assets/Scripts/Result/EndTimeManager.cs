@@ -2,6 +2,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class EndTimeManager : MonoBehaviour
 {
@@ -37,6 +38,15 @@ public class EndTimeManager : MonoBehaviour
         {
             Debug.Log($"Lap {i + 1}: {_lapTime[i]}");
         }
+        StartCoroutine(HonpenUnload());
+    }
+
+    private IEnumerator HonpenUnload()
+    {
+        AsyncOperation op= SceneManager.UnloadSceneAsync("Honpen");
+        yield return op;
+        Debug.Log("ñ{ï“çÌèú");
+        yield return Resources.UnloadUnusedAssets();
     }
 
     public void ExitButton()

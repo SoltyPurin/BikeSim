@@ -60,7 +60,7 @@ public class LapTimeCountStart : MonoBehaviour
     private IEnumerator MoveToResult()
     {
         yield return new WaitForSeconds(2);
-        SceneManager.LoadScene("Result");
+        SceneManager.LoadScene("Result",LoadSceneMode.Additive);
     }
 
     private void TimerCountUp()

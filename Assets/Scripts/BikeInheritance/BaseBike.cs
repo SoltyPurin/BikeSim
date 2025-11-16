@@ -101,10 +101,10 @@ public class BaseBike : MonoBehaviour
     /// </summary>
     public virtual void MoveForward()
     {
-        Debug.Log("現在のギアは" + _currentGearIndex);
-        Debug.Log("現在の速度は" + _ballRigidBody.velocity.magnitude);
-        Debug.Log("次のギアに行くための速度" + _status.GearMaxSpeeds[_currentGearIndex] * _status.SuccessGearChangeRatio);
-        Debug.Log("現在のアクセルの値" + _axelValue);
+        //Debug.Log("現在のギアは" + _currentGearIndex);
+        //Debug.Log("現在の速度は" + _ballRigidBody.velocity.magnitude);
+        //Debug.Log("次のギアに行くための速度" + _status.GearMaxSpeeds[_currentGearIndex] * _status.SuccessGearChangeRatio);
+        //Debug.Log("現在のアクセルの値" + _axelValue);
         Vector3 force = transform.forward;
         switch (_currentGearIndex)
         {

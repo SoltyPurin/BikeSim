@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -46,10 +47,10 @@ public class SelectBikeButton : MonoBehaviour
 
     private void EnterHonpen()
     {
-        if (SceneManager.GetSceneByName(HONPENNAME).isLoaded)
-        {
-            return;
-        }
+        //if (SceneManager.GetSceneByName(HONPENNAME).isLoaded)
+        //{
+        //    return;
+        //}
         SceneManager.LoadSceneAsync(HONPENNAME);
     }
 }

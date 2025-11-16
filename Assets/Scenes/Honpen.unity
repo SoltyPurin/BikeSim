@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.00001772603, g: 0.000000030056754, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.11836686, g: 0.121428385, b: 0.10386682, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -8109,7 +8109,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &452529898
 Transform:
   m_ObjectHideFlags: 0
@@ -12207,8 +12207,8 @@ Transform:
   m_GameObject: {fileID: 665789578}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.92841554, z: -0, w: -0.37154344}
-  m_LocalPosition: {x: -752.5, y: 109.11, z: -967.2}
-  m_LocalScale: {x: 1, y: 30, z: 55.968}
+  m_LocalPosition: {x: -760, y: 100, z: -963}
+  m_LocalScale: {x: 10, y: 30, z: 55.968}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -17633,7 +17633,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _timeZoneDirectionalLightRotation:
   - {x: 50, y: 180, z: 180}
-  - {x: 355, y: 180, z: 180}
+  - {x: 359, y: 180, z: 180}
   - {x: 285, y: 180, z: 180}
   _directionalLight: {fileID: 8328922422102492500}
 --- !u!4 &969775238
@@ -30707,7 +30707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4be0538f1683e68458704e5381ad317d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _aiBike: {fileID: 8728884503101822567, guid: adb627734adec5e42a177ed73838793d, type: 3}
+  _aiBike: {fileID: 2450927094926037261, guid: adb627734adec5e42a177ed73838793d, type: 3}
   _initializer: {fileID: 1901713163}
   _spawnPos:
   - {fileID: 1257048676}
@@ -32668,8 +32668,8 @@ Transform:
   m_GameObject: {fileID: 2057236206}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.92841554, z: -0, w: 0.3715435}
-  m_LocalPosition: {x: -751.5, y: 109.11, z: -967.2}
-  m_LocalScale: {x: 1, y: 30, z: 55.968}
+  m_LocalPosition: {x: -753.25, y: 100, z: -970.28}
+  m_LocalScale: {x: 10, y: 30, z: 55.968}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -55685,14 +55685,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8328922422102492500}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.4883167, y: -0, z: -0, w: -0.8726665}
+  m_LocalRotation: {x: 0.9999619, y: -0, z: -0, w: -0.008726464}
   m_LocalPosition: {x: -884.486, y: 241.42424, z: -382.72534}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6355382393236923044}
   m_Father: {fileID: 7425704488223697496}
-  m_LocalEulerAnglesHint: {x: 301.54, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 181, y: 0, z: 0}
 --- !u!33 &5369927970858890547
 MeshFilter:
   m_ObjectHideFlags: 0
