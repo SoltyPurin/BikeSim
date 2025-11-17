@@ -14,15 +14,12 @@ public class FirstTimeZoneSet : MonoBehaviour
         switch (timeZoneint)
         {
             case 0:
-                Debug.Log("’‹");
                 break;
 
             case 1:
-                Debug.Log("—[•û");
                 break;
 
             case 2:
-                Debug.Log("–é");
                 break;
         }
 

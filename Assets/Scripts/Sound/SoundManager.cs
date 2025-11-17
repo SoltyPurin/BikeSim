@@ -65,7 +65,6 @@ public class SoundManager : MonoBehaviour
         {
             return;
         }
-        Debug.Log(this.gameObject.name + "がアイドリングしてる");
         _audioSource.pitch = _changeMinPitch;
         _audioSource.clip = _engineSoundList[0];
         _audioSource.Play();
@@ -83,6 +82,7 @@ public class SoundManager : MonoBehaviour
     }
     public void UpGear(int index)
     {
+        Debug.Log("ギアサウンド変更" + this.gameObject.tag);
         _curEngineIndex = index;
         _curEngineIndex = Mathf.Clamp(_curEngineIndex,0,_engineSoundList.Count-1);
         _audioSource.Stop();

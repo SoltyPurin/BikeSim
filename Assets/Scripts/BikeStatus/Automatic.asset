@@ -28,7 +28,7 @@ MonoBehaviour:
   - 65
   - 70
   - 80
-  _successGearChangeRatio: 0.7
+  _successGearChangeRatio: 0.9
   _aiSuccessGearChangeRatio: 0.5
   _gearCurve:
   - serializedVersion: 2

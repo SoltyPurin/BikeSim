@@ -63,7 +63,7 @@ public class BaseBike : MonoBehaviour
             float gearConnectValue = _status.GearMaxSpeeds[_currentGearIndex] * _status.SuccessGearChangeRatio;
             if (CalcCurrentBikeSpeed() >= gearConnectValue)
             {
-                //Debug.Log("ギアチェンジ成功！");
+                Debug.Log("ギアチェンジ成功！" + this.gameObject.tag);
                 _currentGearIndex++;
                 _currentGearIndex = Mathf.Clamp(_currentGearIndex, 0, 6);
                 _sound.UpGear(_currentGearIndex);
@@ -109,12 +109,12 @@ public class BaseBike : MonoBehaviour
         switch (_currentGearIndex)
         {
             case NEUTRALGEARINDEX:
-                Debug.Log("N部分");
+                //Debug.Log("N部分");
                 NeutralProtocol(force);
                 break;
 
             default:
-                Debug.Log("加速部分");
+                //Debug.Log("加速部分");
                 ElseGearProtocol(force);
                 break;
         }
@@ -164,7 +164,7 @@ public class BaseBike : MonoBehaviour
             float speedNormalized = Mathf.Clamp(speed / maxSpeed, 0.1f, 1f);
             //x軸が速度のy軸が速度の上がりやすさ
             float initCurve = _status.GearCurve[_currentGearIndex].Evaluate(speedNormalized) + 1;
-            Debug.Log("カーブ評価値" + initCurve);
+            //Debug.Log("カーブ評価値" + initCurve);
             force = (transform.forward * _gearSpeeds[_currentGearIndex] * _axelValue) * initCurve;
             _ballRigidBody.AddForce(force);
             if (speed >= _status.GearMaxSpeeds[_currentGearIndex])

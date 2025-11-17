@@ -7,14 +7,16 @@ public class Brake : MonoBehaviour
 {
     [SerializeField, Header("最初の摩擦に足して最大摩擦を決める値")]
     private float _brakeFrictionMaxValue = 2.0f;
-    [SerializeField, Header("トレイルレンダラー")]
-    private TrailRenderer _trailRenderer = default;
+    [SerializeField, Header("タイヤ痕のトレイルレンダラー")]
+    private TrailRenderer _tireRenderer = default;
     [SerializeField,Header("物理マテリアル")]
     private PhysicMaterial _physicsMaterial = default;
     [SerializeField, Header("ハンドリング時に加算する値")]
     private float _handringAddValue = 10;
     [SerializeField, Header("バイクのステータス")]
     private BikeStatus _status = default;
+    [SerializeField,Header("テールランプ")]
+    private GameObject _tailLamp = default;
     private InputMap _inputMap = default;
 
     private float _originHandringValue = 0;
@@ -49,11 +51,13 @@ public class Brake : MonoBehaviour
         _physicsMaterial.dynamicFriction = _brakeValue;
         if(_leftTriggerValue >= 1)
         {
-            _trailRenderer.emitting = true;
+            _tireRenderer.emitting = true;
+            _tailLamp.SetActive(true);
         }
         else
         {
-            _trailRenderer.emitting = false;
+            _tireRenderer.emitting = false;
+            _tailLamp.SetActive(false);
         }
     }
 }

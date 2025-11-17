@@ -31,12 +31,14 @@ public class AIBikeController : MonoBehaviour,IAiInitializer,IAIUpdater
     private float _forceGearUpTime = 5f;
     [SerializeField,Header("どれくらいウェイポイントに近づいたら通過判定にするか")]
     private float _reachThreshold = 10f;
+    [SerializeField, Header("ブレーキの時どれくらい値を加算するか")]
+    private float _brakeAddValue = 2;
 
     private AIMesureDistanceToPlayer _mesureDistance = default;
     private AIDetectGearChangeCurve _detectCurve = default;
     private AIGearChange _gearChange = default;
     private AICompareWhitchSidePlayer _frontAndBack = default;
-    private SoundManager _sound = default;
+    private AIBrake _brake = default;
     private float _currentPlayerBehindTime = 0;
     private float _personalHandlingSpeed;
     private float _randomWaypointDeviationsX;
@@ -45,6 +47,7 @@ public class AIBikeController : MonoBehaviour,IAiInitializer,IAIUpdater
     private float _currentAxelValue = 0;
     private float _currentPlayerFrontTime = 0;
     private bool _isFrontPlayer = false;
+    private float _brakeValue = 0;
 
     private int _currentWaypointIndex = 0;
     public int CurrentWaypointIndex
@@ -78,7 +81,8 @@ public class AIBikeController : MonoBehaviour,IAiInitializer,IAIUpdater
         _personalHandlingSpeed = Random.Range(_handringMinValue, _handringMaxValue);
         _detectCurve =GetComponent<AIDetectGearChangeCurve>();
         _detectCurve.Initialize();
-        _sound = GetComponent<SoundManager>();
+        _brake = GetComponent<AIBrake>();
+        _brake.Initialize();
         _gearChange = GetComponent<AIGearChange>();
         _mesureDistance = GetComponent<AIMesureDistanceToPlayer>();
         _frontAndBack = GetComponent<AICompareWhitchSidePlayer>();
@@ -259,17 +263,22 @@ public class AIBikeController : MonoBehaviour,IAiInitializer,IAIUpdater
         switch (curve)
         {
             case 0:
-                //ShiftDownProtocol();
+                //Debug.Log("カーブ無し!ヨシ！");
                 ResetAxel();
+                ShiftUpProtocol();
+                _brakeValue = 0;
+                //ResetAxel();
                 break;
 
             case 1:
-                ResetAxel();
-                ShiftUpProtocol();
+                //Debug.Log("カーブあるやんけ！");
+                ShiftDownProtocol();
+                BrakeProtocol();
+
                 break;
 
             default:
-                Debug.Log("AIそのまま");
+                //Debug.Log("AIそのまま");
                 break;
         }
     }
@@ -288,6 +297,13 @@ public class AIBikeController : MonoBehaviour,IAiInitializer,IAIUpdater
         }
         //Debug.Log("AIギア下げる");
         _bike.DownGear();
+    }
+
+    private void BrakeProtocol()
+    {
+        Debug.Log("ブレーキ中");
+        _brakeValue += _brakeAddValue * Time.fixedDeltaTime;
+        _brake.BrakeProtocol(_brakeValue);
     }
 
     public void PointDeviationReset()

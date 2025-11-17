@@ -8,7 +8,6 @@ public class LapTimeCountEnd : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("ÉSÅ[Éã");
             _lapTimeCountStart.PrevLapCountPlus();
 
         }
