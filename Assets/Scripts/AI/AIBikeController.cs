@@ -146,7 +146,6 @@ public class AIBikeController : MonoBehaviour,IAiInitializer,IAIUpdater
         _currentPlayerBehindTime += Time.fixedDeltaTime;
         if(_currentPlayerBehindTime >= _forceGearUpTime)
         {
-            Debug.Log("強制ギアアップ");
             ShiftUpProtocol();
             _currentPlayerBehindTime = 0;
         }

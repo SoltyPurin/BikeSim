@@ -18,6 +18,7 @@ public class Brake : MonoBehaviour
     [SerializeField,Header("ÉeÅ[ÉãÉâÉìÉv")]
     private GameObject _tailLamp = default;
     private InputMap _inputMap = default;
+    private BackMove _backMove = default;
 
     private float _originHandringValue = 0;
     private float _brakeMultiplier = 0;
@@ -32,6 +33,7 @@ public class Brake : MonoBehaviour
         _frictionLimitValue = _frictionMinimumValue + _brakeFrictionMaxValue;
         _brakeMultiplier = 1/ _frictionLimitValue;
         _originHandringValue = _status.CurveAddValue;
+        _backMove = GetComponent<BackMove>();
         _inputMap = new InputMap();
         _inputMap.Enable();
     }
@@ -43,6 +45,7 @@ public class Brake : MonoBehaviour
         _leftTriggerValue = Mathf.Floor( _leftTriggerValue );
         _leftTriggerValue /= 10;
 
+        _backMove.MoveBack( _leftTriggerValue );
         float handringValue = _leftTriggerValue * _handringAddValue + _originHandringValue;
         _status.CurveAddValue = handringValue;
         //Debug.Log("åªç›ÇÃã»Ç™ÇËÇ‚Ç∑Ç≥ÇÕ" + _status.CurveAddValue);

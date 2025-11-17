@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class SimpleGearChange : MonoBehaviour
 {
+    [SerializeField, Header("オートマ?")]
+    private bool _isAutomatic = false;
     #region 変数
     private InputMap _gears = default;
     private BaseBike _baseBike = default;
@@ -24,6 +26,10 @@ public class SimpleGearChange : MonoBehaviour
 
     private void ChangeGear()
     {
+        if (_isAutomatic)
+        {
+            return;
+        }
         if(_gears.GearChange.GearUp.triggered)
         {
             //Debug.Log("プレイヤーギア上げる");

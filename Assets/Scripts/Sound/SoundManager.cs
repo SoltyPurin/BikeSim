@@ -7,6 +7,7 @@ public enum PlayerState
 {
     Idle,
     Acceleration,
+    Back,
 }
 public class SoundManager : MonoBehaviour
 {
@@ -24,6 +25,7 @@ public class SoundManager : MonoBehaviour
     private int _curEngineIndex = 0;
     private bool _isAccelerating = false;
     private bool _isIdlingPlaying = false;
+    private bool _isNowBack = false;
     private AudioSource _audioSource = default;
     private Rigidbody _rigidBody = default;
     private PlayerState _state = PlayerState.Idle;
@@ -43,15 +45,9 @@ public class SoundManager : MonoBehaviour
         {
             return;
         }
-        //if(_rigidBody.velocity.magnitude <= _idlingSpeed)
-        //{
-        //    PlayIdleSound();
-        //    return;
-        //}
         float speed = _rigidBody.velocity.magnitude;
         float t = Mathf.InverseLerp(0f, _status.GearMaxSpeeds[_curEngineIndex], speed);
         float pitch = Mathf.Lerp(1, 2, t);
-        //_audioSource.pitch = Mathf.Lerp(_audioSource.pitch, pitchValue, Time.deltaTime * 2);
         _audioSource.pitch = pitch;
 
         _isIdlingPlaying = false;
@@ -82,7 +78,6 @@ public class SoundManager : MonoBehaviour
     }
     public void UpGear(int index)
     {
-        Debug.Log("ギアサウンド変更" + this.gameObject.tag);
         _curEngineIndex = index;
         _curEngineIndex = Mathf.Clamp(_curEngineIndex,0,_engineSoundList.Count-1);
         _audioSource.Stop();

@@ -23,24 +23,37 @@ public class EndTimeManager : MonoBehaviour
         _lapCountObject = GameObject.FindWithTag(LAPOBJECTTAGNAME);
         _lapScript = _lapCountObject.GetComponent<LapTimeCountStart>();
         _lapTime = new List<float>(_lapScript.LapTimeList);
-        for(int i = 0; i< _lapTime.Count; i++)
-        {
-            //Debug.Log(i + "”Ô–Ú‚ÌƒJƒEƒ“ƒg‚Í" +  _lapTime[i]);   
-        }
+
         //0”Ô–Ú‚É‚Í‚È‚É‚à“ü‚Á‚Ä‚È‚¢‚Ì‚Å1‚©‚ç‘‚­
-        _firstLapText.text = "Lap1 Time :"+_lapTime[1].ToString();
-        _secondLapText.text = "Lap2 Time :"+_lapTime[2].ToString();
-        float firstValue = _lapTime[1];
-        float secondValue = _lapTime[2];
-        float totalTime = firstValue + secondValue;
-        _totalTimeText.text = "Total Time :" +totalTime.ToString();
-        for (int i = 0; i < _lapScript.LapTimeList.Count; i++)
-        {
-            Debug.Log($"Lap {i + 1}: {_lapTime[i]}");
-        }
+        int firstMinuts = ReturnMinuts(_lapTime[1]);
+        float firstSeconds = ReturnSeconds(_lapTime[1]);
+        _firstLapText.text = "Lap1 Time :  " + firstMinuts+ ":" + firstSeconds.ToString("F1");
+        int secondMinuts = ReturnMinuts(_lapTime[2]);
+        float secondSeconds = ReturnSeconds(_lapTime[2]);
+        _secondLapText.text = "Lap2 Time :  "+secondMinuts + ":" + secondSeconds.ToString("F1");
+
+        float totalTime = _lapTime[1] + _lapTime[2];
+
+        int totalMinuts = ReturnMinuts(totalTime);
+        float totalSeconds = ReturnSeconds(totalTime);
+
+        _totalTimeText.text = "Total Time :  " + totalMinuts+ ":" + totalSeconds.ToString("F1");
+        
         StartCoroutine(HonpenUnload());
     }
 
+    private int ReturnMinuts(float time)
+    {
+        int intergerTime = Mathf.FloorToInt(time);
+        int minuts = intergerTime / 60;
+        return minuts;
+    }
+
+    private float ReturnSeconds(float time)
+    {
+        float seconds = time % 60;
+        return seconds;
+    }
     private IEnumerator HonpenUnload()
     {
         AsyncOperation op= SceneManager.UnloadSceneAsync("Honpen");

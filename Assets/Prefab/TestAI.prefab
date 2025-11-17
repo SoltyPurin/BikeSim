@@ -1623,6 +1623,7 @@ MonoBehaviour:
   _firstFriction: 0.6
   _tailLamp: {fileID: 420131419945017458}
   _tailRenderer: {fileID: 4533539794936535212}
+  _tailLampThreshold: 0.1
 --- !u!54 &8225558471891232853
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4400,7 +4401,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 2
+  m_Time: 1
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
@@ -4431,7 +4432,7 @@ TrailRenderer:
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
-      ctime1: 65535
+      ctime1: 16191
       ctime2: 0
       ctime3: 0
       ctime4: 0

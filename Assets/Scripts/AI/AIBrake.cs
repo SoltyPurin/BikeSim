@@ -14,6 +14,8 @@ public class AIBrake : MonoBehaviour
     private GameObject _tailLamp = default;
     [SerializeField,Header("トレイルレンダラー")]
     private TrailRenderer _tailRenderer = default;
+    [SerializeField, Header("テールランプの残像を出す閾値")]
+    private float _tailLampThreshold = 0.2f;
     private PhysicMaterial _physicsMaterial = default;
 
     private float _brakeMultiplier = 0;
@@ -56,7 +58,7 @@ public class AIBrake : MonoBehaviour
         _brakeValue = Mathf.Clamp(_brakeValue, _frictionMinimumValue, _frictionLimitValue);
         _physicsMaterial.dynamicFriction = _brakeValue;
 
-        if(brakeValue >= 1)
+        if(brakeValue >= _tailLampThreshold)
         {
             _tailLamp.SetActive(true);
             _tailRenderer.emitting = true;

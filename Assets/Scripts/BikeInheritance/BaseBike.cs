@@ -63,7 +63,6 @@ public class BaseBike : MonoBehaviour
             float gearConnectValue = _status.GearMaxSpeeds[_currentGearIndex] * _status.SuccessGearChangeRatio;
             if (CalcCurrentBikeSpeed() >= gearConnectValue)
             {
-                Debug.Log("ギアチェンジ成功！" + this.gameObject.tag);
                 _currentGearIndex++;
                 _currentGearIndex = Mathf.Clamp(_currentGearIndex, 0, 6);
                 _sound.UpGear(_currentGearIndex);
