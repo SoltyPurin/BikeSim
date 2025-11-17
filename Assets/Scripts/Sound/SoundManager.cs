@@ -7,12 +7,14 @@ public enum PlayerState
 {
     Idle,
     Acceleration,
-    Back,
+    Drift,
 }
 public class SoundManager : MonoBehaviour
 {
     [SerializeField,Header("エンジン音格納リスト")]
     private List<AudioClip> _engineSoundList = new List<AudioClip>();
+    [SerializeField, Header("ドリフト音")]
+    private AudioClip _driftSound = default;
     [SerializeField, Header("アイドリング音を鳴らす速度")]
     private float _idlingSpeed = 4f;
     [SerializeField, Header("音のピッチの変わり方を明示するカーブ")]
@@ -25,7 +27,7 @@ public class SoundManager : MonoBehaviour
     private int _curEngineIndex = 0;
     private bool _isAccelerating = false;
     private bool _isIdlingPlaying = false;
-    private bool _isNowBack = false;
+    private bool _isDrifting = false;
     private AudioSource _audioSource = default;
     private Rigidbody _rigidBody = default;
     private PlayerState _state = PlayerState.Idle;
@@ -45,15 +47,32 @@ public class SoundManager : MonoBehaviour
         {
             return;
         }
+        if(_state == PlayerState.Drift)
+        {
+            PlayDriftSound();
+            return;
+        }
         float speed = _rigidBody.velocity.magnitude;
         float t = Mathf.InverseLerp(0f, _status.GearMaxSpeeds[_curEngineIndex], speed);
         float pitch = Mathf.Lerp(1, 2, t);
         _audioSource.pitch = pitch;
 
         _isIdlingPlaying = false;
+        _isDrifting = false;
         //ReadPitch(_audioSource.pitch);
 }
 
+    private void PlayDriftSound()
+    {
+        if (_isDrifting)
+        {
+            return;
+        }
+        _isDrifting = true;
+        _audioSource.Stop();
+        _audioSource.clip = _driftSound;
+        _audioSource.Play();
+    }
     private void PlayIdleSound()
     {
 
@@ -65,6 +84,19 @@ public class SoundManager : MonoBehaviour
         _audioSource.clip = _engineSoundList[0];
         _audioSource.Play();
         _isIdlingPlaying = true;
+    }
+
+    public void Drift()
+    {
+        _state = PlayerState.Drift;
+    }
+
+    public void UnDrift()
+    {
+        _state = PlayerState.Acceleration;
+        _audioSource.Stop();
+        _audioSource.clip = _engineSoundList[_curEngineIndex];
+        _audioSource.Play();
     }
 
     public void AxelAccelerating()

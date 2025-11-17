@@ -1285,6 +1285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eb50c0d4dde7454986d9f61b87eb185, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isAutomatic: 0
 --- !u!114 &460682012213293701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1437,6 +1438,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: ee572b16064c72c4db173616a9691649, type: 3}
   - {fileID: 8300000, guid: ee572b16064c72c4db173616a9691649, type: 3}
   - {fileID: 8300000, guid: 35a3dc0f78e6bd649a47df064e8f4527, type: 3}
+  _driftSound: {fileID: 8300000, guid: f2fbbe23b32eda945a63ca1df902e344, type: 3}
   _idlingSpeed: 4
   _pitchCurve:
     serializedVersion: 2

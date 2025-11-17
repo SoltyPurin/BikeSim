@@ -19,6 +19,7 @@ public class Brake : MonoBehaviour
     private GameObject _tailLamp = default;
     private InputMap _inputMap = default;
     private BackMove _backMove = default;
+    private SoundManager _soundManager = default;
 
     private float _originHandringValue = 0;
     private float _brakeMultiplier = 0;
@@ -34,6 +35,7 @@ public class Brake : MonoBehaviour
         _brakeMultiplier = 1/ _frictionLimitValue;
         _originHandringValue = _status.CurveAddValue;
         _backMove = GetComponent<BackMove>();
+        _soundManager = GetComponent<SoundManager>();
         _inputMap = new InputMap();
         _inputMap.Enable();
     }
@@ -56,11 +58,13 @@ public class Brake : MonoBehaviour
         {
             _tireRenderer.emitting = true;
             _tailLamp.SetActive(true);
+            _soundManager.Drift();
         }
         else
         {
             _tireRenderer.emitting = false;
             _tailLamp.SetActive(false);
+            _soundManager.UnDrift();
         }
     }
 }
