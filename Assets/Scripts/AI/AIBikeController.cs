@@ -262,7 +262,6 @@ public class AIBikeController : MonoBehaviour,IAiInitializer,IAIUpdater
         switch (curve)
         {
             case 0:
-                //Debug.Log("カーブ無し!ヨシ！");
                 ResetAxel();
                 ShiftUpProtocol();
                 _brakeValue = 0;
@@ -270,7 +269,6 @@ public class AIBikeController : MonoBehaviour,IAiInitializer,IAIUpdater
                 break;
 
             case 1:
-                //Debug.Log("カーブあるやんけ！");
                 ShiftDownProtocol();
                 BrakeProtocol();
 
