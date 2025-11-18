@@ -1218,6 +1218,7 @@ GameObject:
   - component: {fileID: 4091104558993433667}
   - component: {fileID: 4687663505387923982}
   - component: {fileID: 7001300953816809511}
+  - component: {fileID: 8361028684827402732}
   m_Layer: 0
   m_Name: TestHandringBike
   m_TagString: Player
@@ -1488,6 +1489,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _status: {fileID: 11400000, guid: 205a093516e88e24ea9f624f9bfb43e6, type: 2}
+  _driftSource: {fileID: 8361028684827402732}
 --- !u!114 &4229199258511620249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1638,6 +1640,102 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 5
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!82 &8361028684827402732
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2906574859270532087}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: f2fbbe23b32eda945a63ca1df902e344, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
@@ -2485,8 +2583,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4633933921363169448}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.1663314, y: 0.000000024999206, z: -0.0000000042168944, w: 0.9860699}
-  m_LocalPosition: {x: 0, y: 0.68395233, z: 0.038269043}
+  m_LocalRotation: {x: 0.16632979, y: -0, z: 0.000000007450581, w: 0.9860702}
+  m_LocalPosition: {x: -0.0000000037252903, y: 0.68395233, z: 0.03823832}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3667,8 +3765,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6234353106137263372}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.1663314, y: 0.000000024999206, z: -0.0000000042168944, w: 0.9860699}
-  m_LocalPosition: {x: 0, y: 0.68395233, z: 0.038269043}
+  m_LocalRotation: {x: 0.16632979, y: -0, z: 0.000000007450581, w: 0.9860702}
+  m_LocalPosition: {x: -0.0000000037252903, y: 0.68395233, z: 0.03823832}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3915,8 +4013,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7040863004416018753}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.16729046, y: -0.000000016963899, z: 0.000000002878463, w: 0.9859077}
-  m_LocalPosition: {x: 0, y: 1.3199997, z: -1.776001}
+  m_LocalRotation: {x: 0.16729347, y: -0.000000029802322, z: 0.000000022351742, w: 0.9859072}
+  m_LocalPosition: {x: 0.00000029802322, y: 1.3199997, z: -1.7759674}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

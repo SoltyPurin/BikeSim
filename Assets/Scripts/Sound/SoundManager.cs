@@ -21,6 +21,8 @@ public class SoundManager : MonoBehaviour
     private AnimationCurve _pitchCurve = default;
     [SerializeField, Header("ステータス")]
     private BikeStatus _status = default;
+    [SerializeField, Header("ドリフト音を慣らすオーディオソース")]
+    private AudioSource _driftSource = default;
 
     //エンジン音を変える時にピッチチェックに引っかからないようにするための最小値
     private float _changeMinPitch = 1.1f;
@@ -88,15 +90,12 @@ public class SoundManager : MonoBehaviour
 
     public void Drift()
     {
-        //_state = PlayerState.Drift;
+        _driftSource.Play();
     }
 
     public void UnDrift()
     {
-        //_state = PlayerState.Acceleration;
-        //_audioSource.Stop();
-        //_audioSource.clip = _engineSoundList[_curEngineIndex];
-        //_audioSource.Play();
+        _driftSource.Stop();
     }
 
     public void AxelAccelerating()

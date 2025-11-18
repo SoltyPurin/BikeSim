@@ -21,6 +21,7 @@ public class Brake : MonoBehaviour
     private BackMove _backMove = default;
     private SoundManager _soundManager = default;
 
+    private bool _wasBraking = false;
     private float _originHandringValue = 0;
     private float _brakeMultiplier = 0;
     private float _frictionLimitValue = 0;
@@ -54,17 +55,39 @@ public class Brake : MonoBehaviour
         _brakeValue = _leftTriggerValue * 10 * _brakeMultiplier + _frictionMinimumValue;
         _brakeValue = Mathf.Clamp(_brakeValue,_frictionMinimumValue,_frictionLimitValue);
         _physicsMaterial.dynamicFriction = _brakeValue;
-        if(_leftTriggerValue >= 1)
+        // 今ブレーキ中かどうか
+        bool isBraking = _leftTriggerValue > 0.1f;   // しきい値はお好みで
+
+        // 状態が変わったときだけ音を切り替える
+        if (isBraking && !_wasBraking)
         {
+            Debug.Log("ブレーキ状態");
+            _soundManager.Drift();
             _tireRenderer.emitting = true;
             _tailLamp.SetActive(true);
-            _soundManager.Drift();
         }
-        else
+        else if (!isBraking && _wasBraking)
         {
+            Debug.Log("ブレーキしてない");
+            _soundManager.UnDrift();
             _tireRenderer.emitting = false;
             _tailLamp.SetActive(false);
-            _soundManager.UnDrift();
         }
+
+        _wasBraking = isBraking;
+        //if(_leftTriggerValue >= 1)
+        //{
+        //    _tireRenderer.emitting = true;
+        //    _tailLamp.SetActive(true);
+        //    _soundManager.Drift();
+        //}
+        //else
+        //{
+        //    _tireRenderer.emitting = false;
+        //    _tailLamp.SetActive(false);
+        //}
+
+        //_soundManager.UnDrift();
+
     }
 }
