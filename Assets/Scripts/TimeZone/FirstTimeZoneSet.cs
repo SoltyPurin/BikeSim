@@ -26,4 +26,10 @@ public class FirstTimeZoneSet : MonoBehaviour
         Vector3 rota = _timeZoneDirectionalLightRotation[timeZoneint];
         _directionalLight.transform.rotation = Quaternion.Euler(rota);
     }
+
+    public void ChangeTimeZone(int timeZoneint)
+    {
+        Vector3 rota = _timeZoneDirectionalLightRotation[timeZoneint];
+        _directionalLight.transform.rotation = Quaternion.Euler(rota);
+    }
 }

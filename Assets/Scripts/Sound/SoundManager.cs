@@ -88,15 +88,15 @@ public class SoundManager : MonoBehaviour
 
     public void Drift()
     {
-        _state = PlayerState.Drift;
+        //_state = PlayerState.Drift;
     }
 
     public void UnDrift()
     {
-        _state = PlayerState.Acceleration;
-        _audioSource.Stop();
-        _audioSource.clip = _engineSoundList[_curEngineIndex];
-        _audioSource.Play();
+        //_state = PlayerState.Acceleration;
+        //_audioSource.Stop();
+        //_audioSource.clip = _engineSoundList[_curEngineIndex];
+        //_audioSource.Play();
     }
 
     public void AxelAccelerating()

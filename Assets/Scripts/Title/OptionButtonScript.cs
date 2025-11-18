@@ -60,4 +60,5 @@ public class OptionButtonScript : MonoBehaviour
         _firstButtons.SetActive(true);
         EventSystem.current.SetSelectedGameObject(_firstSelectButton);
     }
+
 }
