@@ -1607,6 +1607,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _status: {fileID: 11400000, guid: 205a093516e88e24ea9f624f9bfb43e6, type: 2}
+  _driftSource: {fileID: 0}
 --- !u!114 &2470313572202043746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4448,7 +4449,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 1
+  m_Time: 0.4
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3

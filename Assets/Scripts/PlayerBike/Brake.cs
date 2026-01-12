@@ -39,6 +39,7 @@ public class Brake : MonoBehaviour
         _soundManager = GetComponent<SoundManager>();
         _inputMap = new InputMap();
         _inputMap.Enable();
+        _tailLamp.SetActive(false);
     }
 
     private void Update()
