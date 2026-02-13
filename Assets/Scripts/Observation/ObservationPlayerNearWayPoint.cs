@@ -22,6 +22,12 @@ public class ObservationPlayerNearWayPoint : MonoBehaviour
         get { return _nearPosition; }
     }
 
+    private int _maxWayPointCount = 0;
+    private bool _isPlayerSecondRound = false;
+    public bool IsPlayerSecondRound
+    {
+        get { return _isPlayerSecondRound; }
+    }
     public void Initialize(GameObject player)
     {
         _player = player;
@@ -34,6 +40,8 @@ public class ObservationPlayerNearWayPoint : MonoBehaviour
         _mostNearDistance = distance;
         _mostPlayerNearPointIndex = 0;
         _nearPosition = _wayPointPos[_mostPlayerNearPointIndex];
+        _maxWayPointCount = _wayPointPos.Count;
+        Debug.Log("最大ウェイポイントの数" + _maxWayPointCount);
     }
 
     public void Run()
@@ -47,6 +55,11 @@ public class ObservationPlayerNearWayPoint : MonoBehaviour
                 _mostNearDistance = distance;
                 _mostPlayerNearPointIndex = i;
                 _nearPosition = _wayPointPos[i];
+            }
+            if(_mostPlayerNearPointIndex >= _maxWayPointCount)
+            {
+                Debug.Log("プレイヤー二周目");
+                _isPlayerSecondRound = true;
             }
         }
     }

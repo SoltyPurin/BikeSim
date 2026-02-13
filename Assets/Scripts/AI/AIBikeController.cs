@@ -61,6 +61,7 @@ public class AIBikeController : MonoBehaviour,IAiInitializer,IAIUpdater
         get { return _waypoints; }
     }
 
+    private bool _isSecondRound = false;
 
     private readonly string PLAYER_TAG = "Player";
     private readonly string WAYPOINT_TAG = "WayPoint";
@@ -163,7 +164,8 @@ public class AIBikeController : MonoBehaviour,IAiInitializer,IAIUpdater
     /// </summary>
     private void LongTimeCheckFront(ObservationPlayerNearWayPoint observation)
     {
-        if (!_frontAndBack.IsCurrentFront(observation.MostPlayerNearPointIndex,_currentWaypointIndex))
+        if (!_frontAndBack.IsCurrentFront(observation.MostPlayerNearPointIndex,_currentWaypointIndex,
+            observation.IsPlayerSecondRound,_isSecondRound))
         {
             Debug.Log("プレイヤーの方が前");
             _isFrontPlayer = true;
@@ -249,6 +251,7 @@ public class AIBikeController : MonoBehaviour,IAiInitializer,IAIUpdater
             {
                 PointDeviationReset();
                 _currentWaypointIndex = 0;
+                _isSecondRound = true;
             }
             CheckCurve();
 
