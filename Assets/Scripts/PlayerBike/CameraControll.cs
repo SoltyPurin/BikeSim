@@ -33,7 +33,7 @@ public class CameraControll : MonoBehaviour
         // performedコールバックだけをチェックする
         if (!context.performed)
         {
-            MoveCameraLookObj(0, 0.35f);
+            MoveCameraLookObj(0, -0.3f);
             return;
         }
 
