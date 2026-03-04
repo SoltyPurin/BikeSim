@@ -33,6 +33,7 @@ public class AIBikeController : MonoBehaviour,IAiInitializer,IAIUpdater
     private float _reachThreshold = 10f;
     [SerializeField, Header("ブレーキの時どれくらい値を加算するか")]
     private float _brakeAddValue = 2;
+    //[SerializeField,Header]
 
     private AIMesureDistanceToPlayer _mesureDistance = default;
     private AIDetectGearChangeCurve _detectCurve = default;

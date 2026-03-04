@@ -9,6 +9,11 @@ public class PauseButton : MonoBehaviour
     private GameObject _pauseMenu = default;
     [SerializeField, Header("Å‰‚É‘I‘ğ‚³‚ê‚éƒ{ƒ^ƒ“")]
     private GameObject _firstSelectedButton = default;
+
+    private void Start()
+    {
+        Time.timeScale = 1;
+    }
     private void Update()
     {
         if (Input.GetButtonDown("Cancel"))
