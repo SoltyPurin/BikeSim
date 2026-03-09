@@ -200,7 +200,7 @@ public class BaseBike : MonoBehaviour
 
 
     /// <summary>
-    /// 本作はクラッチを使わないバイクゲームになったのでこのメソッドは荼毘に付したよ
+    /// 本作はクラッチを使わないバイクゲームになったのでこのメソッドは後で消す
     /// </summary>
     /// <param name="value">左トリガーの値</param>
     public virtual void UpdateClutchValue(float value)

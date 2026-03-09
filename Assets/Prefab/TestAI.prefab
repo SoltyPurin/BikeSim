@@ -1438,6 +1438,7 @@ MonoBehaviour:
   _forceGearUpTime: 6
   _reachThreshold: 20
   _brakeAddValue: 2
+  _randomWaypointPlusValue: 5
 --- !u!114 &8583449216980636443
 MonoBehaviour:
   m_ObjectHideFlags: 0

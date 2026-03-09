@@ -33,7 +33,8 @@ public class AIBikeController : MonoBehaviour,IAiInitializer,IAIUpdater
     private float _reachThreshold = 10f;
     [SerializeField, Header("ブレーキの時どれくらい値を加算するか")]
     private float _brakeAddValue = 2;
-    //[SerializeField,Header]
+    [SerializeField, Header("ウェイポイントにランダムに加算する値")]
+    private float _randomWaypointPlusValue = 10;
 
     private AIMesureDistanceToPlayer _mesureDistance = default;
     private AIDetectGearChangeCurve _detectCurve = default;
@@ -77,8 +78,8 @@ public class AIBikeController : MonoBehaviour,IAiInitializer,IAIUpdater
         {
             _waypoints.Add(_wayPointsParent.GetChild(i));
         }
-        _randomWaypointDeviationsX = Random.Range(-10, 10);
-        _randomWaypointDeviationsZ = Random.Range(-10, 10);
+        _randomWaypointDeviationsX = Random.Range(-_randomWaypointPlusValue, _randomWaypointPlusValue);
+        _randomWaypointDeviationsZ = Random.Range(-_randomWaypointPlusValue, _randomWaypointPlusValue);
         _waypointDeviationOffset = new Vector3(_randomWaypointDeviationsX, 0, _randomWaypointDeviationsZ);
         _personalHandlingSpeed = Random.Range(_handringMinValue, _handringMaxValue);
         _detectCurve =GetComponent<AIDetectGearChangeCurve>();
@@ -310,8 +311,8 @@ public class AIBikeController : MonoBehaviour,IAiInitializer,IAIUpdater
     public void PointDeviationReset()
     {
         _personalHandlingSpeed = Random.Range(6, 15);
-        _randomWaypointDeviationsX = Random.Range(-10, 10);
-        _randomWaypointDeviationsZ = Random.Range(-10, 10);
+        _randomWaypointDeviationsX = Random.Range(-_randomWaypointPlusValue, _randomWaypointPlusValue);
+        _randomWaypointDeviationsZ = Random.Range(-_randomWaypointPlusValue, _randomWaypointPlusValue);
         _waypointDeviationOffset = new Vector3(_randomWaypointDeviationsX, 0, _randomWaypointDeviationsZ);
     }
 
